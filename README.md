@@ -18,6 +18,11 @@ That said, if your goal is to play around and learn along with me, then feel fre
 
 Each subdirectory maps to a programming language and contains a readme file that details instructions and requirements for running the code.
 
+## Algorithms
+
+- Ceasar cipher ([Article](https://en.wikipedia.org/wiki/Caesar_cipher))
+  - [PHP](php/Ciphers/CeasarCipher.php)
+
 ## Contributing
 
 Since one of the main goals of this project is for me to learn data structures and algorithms, I will not accept pull requests that implement them because I want to do that myself. However, I will greatly appreciate suggestions on languages, data structures, and algorithms to explore as well as fixes or improvements to the things that I have already implemented.
