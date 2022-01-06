@@ -10,3 +10,5 @@ spl_autoload_register(function (string $className): void {
 });
 
 new Ciphers\CeasarCipherTest();
+
+new LinkedLists\SinglyLinkedListNodeTest();
