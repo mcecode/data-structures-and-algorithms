@@ -15,6 +15,7 @@ abstract class Test
   abstract protected function run(): void;
 
   private static bool $hasBeenInvoked = false;
+  private int $assertionsRan = 0;
   private array $errors = [];
 
   public function __construct()
@@ -25,6 +26,12 @@ abstract class Test
     }
 
     $this->run();
+
+    if ($this->assertionsRan <= 0) {
+      echo "❌ $this\n";
+      echo "  ▶️ No assertions were run\n";
+      return;
+    }
 
     if (count($this->errors) <= 0) {
       echo "✔️  $this\n";
@@ -44,6 +51,8 @@ abstract class Test
     mixed $value,
     string $message = "Should be truthy"
   ): void {
+    $this->assertionsRan++;
+
     if (!!$value !== true) {
       $this->setError($message);
     }
@@ -53,6 +62,8 @@ abstract class Test
     mixed $value,
     string $message = "Should be falsy"
   ): void {
+    $this->assertionsRan++;
+
     if (!!$value !== false) {
       $this->setError($message);
     }
@@ -68,6 +79,8 @@ abstract class Test
     string $message = "Should throw throwable",
     string $instanceOf = null
   ): void {
+    $this->assertionsRan++;
+
     try {
       $throwingFunction();
     } catch (\Throwable $throwable) {
