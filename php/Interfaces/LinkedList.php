@@ -40,11 +40,11 @@ interface LinkedList
   public function find(mixed $value): LinkedListNode|null;
   public function findAt(int $position): LinkedListNode|null;
 
-  public function update(
+  public function replace(
     mixed $oldValue,
     mixed $newValue
   ): LinkedListNode|null;
-  public function updateAt(
+  public function replaceAt(
     int $position,
     mixed $newValue
   ): LinkedListNode|null;

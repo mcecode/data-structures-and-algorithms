@@ -6,4 +6,5 @@ namespace Interfaces;
 
 interface LinkedListNode
 {
+  public function getData(): mixed;
 }
