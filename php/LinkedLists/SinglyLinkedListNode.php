@@ -10,7 +10,7 @@ class SinglyLinkedListNode implements LinkedListNode
 {
   public function __construct(
     private mixed $data,
-    private LinkedListNode|null $next = null
+    private ?SinglyLinkedListNode $next = null
   ) {
   }
 
@@ -19,8 +19,12 @@ class SinglyLinkedListNode implements LinkedListNode
     return $this->data;
   }
 
-  public function getNext(): mixed
+  public function next(?SinglyLinkedListNode $node = null): mixed
   {
+    if ($node !== null) {
+      $this->next = $node;
+    }
+
     return $this->next;
   }
 }

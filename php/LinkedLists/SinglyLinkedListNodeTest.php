@@ -16,7 +16,12 @@ class SinglyLinkedListNodeTest extends Test
     $this->isTruthy($head->getData() === "head");
     $this->isTruthy($tail->getData() === "tail");
 
-    $this->isTruthy($head->getNext() === $tail);
-    $this->isTruthy($tail->getNext() === null);
+    $this->isTruthy($head->next() === $tail);
+    $this->isTruthy($tail->next() === null);
+
+    $newTail = new SinglyLinkedListNode("new tail");
+
+    $this->isTruthy($head->next($newTail) === $newTail);
+    $this->isTruthy($head->next() === $newTail);
   }
 }
