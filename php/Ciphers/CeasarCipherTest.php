@@ -17,91 +17,91 @@ class CeasarCipherTest extends Test
     );
 
     // Plain text for default alphabet
-    $plain_text = "amzAMZ";
+    $plainText = "amzAMZ";
 
     // Default options
-    $expected_cipher_text = "dpCDPc";
-    $ceasar_cipher = new CeasarCipher();
-    $cipher_text = $ceasar_cipher->encrypt($plain_text);
-    $this->isTruthy($cipher_text === $expected_cipher_text);
-    $this->isTruthy($ceasar_cipher->decrypt($cipher_text) === $plain_text);
+    $expectedCipherText = "dpCDPc";
+    $ceasarCipher = new CeasarCipher();
+    $cipherText = $ceasarCipher->encrypt($plainText);
+    $this->isTruthy($cipherText === $expectedCipherText);
+    $this->isTruthy($ceasarCipher->decrypt($cipherText) === $plainText);
 
     //==================================================
     // Custom shifts
     //==================================================
 
     // Expected cipher text for positive shifts
-    $expected_cipher_text = "frEFRe";
+    $expectedCipherText = "frEFRe";
 
     // Positive shift
-    $ceasar_cipher = new CeasarCipher(5);
-    $cipher_text = $ceasar_cipher->encrypt($plain_text);
-    $this->isTruthy($cipher_text === $expected_cipher_text);
-    $this->isTruthy($ceasar_cipher->decrypt($cipher_text) === $plain_text);
+    $ceasarCipher = new CeasarCipher(5);
+    $cipherText = $ceasarCipher->encrypt($plainText);
+    $this->isTruthy($cipherText === $expectedCipherText);
+    $this->isTruthy($ceasarCipher->decrypt($cipherText) === $plainText);
 
     // Large positive shift; 161 should be equivalent to 5
-    $ceasar_cipher = new CeasarCipher(161);
-    $cipher_text = $ceasar_cipher->encrypt($plain_text);
-    $this->isTruthy($cipher_text === $expected_cipher_text);
-    $this->isTruthy($ceasar_cipher->decrypt($cipher_text) === $plain_text);
+    $ceasarCipher = new CeasarCipher(161);
+    $cipherText = $ceasarCipher->encrypt($plainText);
+    $this->isTruthy($cipherText === $expectedCipherText);
+    $this->isTruthy($ceasarCipher->decrypt($cipherText) === $plainText);
 
     // Expected cipher text for negative shifts
-    $expected_cipher_text = "WivwIV";
+    $expectedCipherText = "WivwIV";
 
     // Negative shift
-    $ceasar_cipher = new CeasarCipher(-4);
-    $cipher_text = $ceasar_cipher->encrypt($plain_text);
-    $this->isTruthy($cipher_text === $expected_cipher_text);
-    $this->isTruthy($ceasar_cipher->decrypt($cipher_text) === $plain_text);
+    $ceasarCipher = new CeasarCipher(-4);
+    $cipherText = $ceasarCipher->encrypt($plainText);
+    $this->isTruthy($cipherText === $expectedCipherText);
+    $this->isTruthy($ceasarCipher->decrypt($cipherText) === $plainText);
 
     // Large negative shift; -160 should be equivalent to -4
-    $ceasar_cipher = new CeasarCipher(-160);
-    $cipher_text = $ceasar_cipher->encrypt($plain_text);
-    $this->isTruthy($cipher_text === $expected_cipher_text);
-    $this->isTruthy($ceasar_cipher->decrypt($cipher_text) === $plain_text);
+    $ceasarCipher = new CeasarCipher(-160);
+    $cipherText = $ceasarCipher->encrypt($plainText);
+    $this->isTruthy($cipherText === $expectedCipherText);
+    $this->isTruthy($ceasarCipher->decrypt($cipherText) === $plainText);
 
     //==================================================
     // Custom alphabet
     //==================================================
 
     // Russian, taken from https://en.wikipedia.org/wiki/Russian_alphabet
-    $plain_text = "айфяАЙФЯ";
-    $expected_cipher_text = "гмчВГМЧв";
-    $ceasar_cipher = new CeasarCipher(
+    $plainText = "айфяАЙФЯ";
+    $expectedCipherText = "гмчВГМЧв";
+    $ceasarCipher = new CeasarCipher(
       alphabet: "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" .
         "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
     );
-    $cipher_text = $ceasar_cipher->encrypt($plain_text);
-    $this->isTruthy($cipher_text === $expected_cipher_text);
-    $this->isTruthy($ceasar_cipher->decrypt($cipher_text) === $plain_text);
+    $cipherText = $ceasarCipher->encrypt($plainText);
+    $this->isTruthy($cipherText === $expectedCipherText);
+    $this->isTruthy($ceasarCipher->decrypt($cipherText) === $plainText);
 
     // Kanji, taken from
     // https://www.thoughtco.com/the-most-frequently-used-kanji-2028155
-    $plain_text = "会同県";
-    $expected_cipher_text = "生新意";
-    $ceasar_cipher = new CeasarCipher(alphabet: "会長国生東同高見新民県政相意党");
-    $cipher_text = $ceasar_cipher->encrypt($plain_text);
-    $this->isTruthy($cipher_text === $expected_cipher_text);
-    $this->isTruthy($ceasar_cipher->decrypt($cipher_text) === $plain_text);
+    $plainText = "会同県";
+    $expectedCipherText = "生新意";
+    $ceasarCipher = new CeasarCipher(alphabet: "会長国生東同高見新民県政相意党");
+    $cipherText = $ceasarCipher->encrypt($plainText);
+    $this->isTruthy($cipherText === $expectedCipherText);
+    $this->isTruthy($ceasarCipher->decrypt($cipherText) === $plainText);
 
     // Emoji
     // This is commented out because I want to support alphabets with
     // characters composed of multiple Unicode code points, such as emojis or
     // Hindi scripts. However, I have not found a good solution to implement
     // it yet.
-    // $plain_text = "😃🗺️🏴‍☠️";
-    // $expected_cipher_text = "🎁👨‍👩‍👦‍👦🌷";
-    // $ceasar_cipher = new CeasarCipher(alphabet: "😃😁🌷🎁🗺️🏛️🤷‍♂️👨‍👩‍👦‍👦🏳️‍🌈🏴‍☠️");
-    // $cipher_text = $ceasar_cipher->encrypt($plain_text);
-    // $this->isTruthy($cipher_text === $expected_cipher_text);
-    // $this->isTruthy($ceasar_cipher->decrypt($cipher_text) === $plain_text);
+    // $plainText = "😃🗺️🏴‍☠️";
+    // $expectedCipherText = "🎁👨‍👩‍👦‍👦🌷";
+    // $ceasarCipher = new CeasarCipher(alphabet: "😃😁🌷🎁🗺️🏛️🤷‍♂️👨‍👩‍👦‍👦🏳️‍🌈🏴‍☠️");
+    // $cipherText = $ceasarCipher->encrypt($plainText);
+    // $this->isTruthy($cipherText === $expectedCipherText);
+    // $this->isTruthy($ceasarCipher->decrypt($cipherText) === $plainText);
 
     // Characters outside the alphabet
-    $plain_text = "@amz!AMZ?";
-    $expected_cipher_text = "@dpC!DPc?";
-    $ceasar_cipher = new CeasarCipher();
-    $cipher_text = $ceasar_cipher->encrypt($plain_text);
-    $this->isTruthy($cipher_text === $expected_cipher_text);
-    $this->isTruthy($ceasar_cipher->decrypt($cipher_text) === $plain_text);
+    $plainText = "@amz!AMZ?";
+    $expectedCipherText = "@dpC!DPc?";
+    $ceasarCipher = new CeasarCipher();
+    $cipherText = $ceasarCipher->encrypt($plainText);
+    $this->isTruthy($cipherText === $expectedCipherText);
+    $this->isTruthy($ceasarCipher->decrypt($cipherText) === $plainText);
   }
 }

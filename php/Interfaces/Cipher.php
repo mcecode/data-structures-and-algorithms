@@ -6,6 +6,6 @@ namespace Interfaces;
 
 interface Cipher
 {
-  public function encrypt(string $plain_text): string;
-  public function decrypt(string $ciphe_text): string;
+  public function encrypt(string $plainText): string;
+  public function decrypt(string $cipheText): string;
 }

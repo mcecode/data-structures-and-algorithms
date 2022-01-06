@@ -20,7 +20,7 @@ Each subdirectory maps to a programming language and contains a readme file that
 
 ## Algorithms
 
-- Ceasar cipher ([Article](https://en.wikipedia.org/wiki/Caesar_cipher))
+- Ceasar cipher ([Wikipedia](https://en.wikipedia.org/wiki/Caesar_cipher))
   - [PHP](php/Ciphers/CeasarCipher.php)
 
 ## Contributing

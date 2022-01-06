@@ -6,53 +6,53 @@ namespace Interfaces;
 
 interface LinkedList
 {
-  public function get_head(): LinkedListNode|null;
-  public function get_tail(): LinkedListNode|null;
+  public function getHead(): LinkedListNode|null;
+  public function getTail(): LinkedListNode|null;
 
-  public function insert_before_head(mixed $value): LinkedListNode;
-  public function insert_before_tail(mixed $value): LinkedListNode;
-  public function insert_before(
-    mixed $search_value,
+  public function insertBeforeHead(mixed $value): LinkedListNode;
+  public function insertBeforeTail(mixed $value): LinkedListNode;
+  public function insertBefore(
+    mixed $searchValue,
     mixed $value
   ): LinkedListNode|null;
-  public function insert_before_at(
+  public function insertBeforeAt(
     int $position,
     mixed $value
   ): LinkedListNode|null;
 
-  public function insert_after_head(mixed $value): LinkedListNode;
-  public function insert_after_tail(mixed $value): LinkedListNode;
-  public function insert_after(
-    mixed $search_value,
+  public function insertAfterHead(mixed $value): LinkedListNode;
+  public function insertAfterTail(mixed $value): LinkedListNode;
+  public function insertAfter(
+    mixed $searchValue,
     mixed $value
   ): LinkedListNode|null;
-  public function insert_after_at(
+  public function insertAfterAt(
     int $position,
     mixed $value
   ): LinkedListNode|null;
 
-  public function insert_between(
-    mixed $before_value,
-    mixed $after_value,
+  public function insertBetween(
+    mixed $beforeValue,
+    mixed $afterValue,
     mixed $value
   ): LinkedListNode|null;
 
   public function find(mixed $value): LinkedListNode|null;
-  public function find_at(int $position): LinkedListNode|null;
+  public function findAt(int $position): LinkedListNode|null;
 
   public function update(
-    mixed $old_value,
-    mixed $new_value
+    mixed $oldValue,
+    mixed $newValue
   ): LinkedListNode|null;
-  public function update_at(
+  public function updateAt(
     int $position,
-    mixed $new_value
+    mixed $newValue
   ): LinkedListNode|null;
 
   public function delete(mixed $value): LinkedListNode|null;
-  public function delete_at(int $position): LinkedListNode|null;
-  public function delete_head(): LinkedListNode|null;
-  public function delete_tail(): LinkedListNode|null;
+  public function deleteAt(int $position): LinkedListNode|null;
+  public function deleteHead(): LinkedListNode|null;
+  public function deleteTail(): LinkedListNode|null;
 
   public function count(): int;
   public function reverse(): LinkedListNode|null;

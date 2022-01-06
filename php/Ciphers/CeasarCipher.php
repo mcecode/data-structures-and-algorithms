@@ -16,8 +16,8 @@ class CeasarCipher implements Cipher
   private const DEFAULT_ALPHABET = "abcdefghijklmnopqrstuvwxyz" .
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  private array $cipher_map = [];
-  private array $plain_map = [];
+  private array $cipherMap = [];
+  private array $plainMap = [];
 
   /**
    * @param int $shift Rotates `$alphabet` by the set amount. A positive
@@ -35,42 +35,42 @@ class CeasarCipher implements Cipher
     $alphabet = Strings::split($alphabet);
 
     // Handle shifts that are larger than the length of '$alphabet'.
-    $alphabet_length = count($alphabet);
-    $shift = $shift > $alphabet_length || $shift < -$alphabet_length ?
-      $shift - (((int) ($shift / $alphabet_length)) * $alphabet_length) :
+    $alphabetLength = count($alphabet);
+    $shift = $shift > $alphabetLength || $shift < -$alphabetLength ?
+      $shift - (((int) ($shift / $alphabetLength)) * $alphabetLength) :
       $shift;
 
-    $shifted_alphabet = [
+    $shiftedAlphabet = [
       ...array_slice($alphabet, $shift),
       ...array_slice($alphabet, 0, $shift)
     ];
 
     foreach ($alphabet as $index => $character) {
-      $this->cipher_map[$character] = $shifted_alphabet[$index];
+      $this->cipherMap[$character] = $shiftedAlphabet[$index];
     }
 
-    $this->plain_map = array_flip($this->cipher_map);
+    $this->plainMap = array_flip($this->cipherMap);
   }
 
-  public function encrypt(string $plain_text): string
+  public function encrypt(string $plainText): string
   {
-    $cipher_text = "";
+    $cipherText = "";
 
-    foreach (Strings::split($plain_text) as $character) {
-      $cipher_text .= $this->cipher_map[$character] ?? $character;
+    foreach (Strings::split($plainText) as $character) {
+      $cipherText .= $this->cipherMap[$character] ?? $character;
     }
 
-    return $cipher_text;
+    return $cipherText;
   }
 
-  public function decrypt(string $cipher_text): string
+  public function decrypt(string $cipherText): string
   {
-    $plain_text = "";
+    $plainText = "";
 
-    foreach (Strings::split($cipher_text) as $character) {
-      $plain_text .= $this->plain_map[$character] ?? $character;
+    foreach (Strings::split($cipherText) as $character) {
+      $plainText .= $this->plainMap[$character] ?? $character;
     }
 
-    return $plain_text;
+    return $plainText;
   }
 }

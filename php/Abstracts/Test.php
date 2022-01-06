@@ -14,14 +14,14 @@ abstract class Test
    */
   abstract protected function run(): void;
 
-  private static bool $has_been_invoked = false;
+  private static bool $hasBeenInvoked = false;
   private array $errors = [];
 
   public function __construct()
   {
-    if (!self::$has_been_invoked) {
+    if (!self::$hasBeenInvoked) {
       echo "\n";
-      self::$has_been_invoked = true;
+      self::$hasBeenInvoked = true;
     }
 
     $this->run();
@@ -40,9 +40,6 @@ abstract class Test
     $this->errors = [];
   }
 
-  /**
-   * Asserts that `$value` is truthy.
-   */
   protected function isTruthy(
     mixed $value,
     string $message = "Should be truthy"
@@ -52,9 +49,6 @@ abstract class Test
     }
   }
 
-  /**
-   * Asserts that `$value` is falsy.
-   */
   protected function isFalsy(
     mixed $value,
     string $message = "Should be falsy"
@@ -65,20 +59,19 @@ abstract class Test
   }
 
   /**
-   * @param \Closure $throwing_function A function that should throw a
-   * throwable.
-   * @param string $instance_of The name of the class that the thrown throwable
+   * @param \Closure $throwingFunction A function that should throw a throwable.
+   * @param string $instanceOf The name of the class that the thrown throwable
    * must be an instance of.
    */
   protected function throws(
-    \Closure $throwing_function,
+    \Closure $throwingFunction,
     string $message = "Should throw throwable",
-    string $instance_of = null
+    string $instanceOf = null
   ): void {
     try {
-      $throwing_function();
+      $throwingFunction();
     } catch (\Throwable $throwable) {
-      if ($instance_of !== null && !($throwable instanceof $instance_of)) {
+      if ($instanceOf !== null && !($throwable instanceof $instanceOf)) {
         $this->setError($message);
       }
 
@@ -90,8 +83,8 @@ abstract class Test
 
   private function setError(string $message): void
   {
-    $line_number = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]["line"];
-    array_push($this->errors, "▶️ Line $line_number: $message");
+    $lineNumber = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]["line"];
+    array_push($this->errors, "▶️ Line $lineNumber: $message");
   }
 
   public function __toString(): string
