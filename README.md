@@ -18,6 +18,11 @@ That said, if your goal is to play around and learn along with me, then feel fre
 
 Each subdirectory maps to a programming language and contains a readme file that details instructions and requirements for running the code.
 
+## Data Structures
+
+- Singly linked list ([Wikipedia](https://en.wikipedia.org/wiki/Linked_list#Singly_linked_list))
+  - [PHP](php/LinkedLists/SinglyLinkedList.php)
+
 ## Algorithms
 
 - Ceasar cipher ([Wikipedia](https://en.wikipedia.org/wiki/Caesar_cipher))
