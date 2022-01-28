@@ -52,4 +52,30 @@ class SinglyLinkedList implements LinkedList
     $this->tail = $tail;
     return $tail;
   }
+
+  public function insertBefore(
+    mixed $searchValue,
+    mixed $value
+  ): ?SinglyLinkedListNode {
+    if ($this->head !== null && $this->head->getData() === $searchValue) {
+      $this->insertHead($value);
+      return $this->head;
+    }
+
+    $previousNode = null;
+    for (
+      $currentNode = $this->head;
+      $currentNode !== null;
+      $currentNode = $currentNode->next()
+    ) {
+      if ($previousNode !== null && $currentNode->getData() === $searchValue) {
+        $previousNode->next(new SinglyLinkedListNode($value, $currentNode));
+        return $previousNode->next();
+      }
+
+      $previousNode = $currentNode;
+    }
+
+    return null;
+  }
 }
