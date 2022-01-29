@@ -19,8 +19,9 @@ class SinglyLinkedListNode implements LinkedListNode
     return $this->data;
   }
 
-  public function next(?SinglyLinkedListNode $node = null): mixed
-  {
+  public function next(
+    ?SinglyLinkedListNode $node = null
+  ): ?SinglyLinkedListNode {
     if ($node !== null) {
       $this->next = $node;
     }
