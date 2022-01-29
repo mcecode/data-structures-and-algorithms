@@ -69,6 +69,18 @@ abstract class Test
     }
   }
 
+  protected function isEqual(
+    mixed $firstValue,
+    mixed $secondValue,
+    string $message = "Should be equal"
+  ): void {
+    $this->assertionsRan++;
+
+    if ($firstValue !== $secondValue) {
+      $this->setError($message);
+    }
+  }
+
   /**
    * @param \Closure $throwingFunction A function that should throw a throwable.
    * @param string $instanceOf The name of the class that the thrown throwable
