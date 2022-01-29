@@ -4,65 +4,47 @@ declare(strict_types=1);
 
 namespace LinkedLists;
 
-use Abstracts\Test;
+use Abstracts\LinkedListTest;
 
-class SinglyLinkedListTest extends Test
+class SinglyLinkedListTest extends LinkedListTest
 {
   protected function run(): void
   {
-    // TODO: Simplify these tests
-
     $singlyLinkedList = new SinglyLinkedList();
 
     $this->isTruthy($singlyLinkedList->getHead() === null);
     $this->isTruthy($singlyLinkedList->getTail() === null);
 
-    // Output list should be c->b->a
-    $singlyLinkedList = new SinglyLinkedList();
-
     $singlyLinkedList->insertHead("a");
-    $this->isTruthy($singlyLinkedList->getHead()->getData() === "a");
-    $this->isTruthy($singlyLinkedList->getTail()->getData() === "a");
-
     $singlyLinkedList->insertHead("b");
-    $this->isTruthy($singlyLinkedList->getHead()->getData() === "b");
-    $this->isTruthy($singlyLinkedList->getTail()->getData() === "a");
-
     $singlyLinkedList->insertHead("c");
-    $this->isTruthy($singlyLinkedList->getHead()->getData() === "c");
-    $this->isTruthy($singlyLinkedList->getTail()->getData() === "a");
-    $this->isTruthy($singlyLinkedList->getHead()->next()->getData() === "b");
 
-    // Output list should be a->b->c
+    $this->isTruthy(
+      $this->turnLinkedListToArray($singlyLinkedList) === ["c", "b", "a"]
+    );
+
     $singlyLinkedList = new SinglyLinkedList();
 
     $singlyLinkedList->insertTail("a");
-    $this->isTruthy($singlyLinkedList->getTail()->getData() === "a");
-    $this->isTruthy($singlyLinkedList->getHead()->getData() === "a");
-
     $singlyLinkedList->insertTail("b");
-    $this->isTruthy($singlyLinkedList->getTail()->getData() === "b");
-    $this->isTruthy($singlyLinkedList->getHead()->getData() === "a");
-
     $singlyLinkedList->insertTail("c");
-    $this->isTruthy($singlyLinkedList->getTail()->getData() === "c");
-    $this->isTruthy($singlyLinkedList->getHead()->getData() === "a");
-    $this->isTruthy($singlyLinkedList->getHead()->next()->getData() === "b");
 
-    // Output list should be b->d->c->a
+    $this->isTruthy(
+      $this->turnLinkedListToArray($singlyLinkedList) === ["a", "b", "c"]
+    );
+
     $singlyLinkedList = new SinglyLinkedList();
+
+    $this->isTruthy($singlyLinkedList->insertBefore("a", "b") === null);
 
     $singlyLinkedList->insertHead("a");
     $singlyLinkedList->insertBefore("a", "b");
-    $this->isTruthy($singlyLinkedList->getHead()->getData() === "b");
-    $this->isTruthy($singlyLinkedList->getTail()->getData() === "a");
-
     $singlyLinkedList->insertBefore("a", "c");
-    $this->isTruthy($singlyLinkedList->getHead()->getData() === "b");
-    $this->isTruthy($singlyLinkedList->getTail()->getData() === "a");
-    $this->isTruthy($singlyLinkedList->getHead()->next()->getData() === "c");
-
     $singlyLinkedList->insertBefore("c", "d");
-    $this->isTruthy($singlyLinkedList->getHead()->next()->getData() === "d");
+
+    $this->isTruthy(
+      $this->turnLinkedListToArray($singlyLinkedList) === ["b", "d", "c", "a"]
+    );
+    $this->isTruthy($singlyLinkedList->insertBefore("z", "y") === null);
   }
 }
