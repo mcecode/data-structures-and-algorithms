@@ -12,15 +12,16 @@ class SinglyLinkedListTest extends LinkedListTest
   {
     $singlyLinkedList = new SinglyLinkedList();
 
-    $this->isTruthy($singlyLinkedList->getHead() === null);
-    $this->isTruthy($singlyLinkedList->getTail() === null);
+    $this->isEqual($singlyLinkedList->getHead(), null);
+    $this->isEqual($singlyLinkedList->getTail(), null);
 
     $singlyLinkedList->insertHead("a");
     $singlyLinkedList->insertHead("b");
     $singlyLinkedList->insertHead("c");
 
-    $this->isTruthy(
-      $this->turnLinkedListToArray($singlyLinkedList) === ["c", "b", "a"]
+    $this->isEqual(
+      $this->turnLinkedListToArray($singlyLinkedList),
+      ["c", "b", "a"]
     );
 
     $singlyLinkedList = new SinglyLinkedList();
@@ -29,22 +30,24 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList->insertTail("b");
     $singlyLinkedList->insertTail("c");
 
-    $this->isTruthy(
-      $this->turnLinkedListToArray($singlyLinkedList) === ["a", "b", "c"]
+    $this->isEqual(
+      $this->turnLinkedListToArray($singlyLinkedList),
+      ["a", "b", "c"]
     );
 
     $singlyLinkedList = new SinglyLinkedList();
 
-    $this->isTruthy($singlyLinkedList->insertBefore("a", "b") === null);
+    $this->isEqual($singlyLinkedList->insertBefore("a", "b"), null);
 
     $singlyLinkedList->insertHead("a");
     $singlyLinkedList->insertBefore("a", "b");
     $singlyLinkedList->insertBefore("a", "c");
     $singlyLinkedList->insertBefore("c", "d");
 
-    $this->isTruthy(
-      $this->turnLinkedListToArray($singlyLinkedList) === ["b", "d", "c", "a"]
+    $this->isEqual($singlyLinkedList->insertBefore("z", "y"), null);
+    $this->isEqual(
+      $this->turnLinkedListToArray($singlyLinkedList),
+      ["b", "d", "c", "a"]
     );
-    $this->isTruthy($singlyLinkedList->insertBefore("z", "y") === null);
   }
 }
