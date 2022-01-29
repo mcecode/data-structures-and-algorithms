@@ -7,4 +7,5 @@ namespace Interfaces;
 interface LinkedListNode
 {
   public function getData(): mixed;
+  public function next(): ?LinkedListNode;
 }
