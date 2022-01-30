@@ -13,15 +13,15 @@ class SinglyLinkedListNodeTest extends Test
     $tail = new SinglyLinkedListNode("tail");
     $head = new SinglyLinkedListNode("head", $tail);
 
-    $this->isTruthy($head->getData() === "head");
-    $this->isTruthy($tail->getData() === "tail");
+    $this->isEqual($head->getData(), "head");
+    $this->isEqual($tail->getData(), "tail");
 
-    $this->isTruthy($head->next() === $tail);
-    $this->isTruthy($tail->next() === null);
+    $this->isEqual($head->next(), $tail);
+    $this->isEqual($tail->next(), null);
 
     $newTail = new SinglyLinkedListNode("new tail");
 
-    $this->isTruthy($head->next($newTail) === $newTail);
-    $this->isTruthy($head->next() === $newTail);
+    $this->isEqual($head->next($newTail), $newTail);
+    $this->isEqual($head->next(), $newTail);
   }
 }
