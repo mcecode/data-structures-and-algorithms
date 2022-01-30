@@ -15,13 +15,13 @@ interface LinkedList
     mixed $searchValue,
     mixed $value
   ): ?LinkedListNode;
-  public function insertBeforeTail(mixed $value): LinkedListNode;
+  public function insertBeforeTail(mixed $value): ?LinkedListNode;
   public function insertBeforeAt(int $position, mixed $value): ?LinkedListNode;
   public function insertAfter(
     mixed $searchValue,
     mixed $value
   ): ?LinkedListNode;
-  public function insertAfterHead(mixed $value): LinkedListNode;
+  public function insertAfterHead(mixed $value): ?LinkedListNode;
   public function insertAfterAt(int $position, mixed $value): ?LinkedListNode;
   public function insertBetween(
     mixed $beforeValue,
