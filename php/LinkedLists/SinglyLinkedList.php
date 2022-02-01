@@ -103,4 +103,22 @@ class SinglyLinkedList implements LinkedList
 
     return null;
   }
+
+  public function count(): int
+  {
+    if ($this->head === null) {
+      return 0;
+    }
+
+    $numberOfNodes = 0;
+    for (
+      $currentNode = $this->head;
+      $currentNode !== null;
+      $currentNode = $currentNode->next()
+    ) {
+      $numberOfNodes++;
+    }
+
+    return $numberOfNodes;
+  }
 }
