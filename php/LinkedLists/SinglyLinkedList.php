@@ -133,6 +133,24 @@ class SinglyLinkedList implements LinkedList
     return $previousNode->next(new SinglyLinkedListNode($value, $currentNode));
   }
 
+  public function insertAfter(
+    mixed $searchValue,
+    mixed $value
+  ): ?SinglyLinkedListNode {
+    for (
+      $currentNode = $this->head;
+      $currentNode !== null;
+      $currentNode = $currentNode->next()
+    ) {
+      if ($currentNode->getData() === $searchValue) {
+        $nextNode = $currentNode->next();
+        return $currentNode->next(new SinglyLinkedListNode($value, $nextNode));
+      }
+    }
+
+    return null;
+  }
+
   public function count(): int
   {
     if ($this->head === null) {

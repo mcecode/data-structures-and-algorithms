@@ -93,12 +93,26 @@ class SinglyLinkedListTest extends LinkedListTest
 
     $singlyLinkedList->insertBeforeAt(1, "c");
     $singlyLinkedList->insertBeforeAt(-1, "d");
-    $singlyLinkedList->insertBeforeAt(2, "e");
-    $singlyLinkedList->insertBeforeAt(-2, "f");
 
     $this->isEqual(
       $this->turnLinkedListToArray($singlyLinkedList),
-      ["b", "c", "e", "f", "d", "a"]
+      ["b", "c", "d", "a"]
+    );
+
+    $singlyLinkedList = new SinglyLinkedList();
+
+    $this->isEqual($singlyLinkedList->insertAfter("a", "b"), null);
+    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), []);
+
+    $singlyLinkedList->insertHead("a");
+    $singlyLinkedList->insertAfter("a", "b");
+    $singlyLinkedList->insertAfter("a", "c");
+    $singlyLinkedList->insertAfter("c", "d");
+
+    $this->isEqual($singlyLinkedList->insertAfter("z", "y"), null);
+    $this->isEqual(
+      $this->turnLinkedListToArray($singlyLinkedList),
+      ["a", "c", "d", "b"]
     );
   }
 }
