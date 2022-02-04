@@ -151,6 +151,21 @@ class SinglyLinkedList implements LinkedList
     return null;
   }
 
+  public function insertAfterHead(mixed $value): ?SinglyLinkedListNode
+  {
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->tail !== null && $this->head === $this->tail) {
+      $this->insertTail($value);
+      return $this->tail;
+    }
+
+    $nextNode = $this->head->next();
+    return $this->head->next(new SinglyLinkedListNode($value, $nextNode));
+  }
+
   public function count(): int
   {
     if ($this->head === null) {
