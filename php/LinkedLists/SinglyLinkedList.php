@@ -104,6 +104,35 @@ class SinglyLinkedList implements LinkedList
     return null;
   }
 
+  public function insertBeforeAt(
+    int $position,
+    mixed $value
+  ): ?SinglyLinkedListNode {
+    $numberOfNodes = $this->count();
+
+    if ($position < 0) {
+      $position = $numberOfNodes + $position;
+    }
+
+    if ($numberOfNodes === 0 || $numberOfNodes - 1 < $position) {
+      return null;
+    }
+
+    if ($position === 0) {
+      $this->insertHead($value);
+      return $this->head;
+    }
+
+    $currentNode = $this->head;
+
+    for ($i = 0; $i < $position; $i++) {
+      $previousNode = $currentNode;
+      $currentNode = $currentNode->next();
+    }
+
+    return $previousNode->next(new SinglyLinkedListNode($value, $currentNode));
+  }
+
   public function count(): int
   {
     if ($this->head === null) {
