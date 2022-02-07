@@ -69,8 +69,9 @@ class SinglyLinkedList implements LinkedList
       $currentNode = $currentNode->next()
     ) {
       if ($previousNode !== null && $currentNode->getData() === $searchValue) {
-        $previousNode->next(new SinglyLinkedListNode($value, $currentNode));
-        return $previousNode->next();
+        return $previousNode->next(
+          new SinglyLinkedListNode($value, $currentNode)
+        );
       }
 
       $previousNode = $currentNode;
@@ -95,8 +96,9 @@ class SinglyLinkedList implements LinkedList
       $currentNode = $currentNode->next()
     ) {
       if ($currentNode->next() === $this->tail) {
-        $currentNode->next(new SinglyLinkedListNode($value, $this->tail));
-        return $currentNode->next();
+        return $currentNode->next(
+          new SinglyLinkedListNode($value, $this->tail)
+        );
       }
     }
 
@@ -151,8 +153,9 @@ class SinglyLinkedList implements LinkedList
       $currentNode = $currentNode->next()
     ) {
       if ($currentNode->getData() === $searchValue) {
-        $nextNode = $currentNode->next();
-        return $currentNode->next(new SinglyLinkedListNode($value, $nextNode));
+        return $currentNode->next(
+          new SinglyLinkedListNode($value, $currentNode->next())
+        );
       }
     }
 
@@ -170,8 +173,44 @@ class SinglyLinkedList implements LinkedList
       return $this->tail;
     }
 
-    $nextNode = $this->head->next();
-    return $this->head->next(new SinglyLinkedListNode($value, $nextNode));
+    return $this->head->next(
+      new SinglyLinkedListNode($value, $this->head->next())
+    );
+  }
+
+  public function insertAfterAt(
+    int $position,
+    mixed $value
+  ): ?SinglyLinkedListNode {
+    $numberOfNodes = $this->count();
+
+    if ($position < 0) {
+      $position = $numberOfNodes + $position;
+    }
+
+    if ($numberOfNodes === 0 || $numberOfNodes - 1 < $position) {
+      return null;
+    }
+
+    if ($position === 0) {
+      $this->insertAfterHead($value);
+      return $this->head->next();
+    }
+
+    if ($numberOfNodes - 1 === $position) {
+      $this->insertTail($value);
+      return $this->tail;
+    }
+
+    $currentNode = $this->head;
+
+    for ($i = 0; $i < $position; $i++) {
+      $currentNode = $currentNode->next();
+    }
+
+    return $currentNode->next(
+      new SinglyLinkedListNode($value, $currentNode->next())
+    );
   }
 
   public function count(): int
@@ -181,6 +220,7 @@ class SinglyLinkedList implements LinkedList
     }
 
     $numberOfNodes = 0;
+
     for (
       $currentNode = $this->head;
       $currentNode !== null;
