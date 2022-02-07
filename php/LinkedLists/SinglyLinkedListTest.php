@@ -52,6 +52,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList->insertBefore("c", "d");
 
     $this->isEqual($singlyLinkedList->insertBefore("z", "y"), null);
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "b");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "a");
     $this->isEqual(
       $this->turnLinkedListToArray($singlyLinkedList),
       ["b", "d", "c", "a"]
@@ -71,6 +73,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList->insertBeforeTail("c");
     $singlyLinkedList->insertBeforeTail("d");
 
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "b");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "a");
     $this->isEqual(
       $this->turnLinkedListToArray($singlyLinkedList),
       ["b", "c", "d", "a"]
@@ -93,6 +97,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList->insertBeforeAt(1, "c");
     $singlyLinkedList->insertBeforeAt(-1, "d");
 
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "b");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "a");
     $this->isEqual(
       $this->turnLinkedListToArray($singlyLinkedList),
       ["b", "c", "d", "a"]
@@ -109,6 +115,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList->insertAfter("c", "d");
 
     $this->isEqual($singlyLinkedList->insertAfter("z", "y"), null);
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "a");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "b");
     $this->isEqual(
       $this->turnLinkedListToArray($singlyLinkedList),
       ["a", "c", "d", "b"]
@@ -128,6 +136,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList->insertAfterHead("c");
     $singlyLinkedList->insertAfterHead("d");
 
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "a");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "b");
     $this->isEqual(
       $this->turnLinkedListToArray($singlyLinkedList),
       ["a", "d", "c", "b"]
