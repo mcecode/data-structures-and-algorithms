@@ -83,7 +83,6 @@ class SinglyLinkedList implements LinkedList
   {
     if (
       $this->head !== null &&
-      $this->tail !== null &&
       $this->head === $this->tail
     ) {
       $this->insertHead($value);
@@ -137,6 +136,15 @@ class SinglyLinkedList implements LinkedList
     mixed $searchValue,
     mixed $value
   ): ?SinglyLinkedListNode {
+    if (
+      $this->head !== null &&
+      $this->head === $this->tail &&
+      $this->head->getData() === $searchValue
+    ) {
+      $this->insertTail($value);
+      return $this->tail;
+    }
+
     for (
       $currentNode = $this->head;
       $currentNode !== null;
@@ -157,7 +165,7 @@ class SinglyLinkedList implements LinkedList
       return null;
     }
 
-    if ($this->tail !== null && $this->head === $this->tail) {
+    if ($this->head === $this->tail) {
       $this->insertTail($value);
       return $this->tail;
     }
