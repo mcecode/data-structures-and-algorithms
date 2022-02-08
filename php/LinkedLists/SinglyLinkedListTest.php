@@ -44,7 +44,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList = new SinglyLinkedList();
 
     $this->isEqual($singlyLinkedList->insertBefore("a", "b"), null);
-    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), []);
+    $this->isEqual($singlyLinkedList->getHead(), null);
+    $this->isEqual($singlyLinkedList->getTail(), null);
 
     $singlyLinkedList->insertHead("a");
     $singlyLinkedList->insertBefore("a", "b");
@@ -62,7 +63,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList = new SinglyLinkedList();
 
     $this->isEqual($singlyLinkedList->insertBeforeTail("a"), null);
-    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), []);
+    $this->isEqual($singlyLinkedList->getHead(), null);
+    $this->isEqual($singlyLinkedList->getTail(), null);
 
     $singlyLinkedList->insertHead("a");
     $singlyLinkedList->insertBeforeTail("b");
@@ -85,7 +87,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $this->isEqual($singlyLinkedList->insertBeforeAt(0, "a"), null);
     $this->isEqual($singlyLinkedList->insertBeforeAt(1, "a"), null);
     $this->isEqual($singlyLinkedList->insertBeforeAt(-1, "a"), null);
-    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), []);
+    $this->isEqual($singlyLinkedList->getHead(), null);
+    $this->isEqual($singlyLinkedList->getTail(), null);
 
     $singlyLinkedList->insertHead("a");
 
@@ -98,6 +101,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList->insertBeforeAt(-1, "d");
     $singlyLinkedList->insertBeforeAt(1, "e");
 
+    $this->isEqual($singlyLinkedList->insertBeforeAt(5, "e"), null);
+    $this->isEqual($singlyLinkedList->insertBeforeAt(-6, "e"), null);
     $this->isEqual($singlyLinkedList->getHead()->getData(), "b");
     $this->isEqual($singlyLinkedList->getTail()->getData(), "a");
     $this->isEqual(
@@ -108,7 +113,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList = new SinglyLinkedList();
 
     $this->isEqual($singlyLinkedList->insertAfter("a", "b"), null);
-    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), []);
+    $this->isEqual($singlyLinkedList->getHead(), null);
+    $this->isEqual($singlyLinkedList->getTail(), null);
 
     $singlyLinkedList->insertHead("a");
     $singlyLinkedList->insertAfter("a", "b");
@@ -126,7 +132,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList = new SinglyLinkedList();
 
     $this->isEqual($singlyLinkedList->insertAfterHead("a"), null);
-    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), []);
+    $this->isEqual($singlyLinkedList->getHead(), null);
+    $this->isEqual($singlyLinkedList->getTail(), null);
 
     $singlyLinkedList->insertHead("a");
     $singlyLinkedList->insertAfterHead("b");
@@ -149,7 +156,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $this->isEqual($singlyLinkedList->insertAfterAt(0, "a"), null);
     $this->isEqual($singlyLinkedList->insertAfterAt(1, "a"), null);
     $this->isEqual($singlyLinkedList->insertAfterAt(-1, "a"), null);
-    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), []);
+    $this->isEqual($singlyLinkedList->getHead(), null);
+    $this->isEqual($singlyLinkedList->getTail(), null);
 
     $singlyLinkedList->insertHead("a");
 
@@ -162,6 +170,8 @@ class SinglyLinkedListTest extends LinkedListTest
     $singlyLinkedList->insertAfterAt(-1, "d");
     $singlyLinkedList->insertAfterAt(1, "e");
 
+    $this->isEqual($singlyLinkedList->insertAfterAt(5, "e"), null);
+    $this->isEqual($singlyLinkedList->insertAfterAt(-6, "e"), null);
     $this->isEqual($singlyLinkedList->getHead()->getData(), "a");
     $this->isEqual($singlyLinkedList->getTail()->getData(), "d");
     $this->isEqual(

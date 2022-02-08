@@ -115,7 +115,11 @@ class SinglyLinkedList implements LinkedList
       $position = $numberOfNodes + $position;
     }
 
-    if ($numberOfNodes === 0 || $numberOfNodes - 1 < $position) {
+    if (
+      $numberOfNodes === 0 ||
+      $position < 0 ||
+      $numberOfNodes - 1 < $position
+    ) {
       return null;
     }
 
@@ -188,7 +192,11 @@ class SinglyLinkedList implements LinkedList
       $position = $numberOfNodes + $position;
     }
 
-    if ($numberOfNodes === 0 || $numberOfNodes - 1 < $position) {
+    if (
+      $numberOfNodes === 0 ||
+      $position < 0 ||
+      $numberOfNodes - 1 < $position
+    ) {
       return null;
     }
 
