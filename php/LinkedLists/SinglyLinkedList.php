@@ -245,6 +245,21 @@ class SinglyLinkedList implements LinkedList
     return null;
   }
 
+  public function find(mixed $value): ?SinglyLinkedListNode
+  {
+    for (
+      $currentNode = $this->head;
+      $currentNode !== null;
+      $currentNode = $currentNode->next()
+    ) {
+      if ($currentNode->getData() === $value) {
+        return $currentNode;
+      }
+    }
+
+    return null;
+  }
+
   public function count(): int
   {
     if ($this->head === null) {
