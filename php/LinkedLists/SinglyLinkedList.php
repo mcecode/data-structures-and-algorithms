@@ -221,6 +221,30 @@ class SinglyLinkedList implements LinkedList
     );
   }
 
+  public function insertBetween(
+    mixed $beforeValue,
+    mixed $afterValue,
+    mixed $value
+  ): ?SinglyLinkedListNode {
+    for (
+      $currentNode = $this->head;
+      $currentNode !== null;
+      $currentNode = $currentNode->next()
+    ) {
+      if (
+        $currentNode->getData() === $beforeValue &&
+        $currentNode->next() !== null &&
+        $currentNode->next()->getData() === $afterValue
+      ) {
+        return $currentNode->next(
+          new SinglyLinkedListNode($value, $currentNode->next())
+        );
+      }
+    }
+
+    return null;
+  }
+
   public function count(): int
   {
     if ($this->head === null) {
