@@ -201,6 +201,10 @@ class SinglyLinkedListTest extends LinkedListTest
 
     $this->isEqual($singlyLinkedList->find("a"), null);
 
+    $this->isEqual($singlyLinkedList->findAt(0), null);
+    $this->isEqual($singlyLinkedList->findAt(1), null);
+    $this->isEqual($singlyLinkedList->findAt(-1), null);
+
     $singlyLinkedList->insertHead("a");
     $singlyLinkedList->insertHead("b");
     $singlyLinkedList->insertHead("c");
@@ -208,6 +212,22 @@ class SinglyLinkedListTest extends LinkedListTest
     $this->isEqual($singlyLinkedList->find("a")->getData(), "a");
     $this->isEqual($singlyLinkedList->find("b")->getData(), "b");
     $this->isEqual($singlyLinkedList->find("c")->getData(), "c");
+
+    $this->isEqual($singlyLinkedList->find("c"), $singlyLinkedList->getHead());
+    $this->isEqual($singlyLinkedList->find("a"), $singlyLinkedList->getTail());
+
+    $this->isEqual($singlyLinkedList->findAt(0)->getData(), "c");
+    $this->isEqual($singlyLinkedList->findAt(-3)->getData(), "c");
+    $this->isEqual($singlyLinkedList->findAt(1)->getData(), "b");
+    $this->isEqual($singlyLinkedList->findAt(2)->getData(), "a");
+    $this->isEqual($singlyLinkedList->findAt(-1)->getData(), "a");
+
+    $this->isEqual($singlyLinkedList->findAt(0), $singlyLinkedList->getHead());
+    $this->isEqual($singlyLinkedList->findAt(-3), $singlyLinkedList->getHead());
+    $this->isEqual($singlyLinkedList->findAt(2), $singlyLinkedList->getTail());
+    $this->isEqual($singlyLinkedList->findAt(-1), $singlyLinkedList->getTail());
+    $this->isEqual($singlyLinkedList->findAt(5), null);
+    $this->isEqual($singlyLinkedList->findAt(-6), null);
 
     $singlyLinkedList = new SinglyLinkedList();
 

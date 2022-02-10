@@ -260,6 +260,31 @@ class SinglyLinkedList implements LinkedList
     return null;
   }
 
+  public function findAt(int $position): ?SinglyLinkedListNode
+  {
+    $numberOfNodes = $this->count();
+
+    if ($position < 0) {
+      $position = $numberOfNodes + $position;
+    }
+
+    if (
+      $numberOfNodes === 0 ||
+      $position < 0 ||
+      $numberOfNodes - 1 < $position
+    ) {
+      return null;
+    }
+
+    $currentNode = $this->head;
+
+    for ($i = 0; $i < $position; $i++) {
+      $currentNode = $currentNode->next();
+    }
+
+    return $currentNode;
+  }
+
   public function count(): int
   {
     if ($this->head === null) {
