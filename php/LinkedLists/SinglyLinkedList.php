@@ -285,6 +285,37 @@ class SinglyLinkedList implements LinkedList
     return $currentNode;
   }
 
+  public function replace(mixed $oldValue, mixed $newValue): ?SinglyLinkedListNode
+  {
+    if ($this->head !== null && $this->head->getData() === $oldValue) {
+      $this->head = new SinglyLinkedListNode($newValue, $this->head->next());
+      return $this->head;
+    }
+
+    $previousNode = null;
+    for (
+      $currentNode = $this->head;
+      $currentNode !== null;
+      $currentNode = $currentNode->next()
+    ) {
+      if ($previousNode !== null && $currentNode->getData() === $oldValue) {
+        $previousNode->next(
+          new SinglyLinkedListNode($newValue, $currentNode->next())
+        );
+
+        if ($currentNode === $this->tail) {
+          $this->tail = $previousNode->next();
+        }
+
+        return $previousNode->next();
+      }
+
+      $previousNode = $currentNode;
+    }
+
+    return null;
+  }
+
   public function count(): int
   {
     if ($this->head === null) {

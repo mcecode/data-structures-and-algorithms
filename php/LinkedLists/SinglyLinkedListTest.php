@@ -231,6 +231,24 @@ class SinglyLinkedListTest extends LinkedListTest
 
     $singlyLinkedList = new SinglyLinkedList();
 
+    $this->isEqual($singlyLinkedList->replace("a", "d"), null);
+
+    $singlyLinkedList->insertHead("a");
+    $singlyLinkedList->insertHead("b");
+    $singlyLinkedList->insertHead("c");
+
+    $this->isEqual($singlyLinkedList->replace("a", "d")->getData(), "d");
+    $this->isEqual($singlyLinkedList->replace("b", "e")->getData(), "e");
+    $this->isEqual($singlyLinkedList->replace("c", "f")->getData(), "f");
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "f");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "d");
+    $this->isEqual(
+      $this->turnLinkedListToArray($singlyLinkedList),
+      ["f", "e", "d"]
+    );
+
+    $singlyLinkedList = new SinglyLinkedList();
+
     $this->isEqual($singlyLinkedList->count(), 0);
 
     $singlyLinkedList->insertHead("a");
