@@ -354,6 +354,22 @@ class SinglyLinkedList implements LinkedList
     return $newNode;
   }
 
+  public function deleteHead(): ?SinglyLinkedListNode
+  {
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->head === $this->tail) {
+      $previousHead = $this->head;
+      $this->head = null;
+      $this->tail = null;
+      return $previousHead;
+    }
+
+    return $this->head = $this->head->next();
+  }
+
   public function count(): int
   {
     if ($this->head === null) {
