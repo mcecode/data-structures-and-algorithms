@@ -253,6 +253,45 @@ class SinglyLinkedListTest extends LinkedListTest
 
     $singlyLinkedList = new SinglyLinkedList();
 
+    $this->isEqual($singlyLinkedList->replaceAt(0, "a"), null);
+    $this->isEqual($singlyLinkedList->replaceAt(1, "a"), null);
+    $this->isEqual($singlyLinkedList->replaceAt(-1, "a"), null);
+
+    $singlyLinkedList->insertHead("a");
+    $singlyLinkedList->insertHead("b");
+    $singlyLinkedList->insertHead("c");
+
+    $this->isEqual($singlyLinkedList->replaceAt(1, "d")->getData(), "d");
+    $this->isEqual(
+      $singlyLinkedList->replaceAt(0, "e"),
+      $singlyLinkedList->getHead()
+    );
+    $this->isEqual(
+      $singlyLinkedList->replaceAt(2, "f"),
+      $singlyLinkedList->getTail()
+    );
+    $this->isEqual(
+      $this->turnLinkedListToArray($singlyLinkedList),
+      ["e", "d", "f"]
+    );
+    $this->isEqual($singlyLinkedList->replaceAt(-2, "g")->getData(), "g");
+    $this->isEqual(
+      $singlyLinkedList->replaceAt(-3, "h"),
+      $singlyLinkedList->getHead()
+    );
+    $this->isEqual(
+      $singlyLinkedList->replaceAt(-1, "i"),
+      $singlyLinkedList->getTail()
+    );
+    $this->isEqual($singlyLinkedList->replaceAt(5, "i"), null);
+    $this->isEqual($singlyLinkedList->replaceAt(-6, "i"), null);
+    $this->isEqual(
+      $this->turnLinkedListToArray($singlyLinkedList),
+      ["h", "g", "i"]
+    );
+
+    $singlyLinkedList = new SinglyLinkedList();
+
     $this->isEqual($singlyLinkedList->count(), 0);
 
     $singlyLinkedList->insertHead("a");

@@ -318,6 +318,47 @@ class SinglyLinkedList implements LinkedList
     return null;
   }
 
+  public function replaceAt(
+    int $position,
+    mixed $newValue
+  ): ?SinglyLinkedListNode {
+    $numberOfNodes = $this->count();
+
+    if ($position < 0) {
+      $position = $numberOfNodes + $position;
+    }
+
+    if (
+      $numberOfNodes === 0 ||
+      $position < 0 ||
+      $numberOfNodes - 1 < $position
+    ) {
+      return null;
+    }
+
+    if ($position === 0) {
+      $this->head = new SinglyLinkedListNode($newValue, $this->head->next());
+      return $this->head;
+    }
+
+    $currentNode = $this->head;
+
+    for ($i = 0; $i < $position; $i++) {
+      $previousNode = $currentNode;
+      $currentNode = $currentNode->next();
+    }
+
+    $newNode = $previousNode->next(
+      new SinglyLinkedListNode($newValue, $currentNode->next())
+    );
+
+    if ($numberOfNodes - 1 === $position) {
+      $this->tail = $newNode;
+    }
+
+    return $newNode;
+  }
+
   public function count(): int
   {
     if ($this->head === null) {
