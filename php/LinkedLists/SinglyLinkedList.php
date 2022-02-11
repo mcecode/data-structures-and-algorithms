@@ -285,8 +285,10 @@ class SinglyLinkedList implements LinkedList
     return $currentNode;
   }
 
-  public function replace(mixed $oldValue, mixed $newValue): ?SinglyLinkedListNode
-  {
+  public function replace(
+    mixed $oldValue,
+    mixed $newValue
+  ): ?SinglyLinkedListNode {
     if ($this->head !== null && $this->head->getData() === $oldValue) {
       $this->head = new SinglyLinkedListNode($newValue, $this->head->next());
       return $this->head;
