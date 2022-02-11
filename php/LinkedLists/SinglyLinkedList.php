@@ -33,8 +33,7 @@ class SinglyLinkedList implements LinkedList
       $this->tail = $head;
     }
 
-    $this->head = $head;
-    return $head;
+    return $this->head = $head;
   }
 
   public function insertTail(mixed $value): SinglyLinkedListNode
@@ -49,8 +48,7 @@ class SinglyLinkedList implements LinkedList
       $this->head = $tail;
     }
 
-    $this->tail = $tail;
-    return $tail;
+    return $this->tail = $tail;
   }
 
   public function insertBefore(
@@ -58,8 +56,7 @@ class SinglyLinkedList implements LinkedList
     mixed $value
   ): ?SinglyLinkedListNode {
     if ($this->head !== null && $this->head->getData() === $searchValue) {
-      $this->insertHead($value);
-      return $this->head;
+      return $this->insertHead($value);
     }
 
     $previousNode = null;
@@ -86,8 +83,7 @@ class SinglyLinkedList implements LinkedList
       $this->head !== null &&
       $this->head === $this->tail
     ) {
-      $this->insertHead($value);
-      return $this->head;
+      return $this->insertHead($value);
     }
 
     for (
@@ -124,8 +120,7 @@ class SinglyLinkedList implements LinkedList
     }
 
     if ($position === 0) {
-      $this->insertHead($value);
-      return $this->head;
+      return $this->insertHead($value);
     }
 
     $currentNode = $this->head;
@@ -147,8 +142,7 @@ class SinglyLinkedList implements LinkedList
       $this->head === $this->tail &&
       $this->head->getData() === $searchValue
     ) {
-      $this->insertTail($value);
-      return $this->tail;
+      return $this->insertTail($value);
     }
 
     for (
@@ -173,8 +167,7 @@ class SinglyLinkedList implements LinkedList
     }
 
     if ($this->head === $this->tail) {
-      $this->insertTail($value);
-      return $this->tail;
+      return $this->insertTail($value);
     }
 
     return $this->head->next(
@@ -201,13 +194,11 @@ class SinglyLinkedList implements LinkedList
     }
 
     if ($position === 0) {
-      $this->insertAfterHead($value);
-      return $this->head->next();
+      return $this->insertAfterHead($value);
     }
 
     if ($numberOfNodes - 1 === $position) {
-      $this->insertTail($value);
-      return $this->tail;
+      return $this->insertTail($value);
     }
 
     $currentNode = $this->head;
@@ -290,8 +281,10 @@ class SinglyLinkedList implements LinkedList
     mixed $newValue
   ): ?SinglyLinkedListNode {
     if ($this->head !== null && $this->head->getData() === $oldValue) {
-      $this->head = new SinglyLinkedListNode($newValue, $this->head->next());
-      return $this->head;
+      return $this->head = new SinglyLinkedListNode(
+        $newValue,
+        $this->head->next()
+      );
     }
 
     $previousNode = null;
@@ -337,8 +330,10 @@ class SinglyLinkedList implements LinkedList
     }
 
     if ($position === 0) {
-      $this->head = new SinglyLinkedListNode($newValue, $this->head->next());
-      return $this->head;
+      return $this->head = new SinglyLinkedListNode(
+        $newValue,
+        $this->head->next()
+      );
     }
 
     $currentNode = $this->head;
