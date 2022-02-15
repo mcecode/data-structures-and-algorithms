@@ -55,7 +55,7 @@ class SinglyLinkedList implements LinkedList
     mixed $searchValue,
     mixed $value
   ): ?SinglyLinkedListNode {
-    if ($this->head !== null && $this->head->getData() === $searchValue) {
+    if ($this->head?->getData() === $searchValue) {
       return $this->insertHead($value);
     }
 
@@ -65,8 +65,8 @@ class SinglyLinkedList implements LinkedList
       $currentNode !== null;
       $currentNode = $currentNode->next()
     ) {
-      if ($previousNode !== null && $currentNode->getData() === $searchValue) {
-        return $previousNode->next(
+      if ($currentNode->getData() === $searchValue) {
+        return $previousNode?->next(
           new SinglyLinkedListNode($value, $currentNode)
         );
       }
@@ -138,9 +138,8 @@ class SinglyLinkedList implements LinkedList
     mixed $value
   ): ?SinglyLinkedListNode {
     if (
-      $this->head !== null &&
-      $this->head === $this->tail &&
-      $this->head->getData() === $searchValue
+      $this->head?->getData() === $searchValue &&
+      $this->head === $this->tail
     ) {
       return $this->insertTail($value);
     }
@@ -224,8 +223,7 @@ class SinglyLinkedList implements LinkedList
     ) {
       if (
         $currentNode->getData() === $beforeValue &&
-        $currentNode->next() !== null &&
-        $currentNode->next()->getData() === $afterValue
+        $currentNode->next()?->getData() === $afterValue
       ) {
         return $currentNode->next(
           new SinglyLinkedListNode($value, $currentNode->next())
@@ -280,7 +278,7 @@ class SinglyLinkedList implements LinkedList
     mixed $oldValue,
     mixed $newValue
   ): ?SinglyLinkedListNode {
-    if ($this->head !== null && $this->head->getData() === $oldValue) {
+    if ($this->head?->getData() === $oldValue) {
       return $this->head = new SinglyLinkedListNode(
         $newValue,
         $this->head->next()
@@ -293,16 +291,16 @@ class SinglyLinkedList implements LinkedList
       $currentNode !== null;
       $currentNode = $currentNode->next()
     ) {
-      if ($previousNode !== null && $currentNode->getData() === $oldValue) {
-        $previousNode->next(
+      if ($currentNode->getData() === $oldValue) {
+        $previousNode?->next(
           new SinglyLinkedListNode($newValue, $currentNode->next())
         );
 
         if ($currentNode === $this->tail) {
-          $this->tail = $previousNode->next();
+          $this->tail = $previousNode?->next();
         }
 
-        return $previousNode->next();
+        return $previousNode?->next();
       }
 
       $previousNode = $currentNode;
