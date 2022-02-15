@@ -350,6 +350,45 @@ class SinglyLinkedListTest extends LinkedListTest
 
     $singlyLinkedList = new SinglyLinkedList();
 
+    $this->isEqual($singlyLinkedList->delete("a"), null);
+
+    $singlyLinkedList->insertHead("a");
+
+    $previousHead = $singlyLinkedList->getHead();
+    $previousTail = $singlyLinkedList->getTail();
+    $deletedNode = $singlyLinkedList->delete("a");
+    $this->isEqual($deletedNode, $previousHead);
+    $this->isEqual($deletedNode, $previousTail);
+    $this->isEqual($singlyLinkedList->getHead(), null);
+    $this->isEqual($singlyLinkedList->getTail(), null);
+
+    $singlyLinkedList->insertHead("a");
+    $singlyLinkedList->insertHead("b");
+
+    $previousHead = $singlyLinkedList->getHead();
+    $this->isEqual($singlyLinkedList->delete("b"), $previousHead);
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "a");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "a");
+    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), ["a"]);
+
+    $singlyLinkedList->insertHead("b");
+
+    $previousTail = $singlyLinkedList->getTail();
+    $this->isEqual($singlyLinkedList->delete("a"), $previousTail);
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "b");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "b");
+    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), ["b"]);
+
+    $singlyLinkedList->insertHead("c");
+    $singlyLinkedList->insertHead("d");
+    $singlyLinkedList->delete("c");
+
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "d");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "b");
+    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), ["d", "b"]);
+
+    $singlyLinkedList = new SinglyLinkedList();
+
     $this->isEqual($singlyLinkedList->count(), 0);
 
     $singlyLinkedList->insertHead("a");

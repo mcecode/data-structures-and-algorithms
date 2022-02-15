@@ -411,6 +411,40 @@ class SinglyLinkedList implements LinkedList
     }
   }
 
+  public function delete(mixed $value): ?SinglyLinkedListNode
+  {
+    if ($this->head?->getData() === $value && $this->head === $this->tail) {
+      $previousHeadAndTail = $this->head;
+      $this->head = null;
+      $this->tail = null;
+      return $previousHeadAndTail;
+    }
+
+    if ($this->head?->getData() === $value) {
+      return $this->deleteHead();
+    }
+
+    $previousNode = null;
+    for (
+      $currentNode = $this->head;
+      $currentNode !== null;
+      $currentNode = $currentNode->next()
+    ) {
+      if ($currentNode->getData() === $value) {
+        if ($currentNode === $this->tail) {
+          return $this->deleteTail();
+        }
+
+        $previousNode?->next($currentNode->next());
+        return $currentNode;
+      }
+
+      $previousNode = $currentNode;
+    }
+
+    return null;
+  }
+
   public function count(): int
   {
     if ($this->head === null) {
