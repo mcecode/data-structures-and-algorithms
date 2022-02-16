@@ -443,6 +443,48 @@ class SinglyLinkedList implements LinkedList
     return null;
   }
 
+  public function deleteAt(int $position): ?SinglyLinkedListNode
+  {
+    $numberOfNodes = $this->count();
+
+    if ($position < 0) {
+      $position = $numberOfNodes + $position;
+    }
+
+    if (
+      $numberOfNodes === 0 ||
+      $position < 0 ||
+      $numberOfNodes - 1 < $position
+    ) {
+      return null;
+    }
+
+    if ($position === 0 && $this->head === $this->tail) {
+      $previousHeadAndTail = $this->head;
+      $this->head = null;
+      $this->tail = null;
+      return $previousHeadAndTail;
+    }
+
+    if ($position === 0) {
+      return $this->deleteHead();
+    }
+
+    if ($numberOfNodes - 1 === $position) {
+      return $this->deleteTail();
+    }
+
+    $currentNode = $this->head;
+
+    for ($i = 0; $i < $position; $i++) {
+      $previousNode = $currentNode;
+      $currentNode = $currentNode->next();
+    }
+
+    $previousNode->next($currentNode->next());
+    return $currentNode;
+  }
+
   public function count(): int
   {
     if ($this->head === null) {

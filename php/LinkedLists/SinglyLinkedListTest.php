@@ -389,6 +389,55 @@ class SinglyLinkedListTest extends LinkedListTest
 
     $singlyLinkedList = new SinglyLinkedList();
 
+    $this->isEqual($singlyLinkedList->deleteAt(0), null);
+    $this->isEqual($singlyLinkedList->deleteAt(1), null);
+    $this->isEqual($singlyLinkedList->deleteAt(-1), null);
+
+    $singlyLinkedList->insertHead("a");
+
+    $previousHead = $singlyLinkedList->getHead();
+    $previousTail = $singlyLinkedList->getTail();
+    $deletedNode = $singlyLinkedList->deleteAt(0);
+    $this->isEqual($deletedNode, $previousHead);
+    $this->isEqual($deletedNode, $previousTail);
+    $this->isEqual($singlyLinkedList->getHead(), null);
+    $this->isEqual($singlyLinkedList->getTail(), null);
+
+    $singlyLinkedList->insertHead("a");
+    $singlyLinkedList->insertHead("b");
+
+    $previousHead = $singlyLinkedList->getHead();
+    $this->isEqual($singlyLinkedList->deleteAt(0), $previousHead);
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "a");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "a");
+    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), ["a"]);
+
+    $singlyLinkedList->insertHead("b");
+
+    $previousTail = $singlyLinkedList->getTail();
+    $this->isEqual($singlyLinkedList->deleteAt(-1), $previousTail);
+    $this->isEqual($singlyLinkedList->getHead()->getData(), "b");
+    $this->isEqual($singlyLinkedList->getTail()->getData(), "b");
+    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), ["b"]);
+
+    $singlyLinkedList->insertHead("c");
+    $singlyLinkedList->insertHead("d");
+    $singlyLinkedList->insertHead("e");
+    $singlyLinkedList->insertHead("f");
+    $singlyLinkedList->insertHead("g");
+
+    $previousHead = $singlyLinkedList->getHead();
+    $this->isEqual($singlyLinkedList->deleteAt(-6), $previousHead);
+    $previousTail = $singlyLinkedList->getTail();
+    $this->isEqual($singlyLinkedList->deleteAt(4), $previousTail);
+    $singlyLinkedList->deleteAt(1);
+    $singlyLinkedList->deleteAt(-2);
+    $this->isEqual($singlyLinkedList->deleteAt(5), null);
+    $this->isEqual($singlyLinkedList->deleteAt(-6), null);
+    $this->isEqual($this->turnLinkedListToArray($singlyLinkedList), ["f", "c"]);
+
+    $singlyLinkedList = new SinglyLinkedList();
+
     $this->isEqual($singlyLinkedList->count(), 0);
 
     $singlyLinkedList->insertHead("a");
