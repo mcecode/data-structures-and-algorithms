@@ -503,4 +503,34 @@ class SinglyLinkedList implements LinkedList
 
     return $numberOfNodes;
   }
+
+  // This implementation of reversing a singly linked list was inspired by
+  // https://github.com/trekhleb/javascript-algorithms/blob/7a37a6b86e76ee22bf93ffd9d01d7acfd79d0714/src/data-structures/linked-list/LinkedList.js#L249
+  public function reverse(): ?SinglyLinkedListNode
+  {
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->head === $this->tail) {
+      return $this->tail;
+    }
+
+    $currentNode = $this->head;
+    $previousNode = null;
+
+    while ($currentNode !== null) {
+      $nextNode = $currentNode->next();
+
+      $currentNode->next($previousNode);
+
+      $previousNode = $currentNode;
+      $currentNode = $nextNode;
+    }
+
+    $this->tail = $this->head->next()->next(
+      new SinglyLinkedListNode($this->head->getData())
+    );
+    return $this->head = $previousNode;
+  }
 }
