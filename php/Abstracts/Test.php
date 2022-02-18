@@ -23,8 +23,12 @@ abstract class Test
     $testsRan = 0;
     $output = "";
 
+    $this->runBefore();
+
     foreach (get_class_methods($this) as $method) {
       if (str_starts_with($method, "test")) {
+        $this->runBeforeEach();
+
         $testsRan++;
         $this->$method();
 
@@ -43,8 +47,12 @@ abstract class Test
 
         $this->assertionsRan = 0;
         $this->errorMessages = [];
+
+        $this->runAfterEach();
       }
     }
+
+    $this->runAfter();
 
     if ($testsRan < 1) {
       $output .= "  ▶️ No tests were run\n";
@@ -126,5 +134,9 @@ abstract class Test
   public function __toString(): string
   {
     return $this::class;
+  }
+
+  public function __call($name, $arguments): void
+  {
   }
 }
