@@ -66,6 +66,28 @@ abstract class Test
     echo "❌ $this\n$output";
   }
 
+  protected function isTrue(
+    mixed $value,
+    string $message = "Should be true"
+  ): void {
+    $this->assertionsRan++;
+
+    if ($value !== true) {
+      $this->setError($message);
+    }
+  }
+
+  protected function isFalse(
+    mixed $value,
+    string $message = "Should be false"
+  ): void {
+    $this->assertionsRan++;
+
+    if ($value !== false) {
+      $this->setError($message);
+    }
+  }
+
   protected function isTruthy(
     mixed $value,
     string $message = "Should be truthy"
