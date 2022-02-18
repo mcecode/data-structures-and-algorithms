@@ -9,14 +9,9 @@ namespace Abstracts;
  */
 abstract class Test
 {
-  /**
-   * This is the method that will contain all test assertions.
-   */
-  abstract protected function run(): void;
-
   private static bool $hasBeenInvoked = false;
   private int $assertionsRan = 0;
-  private array $errors = [];
+  private array $errorMessages = [];
 
   public function __construct()
   {
@@ -25,26 +20,42 @@ abstract class Test
       self::$hasBeenInvoked = true;
     }
 
-    $this->run();
+    $testsRan = 0;
+    $output = "";
 
-    if ($this->assertionsRan <= 0) {
-      echo "❌ $this\n";
-      echo "  ▶️ No assertions were run\n";
-      return;
+    foreach (get_class_methods($this) as $method) {
+      if (str_starts_with($method, "test")) {
+        $testsRan++;
+        $this->$method();
+
+        if ($this->assertionsRan < 1) {
+          $output .= "  ▶️ $method\n";
+          $output .= "    ▶️ No assertions were run\n";
+        }
+
+        if (count($this->errorMessages) > 0) {
+          $output .= "  ▶️ $method\n";
+
+          foreach ($this->errorMessages as $error) {
+            $output .= "    ▶️ $error\n";
+          }
+        }
+
+        $this->assertionsRan = 0;
+        $this->errorMessages = [];
+      }
     }
 
-    if (count($this->errors) <= 0) {
+    if ($testsRan < 1) {
+      $output .= "  ▶️ No tests were run\n";
+    }
+
+    if ($output === "") {
       echo "✔️  $this\n";
       return;
     }
 
-    echo "❌ $this\n";
-
-    foreach ($this->errors as $error) {
-      echo "  $error\n";
-    }
-
-    $this->errors = [];
+    echo "❌ $this\n$output";
   }
 
   protected function isTruthy(
@@ -109,7 +120,7 @@ abstract class Test
   private function setError(string $message): void
   {
     $lineNumber = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]["line"];
-    array_push($this->errors, "▶️ Line $lineNumber: $message");
+    array_push($this->errorMessages, "Line $lineNumber: $message");
   }
 
   public function __toString(): string
