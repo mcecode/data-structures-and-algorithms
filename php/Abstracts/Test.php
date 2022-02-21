@@ -94,7 +94,7 @@ abstract class Test
   ): void {
     $this->assertionsRan++;
 
-    if (!!$value !== true) {
+    if ($value != true) {
       $this->setError($message);
     }
   }
@@ -105,7 +105,7 @@ abstract class Test
   ): void {
     $this->assertionsRan++;
 
-    if (!!$value !== false) {
+    if ($value != false) {
       $this->setError($message);
     }
   }
