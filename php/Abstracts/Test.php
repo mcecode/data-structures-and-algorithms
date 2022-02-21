@@ -11,7 +11,7 @@ abstract class Test
 {
   private static bool $hasBeenInvoked = false;
   private int $assertionsRan = 0;
-  private array $errorMessages = [];
+  private array $failedAssertionMessages = [];
 
   public function __construct()
   {
@@ -37,16 +37,16 @@ abstract class Test
           $output .= "    ▶️ No assertions were run\n";
         }
 
-        if (count($this->errorMessages) > 0) {
+        if (count($this->failedAssertionMessages) > 0) {
           $output .= "  ▶️ $method\n";
 
-          foreach ($this->errorMessages as $error) {
-            $output .= "    ▶️ $error\n";
+          foreach ($this->failedAssertionMessages as $message) {
+            $output .= "    ▶️ $message\n";
           }
         }
 
         $this->assertionsRan = 0;
-        $this->errorMessages = [];
+        $this->failedAssertionMessages = [];
 
         $this->runAfterEach();
       }
@@ -162,7 +162,7 @@ abstract class Test
   private function setError(string $message): void
   {
     $lineNumber = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]["line"];
-    array_push($this->errorMessages, "Line $lineNumber: $message");
+    array_push($this->failedAssertionMessages, "Line $lineNumber: $message");
   }
 
   public function __toString(): string
