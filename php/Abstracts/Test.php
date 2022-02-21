@@ -110,6 +110,18 @@ abstract class Test
     }
   }
 
+  protected function isEqual(
+    mixed $firstValue,
+    mixed $secondValue,
+    string $message = "Should be equal"
+  ): void {
+    $this->assertionsRan++;
+
+    if ($firstValue != $secondValue) {
+      $this->setError($message);
+    }
+  }
+
   protected function isIdentical(
     mixed $firstValue,
     mixed $secondValue,
