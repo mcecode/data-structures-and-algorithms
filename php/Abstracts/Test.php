@@ -110,10 +110,10 @@ abstract class Test
     }
   }
 
-  protected function isEqual(
+  protected function isIdentical(
     mixed $firstValue,
     mixed $secondValue,
-    string $message = "Should be equal"
+    string $message = "Should be identical"
   ): void {
     $this->assertionsRan++;
 

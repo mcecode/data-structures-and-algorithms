@@ -23,8 +23,8 @@ class CeasarCipherTest extends Test
     $expectedCipherText = "dpCDPc";
     $ceasarCipher = new CeasarCipher();
     $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isEqual($cipherText, $expectedCipherText);
-    $this->isEqual($ceasarCipher->decrypt($cipherText), $plainText);
+    $this->isIdentical($cipherText, $expectedCipherText);
+    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
 
     //==================================================
     // Custom shifts
@@ -36,14 +36,14 @@ class CeasarCipherTest extends Test
     // Positive shift
     $ceasarCipher = new CeasarCipher(5);
     $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isEqual($cipherText, $expectedCipherText);
-    $this->isEqual($ceasarCipher->decrypt($cipherText), $plainText);
+    $this->isIdentical($cipherText, $expectedCipherText);
+    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
 
     // Large positive shift; 161 should be equivalent to 5
     $ceasarCipher = new CeasarCipher(161);
     $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isEqual($cipherText, $expectedCipherText);
-    $this->isEqual($ceasarCipher->decrypt($cipherText), $plainText);
+    $this->isIdentical($cipherText, $expectedCipherText);
+    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
 
     // Expected cipher text for negative shifts
     $expectedCipherText = "WivwIV";
@@ -51,14 +51,14 @@ class CeasarCipherTest extends Test
     // Negative shift
     $ceasarCipher = new CeasarCipher(-4);
     $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isEqual($cipherText, $expectedCipherText);
-    $this->isEqual($ceasarCipher->decrypt($cipherText), $plainText);
+    $this->isIdentical($cipherText, $expectedCipherText);
+    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
 
     // Large negative shift; -160 should be equivalent to -4
     $ceasarCipher = new CeasarCipher(-160);
     $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isEqual($cipherText, $expectedCipherText);
-    $this->isEqual($ceasarCipher->decrypt($cipherText), $plainText);
+    $this->isIdentical($cipherText, $expectedCipherText);
+    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
 
     //==================================================
     // Custom alphabet
@@ -72,8 +72,8 @@ class CeasarCipherTest extends Test
         "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
     );
     $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isEqual($cipherText, $expectedCipherText);
-    $this->isEqual($ceasarCipher->decrypt($cipherText), $plainText);
+    $this->isIdentical($cipherText, $expectedCipherText);
+    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
 
     // Kanji, taken from
     // https://www.thoughtco.com/the-most-frequently-used-kanji-2028155
@@ -81,8 +81,8 @@ class CeasarCipherTest extends Test
     $expectedCipherText = "生新意";
     $ceasarCipher = new CeasarCipher(alphabet: "会長国生東同高見新民県政相意党");
     $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isEqual($cipherText, $expectedCipherText);
-    $this->isEqual($ceasarCipher->decrypt($cipherText), $plainText);
+    $this->isIdentical($cipherText, $expectedCipherText);
+    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
 
     // Emoji
     // This is commented out because I want to support alphabets with
@@ -93,15 +93,15 @@ class CeasarCipherTest extends Test
     // $expectedCipherText = "🎁👨‍👩‍👦‍👦🌷";
     // $ceasarCipher = new CeasarCipher(alphabet: "😃😁🌷🎁🗺️🏛️🤷‍♂️👨‍👩‍👦‍👦🏳️‍🌈🏴‍☠️");
     // $cipherText = $ceasarCipher->encrypt($plainText);
-    // $this->isEqual($cipherText, $expectedCipherText);
-    // $this->isEqual($ceasarCipher->decrypt($cipherText), $plainText);
+    // $this->isIdentical($cipherText, $expectedCipherText);
+    // $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
 
     // Characters outside the alphabet
     $plainText = "@amz!AMZ?";
     $expectedCipherText = "@dpC!DPc?";
     $ceasarCipher = new CeasarCipher();
     $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isEqual($cipherText, $expectedCipherText);
-    $this->isEqual($ceasarCipher->decrypt($cipherText), $plainText);
+    $this->isIdentical($cipherText, $expectedCipherText);
+    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
   }
 }
