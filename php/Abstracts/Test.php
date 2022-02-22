@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Abstracts;
 
+use Attributes\Todo;
+use Attributes\Skip;
+
 /**
  * This is the base class that all test classes must inherit from.
  */
@@ -20,50 +23,77 @@ abstract class Test
       self::$hasBeenInvoked = true;
     }
 
+    $testMethods = [];
+    $todoTests = 0;
+    $skippedTests = 0;
+
+    foreach ((new \ReflectionObject($this))->getMethods() as $method) {
+      if (str_starts_with($method->getName(), "test")) {
+        if (count($method->getAttributes(Todo::class)) > 0) {
+          $todoTests++;
+          continue;
+        }
+
+        if (count($method->getAttributes(Skip::class)) > 0) {
+          $skippedTests++;
+          continue;
+        }
+
+        array_push($testMethods, $method->getName());
+      }
+    }
+
     $testsRan = 0;
-    $output = "";
+    $failingTestsOutput = "";
 
     $this->runBefore();
 
-    foreach (get_class_methods($this) as $method) {
-      if (str_starts_with($method, "test")) {
-        $this->runBeforeEach();
+    foreach ($testMethods as $method) {
+      $this->runBeforeEach();
 
-        $testsRan++;
-        $this->$method();
+      $testsRan++;
+      $this->$method();
 
-        if ($this->assertionsRan < 1) {
-          $output .= "  ▶️ $method\n";
-          $output .= "    ▶️ No assertions were run\n";
-        }
-
-        if (count($this->failedAssertionMessages) > 0) {
-          $output .= "  ▶️ $method\n";
-
-          foreach ($this->failedAssertionMessages as $message) {
-            $output .= "    ▶️ $message\n";
-          }
-        }
-
-        $this->assertionsRan = 0;
-        $this->failedAssertionMessages = [];
-
-        $this->runAfterEach();
+      if ($this->assertionsRan < 1) {
+        $failingTestsOutput .= "  ▶️ $method\n";
+        $failingTestsOutput .= "    ▶️ No assertions were run\n";
       }
+
+      if (count($this->failedAssertionMessages) > 0) {
+        $failingTestsOutput .= "  ▶️ $method\n";
+
+        foreach ($this->failedAssertionMessages as $message) {
+          $failingTestsOutput .= "    ▶️ $message\n";
+        }
+      }
+
+      $this->assertionsRan = 0;
+      $this->failedAssertionMessages = [];
+
+      $this->runAfterEach();
     }
 
     $this->runAfter();
 
     if ($testsRan < 1) {
-      $output .= "  ▶️ No tests were run\n";
+      $failingTestsOutput .= "  ▶️ No tests were run\n";
     }
 
-    if ($output === "") {
+    if ($failingTestsOutput === "") {
       echo "✔️  $this\n";
-      return;
+    } else {
+      echo "❌ $this\n";
     }
 
-    echo "❌ $this\n$output";
+    if ($todoTests > 0) {
+      echo "  ▶️ Todo tests: $todoTests\n";
+    }
+
+    if ($skippedTests > 0) {
+      echo "  ▶️ Skipped tests: $skippedTests\n";
+    }
+
+    echo $failingTestsOutput;
   }
 
   protected function isTrue(
