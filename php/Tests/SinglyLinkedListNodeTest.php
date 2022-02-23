@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests;
 
 use LinkedLists\SinglyLinkedListNode;
-use Tests\Base\Test;
+use Tests\Base\TestCase;
 
-class SinglyLinkedListNodeTest extends Test
+class SinglyLinkedListNodeTest extends TestCase
 {
   protected function run(): void
   {

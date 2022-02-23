@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Base;
 
-use Tests\Attributes\Skip as SkipAttribute;
-use Tests\Attributes\Test as TestAttribute;
-use Tests\Attributes\Todo as TodoAttribute;
+use Tests\Attributes\Skip;
+use Tests\Attributes\Test;
+use Tests\Attributes\Todo;
 
 /**
  * This is the base class that all test classes must inherit from.
  */
-abstract class Test
+abstract class TestCase
 {
   private static bool $hasBeenInvoked = false;
   private int $assertionsRan = 0;
@@ -30,12 +30,12 @@ abstract class Test
 
     foreach ((new \ReflectionObject($this))->getMethods() as $method) {
       if (str_starts_with($method->getName(), "test")) {
-        if (count($method->getAttributes(SkipAttribute::class)) > 0) {
+        if (count($method->getAttributes(Skip::class)) > 0) {
           $skippedTests++;
           continue;
         }
 
-        if (count($method->getAttributes(TodoAttribute::class)) > 0) {
+        if (count($method->getAttributes(Todo::class)) > 0) {
           $todoTests++;
           continue;
         }
@@ -44,13 +44,13 @@ abstract class Test
         continue;
       }
 
-      if (count($method->getAttributes(TestAttribute::class)) > 0) {
-        if (count($method->getAttributes(SkipAttribute::class)) > 0) {
+      if (count($method->getAttributes(Test::class)) > 0) {
+        if (count($method->getAttributes(Skip::class)) > 0) {
           $skippedTests++;
           continue;
         }
 
-        if (count($method->getAttributes(TodoAttribute::class)) > 0) {
+        if (count($method->getAttributes(Todo::class)) > 0) {
           $todoTests++;
           continue;
         }

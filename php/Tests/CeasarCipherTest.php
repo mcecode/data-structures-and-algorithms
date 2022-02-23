@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests;
 
 use Ciphers\CeasarCipher;
-use Tests\Base\Test;
+use Tests\Base\TestCase;
 
-class CeasarCipherTest extends Test
+class CeasarCipherTest extends TestCase
 {
   protected function run(): void
   {

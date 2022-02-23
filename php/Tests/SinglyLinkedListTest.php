@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests;
 
 use LinkedLists\SinglyLinkedList;
-use Tests\Base\LinkedListTest;
+use Tests\Base\LinkedListTestCase;
 
-class SinglyLinkedListTest extends LinkedListTest
+class SinglyLinkedListTest extends LinkedListTestCase
 {
   protected function run(): void
   {

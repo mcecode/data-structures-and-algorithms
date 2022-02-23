@@ -6,7 +6,7 @@ namespace Tests\Base;
 
 use LinkedLists\LinkedList;
 
-abstract class LinkedListTest extends Test
+abstract class LinkedListTestCase extends TestCase
 {
   protected function turnLinkedListToArray(LinkedList $linkedList): array
   {
