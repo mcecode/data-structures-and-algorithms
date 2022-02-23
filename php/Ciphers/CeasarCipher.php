@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ciphers;
 
+use ValueError;
+
 use Lib\Strings;
 
 /**
@@ -28,7 +30,7 @@ class CeasarCipher implements Cipher
     string $alphabet = self::DEFAULT_ALPHABET
   ) {
     if ($alphabet === "") {
-      throw new \ValueError("'\$alphabet' must not be empty.");
+      throw new ValueError("'\$alphabet' must not be empty.");
     }
 
     $alphabet = Strings::split($alphabet);

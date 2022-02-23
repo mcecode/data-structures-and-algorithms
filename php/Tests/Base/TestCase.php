@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Base;
 
+use Closure;
+use ReflectionObject;
+use Throwable;
+
 use Tests\Attributes\Skip;
 use Tests\Attributes\Test;
 use Tests\Attributes\Todo;
@@ -28,7 +32,7 @@ abstract class TestCase
     $todoTests = 0;
     $skippedTests = 0;
 
-    foreach ((new \ReflectionObject($this))->getMethods() as $method) {
+    foreach ((new ReflectionObject($this))->getMethods() as $method) {
       if (str_starts_with($method->getName(), "test")) {
         if (count($method->getAttributes(Skip::class)) > 0) {
           $skippedTests++;
@@ -181,12 +185,12 @@ abstract class TestCase
   }
 
   /**
-   * @param \Closure $throwingFunction A function that should throw a throwable.
+   * @param Closure $throwingFunction A function that should throw a throwable.
    * @param string $instanceOf The name of the class that the thrown throwable
    * must be an instance of.
    */
   protected function throws(
-    \Closure $throwingFunction,
+    Closure $throwingFunction,
     string $message = "Should throw throwable",
     string $instanceOf = null
   ): void {
@@ -194,7 +198,7 @@ abstract class TestCase
 
     try {
       $throwingFunction();
-    } catch (\Throwable $throwable) {
+    } catch (Throwable $throwable) {
       if ($instanceOf !== null && !($throwable instanceof $instanceOf)) {
         $this->setError($message);
       }

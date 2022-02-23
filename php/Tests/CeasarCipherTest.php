@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use ValueError;
+
 use Ciphers\CeasarCipher;
 use Tests\Base\TestCase;
 
@@ -14,7 +16,7 @@ class CeasarCipherTest extends TestCase
     $this->throws(
       fn () => new CeasarCipher(alphabet: ""),
       "Should throw value error when alphabet is an empty string",
-      \ValueError::class
+      ValueError::class
     );
 
     // Plain text for default alphabet
