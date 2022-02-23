@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Abstracts;
+namespace Tests\Base;
 
-use Attributes\Todo;
-use Attributes\Skip;
+use Tests\Attributes\Skip;
+use Tests\Attributes\Todo;
 
 /**
  * This is the base class that all test classes must inherit from.
@@ -29,13 +29,13 @@ abstract class Test
 
     foreach ((new \ReflectionObject($this))->getMethods() as $method) {
       if (str_starts_with($method->getName(), "test")) {
-        if (count($method->getAttributes(Todo::class)) > 0) {
-          $todoTests++;
+        if (count($method->getAttributes(Skip::class)) > 0) {
+          $skippedTests++;
           continue;
         }
 
-        if (count($method->getAttributes(Skip::class)) > 0) {
-          $skippedTests++;
+        if (count($method->getAttributes(Todo::class)) > 0) {
+          $todoTests++;
           continue;
         }
 

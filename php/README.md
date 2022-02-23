@@ -1,6 +1,6 @@
 # PHP
 
-This directory contains data structures ([`LinkedLists`](LinkedLists)) and algorithms ([`Ciphers`](Ciphers)) written in PHP, small utilities ([`Lib`](Lib)) used in those data structures and algorithms, and helper code for testing ([`Abstracts`](Abstracts)) and running ([`run.php`](run.php)) them.
+This directory contains data structures ([`LinkedLists`](LinkedLists)) and algorithms ([`Ciphers`](Ciphers)) written in PHP, small utilities ([`Lib`](Lib)) used in those data structures and algorithms, and helper code for testing ([`Tests`](Tests)) and running ([`run.php`](run.php)) them.
 
 ## Testing
 

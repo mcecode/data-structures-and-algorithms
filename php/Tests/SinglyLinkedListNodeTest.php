@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LinkedLists;
+namespace Tests;
 
-use Abstracts\Test;
+use LinkedLists\SinglyLinkedListNode;
+use Tests\Base\Test;
 
 class SinglyLinkedListNodeTest extends Test
 {

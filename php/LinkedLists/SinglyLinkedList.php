@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace LinkedLists;
 
-use Interfaces\LinkedList;
-
 class SinglyLinkedList implements LinkedList
 {
   private ?SinglyLinkedListNode $head = null;

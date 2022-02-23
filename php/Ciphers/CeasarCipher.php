@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ciphers;
 
-use Interfaces\Cipher;
 use Lib\Strings;
 
 /**

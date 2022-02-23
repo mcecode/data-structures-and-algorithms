@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests;
+
 spl_autoload_register(function (string $className): void {
   require_once __DIR__ .
     DIRECTORY_SEPARATOR .
@@ -9,7 +11,6 @@ spl_autoload_register(function (string $className): void {
     ".php";
 });
 
-new Ciphers\CeasarCipherTest();
-
-new LinkedLists\SinglyLinkedListNodeTest();
-new LinkedLists\SinglyLinkedListTest();
+new CeasarCipherTest();
+new SinglyLinkedListNodeTest();
+new SinglyLinkedListTest();

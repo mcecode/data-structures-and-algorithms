@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace LinkedLists;
 
-use Interfaces\LinkedListNode;
-
 class SinglyLinkedListNode implements LinkedListNode
 {
   public function __construct(

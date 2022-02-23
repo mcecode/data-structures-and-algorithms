@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ciphers;
+namespace Tests;
 
-use Abstracts\Test;
+use Ciphers\CeasarCipher;
+use Tests\Base\Test;
 
 class CeasarCipherTest extends Test
 {

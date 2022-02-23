@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Attributes;
+namespace Tests\Attributes;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
-class Skip
+class Todo
 {
 }

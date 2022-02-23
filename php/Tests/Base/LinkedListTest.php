@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Abstracts;
+namespace Tests\Base;
 
-use Interfaces\LinkedList;
+use LinkedLists\LinkedList;
 
 abstract class LinkedListTest extends Test
 {
