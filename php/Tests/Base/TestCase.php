@@ -33,22 +33,10 @@ abstract class TestCase
     $skippedTests = 0;
 
     foreach ((new ReflectionObject($this))->getMethods() as $method) {
-      if (str_starts_with($method->getName(), "test")) {
-        if (count($method->getAttributes(Skip::class)) > 0) {
-          $skippedTests++;
-          continue;
-        }
-
-        if (count($method->getAttributes(Todo::class)) > 0) {
-          $todoTests++;
-          continue;
-        }
-
-        array_push($testMethods, $method->getName());
-        continue;
-      }
-
-      if (count($method->getAttributes(Test::class)) > 0) {
+      if (
+        str_starts_with($method->getName(), "test") ||
+        count($method->getAttributes(Test::class)) > 0
+      ) {
         if (count($method->getAttributes(Skip::class)) > 0) {
           $skippedTests++;
           continue;
