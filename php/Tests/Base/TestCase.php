@@ -19,6 +19,7 @@ abstract class TestCase
 {
   private static bool $hasBeenInvoked = false;
   private int $assertionsRan = 0;
+  private bool $isTestPassing = false;
   private array $failedAssertionMessages = [];
 
   public function __construct()
@@ -62,20 +63,23 @@ abstract class TestCase
       $testsRan++;
       $this->$method();
 
-      if ($this->assertionsRan < 1) {
-        $failingTestsOutput .= "  ▶️ $method\n";
-        $failingTestsOutput .= "    ▶️ No assertions were run\n";
-      }
+      if (!$this->isTestPassing) {
+        if ($this->assertionsRan < 1) {
+          $failingTestsOutput .= "  ▶️ $method\n";
+          $failingTestsOutput .= "    ▶️ No assertions were run\n";
+        }
 
-      if (count($this->failedAssertionMessages) > 0) {
-        $failingTestsOutput .= "  ▶️ $method\n";
+        if (count($this->failedAssertionMessages) > 0) {
+          $failingTestsOutput .= "  ▶️ $method\n";
 
-        foreach ($this->failedAssertionMessages as $message) {
-          $failingTestsOutput .= "    ▶️ $message\n";
+          foreach ($this->failedAssertionMessages as $message) {
+            $failingTestsOutput .= "    ▶️ $message\n";
+          }
         }
       }
 
       $this->assertionsRan = 0;
+      $this->isTestPassing = false;
       $this->failedAssertionMessages = [];
 
       $this->runAfterEach();
@@ -194,6 +198,29 @@ abstract class TestCase
       return;
     }
 
+    $this->setError($message);
+  }
+
+  protected function doesNotThrow(
+    Closure $nonThrowingfunction,
+    string $message = "Should not throw throwable"
+  ): void {
+    $this->assertionsRan++;
+
+    try {
+      $nonThrowingfunction();
+    } catch (Throwable $throwable) {
+      $this->setError($message);
+    }
+  }
+
+  protected function pass(): void
+  {
+    $this->isTestPassing = true;
+  }
+
+  protected function fail(string $message): void
+  {
     $this->setError($message);
   }
 
