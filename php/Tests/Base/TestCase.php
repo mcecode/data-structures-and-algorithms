@@ -111,69 +111,87 @@ abstract class TestCase
   protected function isTrue(
     mixed $value,
     string $message = "Should be true"
-  ): void {
+  ): bool {
     $this->assertionsRan++;
 
     if ($value !== true) {
       $this->setError($message);
+      return false;
     }
+
+    return true;
   }
 
   protected function isFalse(
     mixed $value,
     string $message = "Should be false"
-  ): void {
+  ): bool {
     $this->assertionsRan++;
 
     if ($value !== false) {
       $this->setError($message);
+      return false;
     }
+
+    return true;
   }
 
   protected function isTruthy(
     mixed $value,
     string $message = "Should be truthy"
-  ): void {
+  ): bool {
     $this->assertionsRan++;
 
     if ($value != true) {
       $this->setError($message);
+      return false;
     }
+
+    return true;
   }
 
   protected function isFalsy(
     mixed $value,
     string $message = "Should be falsy"
-  ): void {
+  ): bool {
     $this->assertionsRan++;
 
     if ($value != false) {
       $this->setError($message);
+      return false;
     }
+
+    return true;
   }
 
   protected function isEqual(
     mixed $firstValue,
     mixed $secondValue,
     string $message = "Should be equal"
-  ): void {
+  ): bool {
     $this->assertionsRan++;
 
     if ($firstValue != $secondValue) {
       $this->setError($message);
+      return false;
     }
+
+    return true;
   }
 
   protected function isIdentical(
     mixed $firstValue,
     mixed $secondValue,
     string $message = "Should be identical"
-  ): void {
+  ): bool {
     $this->assertionsRan++;
 
     if ($firstValue !== $secondValue) {
       $this->setError($message);
+      return false;
     }
+
+    return true;
   }
 
   /**
@@ -185,7 +203,7 @@ abstract class TestCase
     Closure $throwingFunction,
     string $message = "Should throw throwable",
     string $instanceOf = null
-  ): void {
+  ): bool {
     $this->assertionsRan++;
 
     try {
@@ -195,33 +213,38 @@ abstract class TestCase
         $this->setError($message);
       }
 
-      return;
+      return true;
     }
 
     $this->setError($message);
+    return false;
   }
 
   protected function doesNotThrow(
     Closure $nonThrowingfunction,
     string $message = "Should not throw throwable"
-  ): void {
+  ): bool {
     $this->assertionsRan++;
 
     try {
       $nonThrowingfunction();
     } catch (Throwable $throwable) {
       $this->setError($message);
+      return false;
     }
+
+    return true;
   }
 
-  protected function pass(): void
+  protected function pass(): bool
   {
-    $this->isTestPassing = true;
+    return $this->isTestPassing = true;
   }
 
-  protected function fail(string $message): void
+  protected function fail(string $message): bool
   {
     $this->setError($message);
+    return false;
   }
 
   private function setError(string $message): void
