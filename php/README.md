@@ -1,6 +1,6 @@
 # PHP
 
-This directory contains data structures ([`LinkedLists`](LinkedLists)) and algorithms ([`Ciphers`](Ciphers)) written in PHP, small utilities ([`Lib`](Lib)), and helper code for testing ([`Tests`](Tests)) and running ([`run.php`](run.php)) them.
+This directory contains data structures ([`LinkedLists`](LinkedLists)) and algorithms ([`Ciphers`](Ciphers)) written in PHP, small utilities ([`Lib`](Lib)), and helper code for testing ([`Tests`](Tests)) and running ([`test.php`](test.php)) them.
 
 ## Testing
 
@@ -9,5 +9,5 @@ The code in this directory has been tested using PHP version 8.1. It may run wit
 To execute the tests, run the following command:
 
 ```console
-php run.php
+php test.php
 ```
