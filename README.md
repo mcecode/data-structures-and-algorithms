@@ -35,6 +35,7 @@ Since one of the main goals of this project is for me to learn data structures a
 ## Inspiration
 
 - [JavaScript Algorithms and Data Structures](https://github.com/trekhleb/javascript-algorithms)
+- [The Algorithms](https://github.com/TheAlgorithms)
 
 ## License
 
