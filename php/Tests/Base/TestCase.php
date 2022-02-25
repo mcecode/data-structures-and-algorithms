@@ -255,6 +255,8 @@ abstract class TestCase
 
   protected function fail(string $message): bool
   {
+    $this->assertionsRan++;
+
     $this->setError($message);
     return false;
   }
