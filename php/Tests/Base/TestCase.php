@@ -8,6 +8,7 @@ use Closure;
 use ReflectionObject;
 use Throwable;
 
+use Lib\Console;
 use Tests\Attributes\Skip;
 use Tests\Attributes\Test;
 use Tests\Attributes\Todo;
@@ -25,12 +26,12 @@ abstract class TestCase
   public function __construct()
   {
     if (!self::$hasBeenInvoked) {
-      echo "\n";
+      Console::writeNewLine();
       self::$hasBeenInvoked = true;
     }
 
     $testMethods = [];
-    $todoTests = 0;
+    $testsTodo = 0;
     $skippedTests = 0;
 
     foreach ((new ReflectionObject($this))->getMethods() as $method) {
@@ -44,7 +45,7 @@ abstract class TestCase
         }
 
         if (count($method->getAttributes(Todo::class)) > 0) {
-          $todoTests++;
+          $testsTodo++;
           continue;
         }
 
@@ -53,7 +54,8 @@ abstract class TestCase
     }
 
     $testsRan = 0;
-    $failingTestsOutput = "";
+    $failedTests = 0;
+    $failedTestsOutput = "";
 
     $this->runBefore();
 
@@ -65,15 +67,18 @@ abstract class TestCase
 
       if (!$this->isTestPassing) {
         if ($this->assertionsRan < 1) {
-          $failingTestsOutput .= "  ▶️ $method\n";
-          $failingTestsOutput .= "    ▶️ No assertions were run\n";
+          $failedTests++;
+
+          $failedTestsOutput .= "    ▶️ $method" . PHP_EOL;
+          $failedTestsOutput .= "      ▶️ No assertions were run" . PHP_EOL;
         }
 
         if (count($this->failedAssertionMessages) > 0) {
-          $failingTestsOutput .= "  ▶️ $method\n";
+          $failedTests++;
 
+          $failedTestsOutput .= "    ▶️ $method" . PHP_EOL;
           foreach ($this->failedAssertionMessages as $message) {
-            $failingTestsOutput .= "    ▶️ $message\n";
+            $failedTestsOutput .= "      ▶️ $message" . PHP_EOL;
           }
         }
       }
@@ -88,24 +93,31 @@ abstract class TestCase
     $this->runAfter();
 
     if ($testsRan < 1) {
-      $failingTestsOutput .= "  ▶️ No tests were run\n";
+      $failedTestsOutput .= "  ▶️ No tests were run" . PHP_EOL;
     }
 
-    if ($failingTestsOutput === "") {
-      echo "✔️  $this\n";
+    if ($failedTestsOutput === "") {
+      Console::LightGreen->writeLine("✔️  $this");
     } else {
-      echo "❌ $this\n";
+      Console::writeNewLine();
+      Console::LightRed->writeLine("❌ $this");
     }
 
-    if ($todoTests > 0) {
-      echo "  ▶️ Todo tests: $todoTests\n";
+    if ($testsTodo > 0) {
+      Console::LightCyan->writeLine("  ▶️ Tests to do: $testsTodo");
     }
 
     if ($skippedTests > 0) {
-      echo "  ▶️ Skipped tests: $skippedTests\n";
+      Console::LightYellow->writeLine("  ▶️ Skipped tests: $skippedTests");
     }
 
-    echo $failingTestsOutput;
+    if ($failedTests > 0) {
+      Console::LightRed->writeLine("  ▶️ Failed test: $failedTests");
+    }
+
+    if ($failedTestsOutput !== "") {
+      Console::LightRed->writeLine($failedTestsOutput);
+    }
   }
 
   protected function isTrue(
