@@ -9,14 +9,13 @@ use Tests\Base\TestCase;
 
 class SinglyLinkedListNodeTest extends TestCase
 {
-  protected function run(): void
+  protected function test(): void
   {
     $tail = new SinglyLinkedListNode("tail");
     $head = new SinglyLinkedListNode("head", $tail);
 
     $this->isIdentical($head->getData(), "head");
     $this->isIdentical($tail->getData(), "tail");
-
     $this->isIdentical($head->next(), $tail);
     $this->isIdentical($tail->next(), null);
 
