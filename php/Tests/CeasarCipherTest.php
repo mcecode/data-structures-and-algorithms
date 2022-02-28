@@ -7,104 +7,150 @@ namespace Tests;
 use ValueError;
 
 use Ciphers\CeasarCipher;
+use Tests\Attributes\Skip;
 use Tests\Base\TestCase;
 
 class CeasarCipherTest extends TestCase
 {
-  protected function run(): void
+  private string $defaultAlphabetPlainText = "amzAMZ";
+  private string $positiveShiftExpectedCipherText = "frEFRe";
+  private string $negativeShiftExpectedCipherText = "WivwIV";
+
+  protected function testDefaultOptions(): void
+  {
+    $cipher = new CeasarCipher();
+    $cipherText = $cipher->encrypt($this->defaultAlphabetPlainText);
+
+    $this->isIdentical($cipherText, "dpCDPc");
+    $this->isIdentical(
+      $cipher->decrypt($cipherText),
+      $this->defaultAlphabetPlainText
+    );
+  }
+
+  protected function testZeroShift(): void
+  {
+    $cipher = new CeasarCipher(0);
+    $cipherText = $cipher->encrypt($this->defaultAlphabetPlainText);
+
+    $this->isIdentical($cipherText, $this->defaultAlphabetPlainText);
+    $this->isIdentical(
+      $cipher->decrypt($cipherText),
+      $this->defaultAlphabetPlainText
+    );
+  }
+
+  protected function testPositiveShift(): void
+  {
+    $cipher = new CeasarCipher(5);
+    $cipherText = $cipher->encrypt($this->defaultAlphabetPlainText);
+
+    $this->isIdentical($cipherText, $this->positiveShiftExpectedCipherText);
+    $this->isIdentical(
+      $cipher->decrypt($cipherText),
+      $this->defaultAlphabetPlainText
+    );
+  }
+
+  protected function testLargePositiveShift(): void
+  {
+    $cipher = new CeasarCipher(161);
+    $cipherText = $cipher->encrypt($this->defaultAlphabetPlainText);
+
+    $this->isIdentical($cipherText, $this->positiveShiftExpectedCipherText);
+    $this->isIdentical(
+      $cipher->decrypt($cipherText),
+      $this->defaultAlphabetPlainText
+    );
+  }
+
+  protected function testNegativeShift(): void
+  {
+    $cipher = new CeasarCipher(-4);
+    $cipherText = $cipher->encrypt($this->defaultAlphabetPlainText);
+
+    $this->isIdentical($cipherText, $this->negativeShiftExpectedCipherText);
+    $this->isIdentical(
+      $cipher->decrypt($cipherText),
+      $this->defaultAlphabetPlainText
+    );
+  }
+
+  protected function testLargeNegativeShift(): void
+  {
+    $cipher = new CeasarCipher(-160);
+    $cipherText = $cipher->encrypt($this->defaultAlphabetPlainText);
+
+    $this->isIdentical($cipherText, $this->negativeShiftExpectedCipherText);
+    $this->isIdentical(
+      $cipher->decrypt($cipherText),
+      $this->defaultAlphabetPlainText
+    );
+  }
+
+  protected function testEmptyAlphabet(): void
   {
     $this->throws(
       fn () => new CeasarCipher(alphabet: ""),
       "Should throw value error when alphabet is an empty string",
       ValueError::class
     );
+  }
 
-    // Plain text for default alphabet
-    $plainText = "amzAMZ";
-
-    // Default options
-    $expectedCipherText = "dpCDPc";
-    $ceasarCipher = new CeasarCipher();
-    $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isIdentical($cipherText, $expectedCipherText);
-    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
-
-    //==================================================
-    // Custom shifts
-    //==================================================
-
-    // Expected cipher text for positive shifts
-    $expectedCipherText = "frEFRe";
-
-    // Positive shift
-    $ceasarCipher = new CeasarCipher(5);
-    $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isIdentical($cipherText, $expectedCipherText);
-    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
-
-    // Large positive shift; 161 should be equivalent to 5
-    $ceasarCipher = new CeasarCipher(161);
-    $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isIdentical($cipherText, $expectedCipherText);
-    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
-
-    // Expected cipher text for negative shifts
-    $expectedCipherText = "WivwIV";
-
-    // Negative shift
-    $ceasarCipher = new CeasarCipher(-4);
-    $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isIdentical($cipherText, $expectedCipherText);
-    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
-
-    // Large negative shift; -160 should be equivalent to -4
-    $ceasarCipher = new CeasarCipher(-160);
-    $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isIdentical($cipherText, $expectedCipherText);
-    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
-
-    //==================================================
-    // Custom alphabet
-    //==================================================
-
-    // Russian, taken from https://en.wikipedia.org/wiki/Russian_alphabet
-    $plainText = "айфяАЙФЯ";
-    $expectedCipherText = "гмчВГМЧв";
-    $ceasarCipher = new CeasarCipher(
+  /**
+   * Letters taken from
+   * https://en.wikipedia.org/wiki/Russian_alphabet
+   */
+  protected function testRussianAlphabet(): void
+  {
+    $cipher = new CeasarCipher(
       alphabet: "абвгдеёжзийклмнопрстуфхцчшщъыьэюя" .
         "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
     );
-    $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isIdentical($cipherText, $expectedCipherText);
-    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
+    $plainText = "айфяАЙФЯ";
+    $cipherText = $cipher->encrypt($plainText);
 
-    // Kanji, taken from
-    // https://www.thoughtco.com/the-most-frequently-used-kanji-2028155
+    $this->isIdentical($cipherText, "гмчВГМЧв");
+    $this->isIdentical($cipher->decrypt($cipherText), $plainText);
+  }
+
+  /**
+   * Letters taken from
+   * https://www.thoughtco.com/the-most-frequently-used-kanji-2028155
+   */
+  protected function testKanjiAlphabet(): void
+  {
+    $cipher = new CeasarCipher(alphabet: "会長国生東同高見新民県政相意党");
     $plainText = "会同県";
-    $expectedCipherText = "生新意";
-    $ceasarCipher = new CeasarCipher(alphabet: "会長国生東同高見新民県政相意党");
-    $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isIdentical($cipherText, $expectedCipherText);
-    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
+    $cipherText = $cipher->encrypt($plainText);
 
-    // Emoji
-    // This is commented out because I want to support alphabets with
-    // characters composed of multiple Unicode code points, such as emojis or
-    // Hindi scripts. However, I have not found a good solution to implement
-    // it yet.
-    // $plainText = "😃🗺️🏴‍☠️";
-    // $expectedCipherText = "🎁👨‍👩‍👦‍👦🌷";
-    // $ceasarCipher = new CeasarCipher(alphabet: "😃😁🌷🎁🗺️🏛️🤷‍♂️👨‍👩‍👦‍👦🏳️‍🌈🏴‍☠️");
-    // $cipherText = $ceasarCipher->encrypt($plainText);
-    // $this->isIdentical($cipherText, $expectedCipherText);
-    // $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
+    $this->isIdentical($cipherText, "生新意");
+    $this->isIdentical($cipher->decrypt($cipherText), $plainText);
+  }
 
-    // Characters outside the alphabet
+  /**
+   * This is skipped because I want to support alphabets with characters
+   * composed of multiple Unicode code points, such as emojis or Hindi scripts.
+   * However, I have not found a good solution to implement it yet.
+   */
+  #[Skip]
+  protected function testEmojiAlphabet(): void
+  {
+    $cipher = new CeasarCipher(alphabet: "😃😁🌷🎁🗺️🏛️🤷‍♂️👨‍👩‍👦‍👦🏳️‍🌈🏴‍☠️");
+    $plainText = "😃🗺️🏴‍☠️";
+    $cipherText = $cipher->encrypt($plainText);
+
+    $this->isIdentical($cipherText, "🎁👨‍👩‍👦‍👦🌷");
+    $this->isIdentical($cipher->decrypt($cipherText), $plainText);
+  }
+
+  protected function testCharactersOutsideAlphabet(): void
+  {
+    $cipher = new CeasarCipher();
     $plainText = "@amz!AMZ?";
-    $expectedCipherText = "@dpC!DPc?";
-    $ceasarCipher = new CeasarCipher();
-    $cipherText = $ceasarCipher->encrypt($plainText);
-    $this->isIdentical($cipherText, $expectedCipherText);
-    $this->isIdentical($ceasarCipher->decrypt($cipherText), $plainText);
+    $cipherText = $cipher->encrypt($plainText);
+
+    $this->isIdentical($cipherText, "@dpC!DPc?");
+    $this->isIdentical($cipher->decrypt($cipherText), $plainText);
   }
 }
