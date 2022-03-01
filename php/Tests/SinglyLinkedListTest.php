@@ -9,497 +9,532 @@ use Tests\Base\LinkedListTestCase;
 
 class SinglyLinkedListTest extends LinkedListTestCase
 {
-  protected function run(): void
+  private SinglyLinkedList $linkedList;
+
+  protected function runBeforeEach(): void
   {
-    $singlyLinkedList = new SinglyLinkedList();
+    $this->linkedList = new SinglyLinkedList();
+  }
 
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
+  protected function testEmptyList(): void
+  {
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
+  }
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertHead("b");
-    $singlyLinkedList->insertHead("c");
+  protected function testInsertHead(): void
+  {
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
+    $this->linkedList->insertHead("c");
 
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "c");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "a");
+    $this->isIdentical($this->linkedList->getHead()->getData(), "c");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["c", "b", "a"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testInsertTail(): void
+  {
+    $this->linkedList->insertTail("a");
+    $this->linkedList->insertTail("b");
+    $this->linkedList->insertTail("c");
 
-    $singlyLinkedList->insertTail("a");
-    $singlyLinkedList->insertTail("b");
-    $singlyLinkedList->insertTail("c");
-
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "c");
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "c");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["a", "b", "c"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testInsertBefore(): void
+  {
+    $this->isIdentical($this->linkedList->insertBefore("a", "b"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $this->isIdentical($singlyLinkedList->insertBefore("a", "b"), null);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertBefore("a", "b");
+    $this->linkedList->insertBefore("a", "c");
+    $this->linkedList->insertBefore("c", "d");
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertBefore("a", "b");
-    $singlyLinkedList->insertBefore("a", "c");
-    $singlyLinkedList->insertBefore("c", "d");
-
-    $this->isIdentical($singlyLinkedList->insertBefore("z", "y"), null);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "b");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "a");
+    $this->isIdentical($this->linkedList->insertBefore("z", "y"), null);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "b");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["b", "d", "c", "a"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testInsertBeforeTail(): void
+  {
+    $this->isIdentical($this->linkedList->insertBeforeTail("a"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $this->isIdentical($singlyLinkedList->insertBeforeTail("a"), null);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertBeforeTail("b");
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertBeforeTail("b");
+    $this->isIdentical($this->linkedList->getHead()->getData(), "b");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
 
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "b");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "a");
+    $this->linkedList->insertBeforeTail("c");
+    $this->linkedList->insertBeforeTail("d");
 
-    $singlyLinkedList->insertBeforeTail("c");
-    $singlyLinkedList->insertBeforeTail("d");
-
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "b");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "a");
+    $this->isIdentical($this->linkedList->getHead()->getData(), "b");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["b", "c", "d", "a"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testInsertBeforeAt(): void
+  {
+    $this->isIdentical($this->linkedList->insertBeforeAt(0, "a"), null);
+    $this->isIdentical($this->linkedList->insertBeforeAt(1, "a"), null);
+    $this->isIdentical($this->linkedList->insertBeforeAt(-1, "a"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $this->isIdentical($singlyLinkedList->insertBeforeAt(0, "a"), null);
-    $this->isIdentical($singlyLinkedList->insertBeforeAt(1, "a"), null);
-    $this->isIdentical($singlyLinkedList->insertBeforeAt(-1, "a"), null);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
-
-    $singlyLinkedList->insertHead("a");
+    $this->linkedList->insertHead("a");
 
     $this->isIdentical(
-      $singlyLinkedList->insertBeforeAt(0, "b"),
-      $singlyLinkedList->getHead()
+      $this->linkedList->insertBeforeAt(0, "b"),
+      $this->linkedList->getHead()
     );
 
-    $singlyLinkedList->insertBeforeAt(1, "c");
-    $singlyLinkedList->insertBeforeAt(-1, "d");
-    $singlyLinkedList->insertBeforeAt(1, "e");
+    $this->linkedList->insertBeforeAt(1, "c");
+    $this->linkedList->insertBeforeAt(-1, "d");
+    $this->linkedList->insertBeforeAt(1, "e");
 
-    $this->isIdentical($singlyLinkedList->insertBeforeAt(5, "e"), null);
-    $this->isIdentical($singlyLinkedList->insertBeforeAt(-6, "e"), null);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "b");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "a");
+    $this->isIdentical($this->linkedList->insertBeforeAt(5, "e"), null);
+    $this->isIdentical($this->linkedList->insertBeforeAt(-6, "e"), null);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "b");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["b", "e", "c", "d", "a"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testInsertAfter(): void
+  {
+    $this->isIdentical($this->linkedList->insertAfter("a", "b"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $this->isIdentical($singlyLinkedList->insertAfter("a", "b"), null);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertAfter("a", "b");
+    $this->linkedList->insertAfter("a", "c");
+    $this->linkedList->insertAfter("c", "d");
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertAfter("a", "b");
-    $singlyLinkedList->insertAfter("a", "c");
-    $singlyLinkedList->insertAfter("c", "d");
-
-    $this->isIdentical($singlyLinkedList->insertAfter("z", "y"), null);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "b");
+    $this->isIdentical($this->linkedList->insertAfter("z", "y"), null);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "b");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["a", "c", "d", "b"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testInsertAfterHead(): void
+  {
+    $this->isIdentical($this->linkedList->insertAfterHead("a"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $this->isIdentical($singlyLinkedList->insertAfterHead("a"), null);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertAfterHead("b");
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertAfterHead("b");
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "b");
 
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "b");
+    $this->linkedList->insertAfterHead("c");
+    $this->linkedList->insertAfterHead("d");
 
-    $singlyLinkedList->insertAfterHead("c");
-    $singlyLinkedList->insertAfterHead("d");
-
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "b");
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "b");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["a", "d", "c", "b"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testInsertAfterAt(): void
+  {
+    $this->isIdentical($this->linkedList->insertAfterAt(0, "a"), null);
+    $this->isIdentical($this->linkedList->insertAfterAt(1, "a"), null);
+    $this->isIdentical($this->linkedList->insertAfterAt(-1, "a"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $this->isIdentical($singlyLinkedList->insertAfterAt(0, "a"), null);
-    $this->isIdentical($singlyLinkedList->insertAfterAt(1, "a"), null);
-    $this->isIdentical($singlyLinkedList->insertAfterAt(-1, "a"), null);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
-
-    $singlyLinkedList->insertHead("a");
+    $this->linkedList->insertHead("a");
 
     $this->isIdentical(
-      $singlyLinkedList->insertAfterAt(0, "b"),
-      $singlyLinkedList->getTail()
+      $this->linkedList->insertAfterAt(0, "b"),
+      $this->linkedList->getTail()
     );
 
-    $singlyLinkedList->insertAfterAt(1, "c");
-    $singlyLinkedList->insertAfterAt(-1, "d");
-    $singlyLinkedList->insertAfterAt(1, "e");
+    $this->linkedList->insertAfterAt(1, "c");
+    $this->linkedList->insertAfterAt(-1, "d");
+    $this->linkedList->insertAfterAt(1, "e");
 
-    $this->isIdentical($singlyLinkedList->insertAfterAt(5, "e"), null);
-    $this->isIdentical($singlyLinkedList->insertAfterAt(-6, "e"), null);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "d");
+    $this->isIdentical($this->linkedList->insertAfterAt(5, "e"), null);
+    $this->isIdentical($this->linkedList->insertAfterAt(-6, "e"), null);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "d");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["a", "b", "e", "c", "d"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testInsertBetween(): void
+  {
+    $this->isIdentical($this->linkedList->insertBetween("a", "b", "c"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $this->isIdentical($singlyLinkedList->insertBetween("a", "b", "c"), null);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
+    $this->linkedList->insertTail("a");
+    $this->linkedList->insertTail("b");
+    $this->linkedList->insertBetween("a", "b", "c");
+    $this->linkedList->insertBetween("c", "b", "d");
 
-    $singlyLinkedList->insertTail("a");
-    $singlyLinkedList->insertTail("b");
-    $singlyLinkedList->insertBetween("a", "b", "c");
-    $singlyLinkedList->insertBetween("c", "b", "d");
-
-    $this->isIdentical($singlyLinkedList->insertBetween("c", "b", "d"), null);
-    $this->isIdentical($singlyLinkedList->insertBetween("z", "y", "x"), null);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "b");
+    $this->isIdentical($this->linkedList->insertBetween("c", "b", "d"), null);
+    $this->isIdentical($this->linkedList->insertBetween("z", "y", "x"), null);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "b");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["a", "c", "d", "b"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testFind(): void
+  {
+    $this->isIdentical($this->linkedList->find("a"), null);
 
-    $this->isIdentical($singlyLinkedList->find("a"), null);
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
+    $this->linkedList->insertHead("c");
 
-    $this->isIdentical($singlyLinkedList->findAt(0), null);
-    $this->isIdentical($singlyLinkedList->findAt(1), null);
-    $this->isIdentical($singlyLinkedList->findAt(-1), null);
-
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertHead("b");
-    $singlyLinkedList->insertHead("c");
-
-    $this->isIdentical($singlyLinkedList->find("b")->getData(), "b");
+    $this->isIdentical($this->linkedList->find("b")->getData(), "b");
     $this->isIdentical(
-      $singlyLinkedList->find("c"),
-      $singlyLinkedList->getHead()
+      $this->linkedList->find("c"),
+      $this->linkedList->getHead()
     );
     $this->isIdentical(
-      $singlyLinkedList->find("a"),
-      $singlyLinkedList->getTail()
-    );
-
-    $this->isIdentical($singlyLinkedList->findAt(1)->getData(), "b");
-    $this->isIdentical($singlyLinkedList->findAt(-2)->getData(), "b");
-    $this->isIdentical(
-      $singlyLinkedList->findAt(0),
-      $singlyLinkedList->getHead()
+      $this->linkedList->find("a"),
+      $this->linkedList->getTail()
     );
     $this->isIdentical(
-      $singlyLinkedList->findAt(-3),
-      $singlyLinkedList->getHead()
-    );
-    $this->isIdentical(
-      $singlyLinkedList->findAt(2),
-      $singlyLinkedList->getTail()
-    );
-    $this->isIdentical(
-      $singlyLinkedList->findAt(-1),
-      $singlyLinkedList->getTail()
-    );
-    $this->isIdentical($singlyLinkedList->findAt(5), null);
-    $this->isIdentical($singlyLinkedList->findAt(-6), null);
-
-    $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["c", "b", "a"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testFindAt(): void
+  {
+    $this->isIdentical($this->linkedList->findAt(0), null);
+    $this->isIdentical($this->linkedList->findAt(1), null);
+    $this->isIdentical($this->linkedList->findAt(-1), null);
 
-    $this->isIdentical($singlyLinkedList->replace("a", "d"), null);
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
+    $this->linkedList->insertHead("c");
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertHead("b");
-    $singlyLinkedList->insertHead("c");
-
-    $this->isIdentical($singlyLinkedList->replace("b", "e")->getData(), "e");
+    $this->isIdentical($this->linkedList->findAt(1)->getData(), "b");
+    $this->isIdentical($this->linkedList->findAt(-2)->getData(), "b");
     $this->isIdentical(
-      $singlyLinkedList->replace("c", "f"),
-      $singlyLinkedList->getHead()
+      $this->linkedList->findAt(0),
+      $this->linkedList->getHead()
     );
     $this->isIdentical(
-      $singlyLinkedList->replace("a", "d"),
-      $singlyLinkedList->getTail()
+      $this->linkedList->findAt(-3),
+      $this->linkedList->getHead()
     );
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "f");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "d");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->linkedList->findAt(2),
+      $this->linkedList->getTail()
+    );
+    $this->isIdentical(
+      $this->linkedList->findAt(-1),
+      $this->linkedList->getTail()
+    );
+    $this->isIdentical($this->linkedList->findAt(5), null);
+    $this->isIdentical($this->linkedList->findAt(-6), null);
+    $this->isIdentical(
+      $this->turnLinkedListToArray($this->linkedList),
+      ["c", "b", "a"]
+    );
+  }
+
+  protected function testReplace(): void
+  {
+    $this->isIdentical($this->linkedList->replace("a", "d"), null);
+
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
+    $this->linkedList->insertHead("c");
+
+    $this->isIdentical($this->linkedList->replace("b", "e")->getData(), "e");
+    $this->isIdentical(
+      $this->linkedList->replace("c", "f"),
+      $this->linkedList->getHead()
+    );
+    $this->isIdentical(
+      $this->linkedList->replace("a", "d"),
+      $this->linkedList->getTail()
+    );
+    $this->isIdentical($this->linkedList->getHead()->getData(), "f");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "d");
+    $this->isIdentical(
+      $this->turnLinkedListToArray($this->linkedList),
       ["f", "e", "d"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testReplaceAt(): void
+  {
+    $this->isIdentical($this->linkedList->replaceAt(0, "a"), null);
+    $this->isIdentical($this->linkedList->replaceAt(1, "a"), null);
+    $this->isIdentical($this->linkedList->replaceAt(-1, "a"), null);
 
-    $this->isIdentical($singlyLinkedList->replaceAt(0, "a"), null);
-    $this->isIdentical($singlyLinkedList->replaceAt(1, "a"), null);
-    $this->isIdentical($singlyLinkedList->replaceAt(-1, "a"), null);
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
+    $this->linkedList->insertHead("c");
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertHead("b");
-    $singlyLinkedList->insertHead("c");
-
-    $this->isIdentical($singlyLinkedList->replaceAt(1, "d")->getData(), "d");
+    $this->isIdentical($this->linkedList->replaceAt(1, "d")->getData(), "d");
     $this->isIdentical(
-      $singlyLinkedList->replaceAt(0, "e"),
-      $singlyLinkedList->getHead()
+      $this->linkedList->replaceAt(0, "e"),
+      $this->linkedList->getHead()
     );
     $this->isIdentical(
-      $singlyLinkedList->replaceAt(2, "f"),
-      $singlyLinkedList->getTail()
+      $this->linkedList->replaceAt(2, "f"),
+      $this->linkedList->getTail()
     );
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["e", "d", "f"]
     );
-    $this->isIdentical($singlyLinkedList->replaceAt(-2, "g")->getData(), "g");
+    $this->isIdentical($this->linkedList->replaceAt(-2, "g")->getData(), "g");
     $this->isIdentical(
-      $singlyLinkedList->replaceAt(-3, "h"),
-      $singlyLinkedList->getHead()
+      $this->linkedList->replaceAt(-3, "h"),
+      $this->linkedList->getHead()
     );
     $this->isIdentical(
-      $singlyLinkedList->replaceAt(-1, "i"),
-      $singlyLinkedList->getTail()
+      $this->linkedList->replaceAt(-1, "i"),
+      $this->linkedList->getTail()
     );
-    $this->isIdentical($singlyLinkedList->replaceAt(5, "i"), null);
-    $this->isIdentical($singlyLinkedList->replaceAt(-6, "i"), null);
+    $this->isIdentical($this->linkedList->replaceAt(5, "i"), null);
+    $this->isIdentical($this->linkedList->replaceAt(-6, "i"), null);
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["h", "g", "i"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testDeleteHead(): void
+  {
+    $this->isIdentical($this->linkedList->deleteHead(), null);
 
-    $this->isIdentical($singlyLinkedList->deleteHead(), null);
+    $this->linkedList->insertHead("a");
 
-    $singlyLinkedList->insertHead("a");
+    $previousHead = $this->linkedList->getHead();
+    $this->isIdentical($this->linkedList->deleteHead(), $previousHead);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $previousHead = $singlyLinkedList->getHead();
-    $this->isIdentical($singlyLinkedList->deleteHead(), $previousHead);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertHead("b");
+    $previousHead = $this->linkedList->getHead();
+    $this->isIdentical($this->linkedList->deleteHead(), $previousHead);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
+    $this->isIdentical($this->turnLinkedListToArray($this->linkedList), ["a"]);
 
-    $previousHead = $singlyLinkedList->getHead();
-    $this->isIdentical($singlyLinkedList->deleteHead(), $previousHead);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "a");
-    $this->isIdentical($this->turnLinkedListToArray($singlyLinkedList), ["a"]);
+    $this->linkedList->insertHead("c");
+    $this->linkedList->insertHead("d");
 
-    $singlyLinkedList->insertHead("c");
-    $singlyLinkedList->insertHead("d");
-
-    $previousHead = $singlyLinkedList->getHead();
-    $this->isIdentical($singlyLinkedList->deleteHead(), $previousHead);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "c");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "a");
+    $previousHead = $this->linkedList->getHead();
+    $this->isIdentical($this->linkedList->deleteHead(), $previousHead);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "c");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["c", "a"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testDeleteTail(): void
+  {
+    $this->isIdentical($this->linkedList->deleteTail(), null);
 
-    $this->isIdentical($singlyLinkedList->deleteTail(), null);
+    $this->linkedList->insertTail("a");
 
-    $singlyLinkedList->insertTail("a");
+    $previousTail = $this->linkedList->getTail();
+    $this->isIdentical($this->linkedList->deleteTail(), $previousTail);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $previousTail = $singlyLinkedList->getTail();
-    $this->isIdentical($singlyLinkedList->deleteTail(), $previousTail);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
+    $this->linkedList->insertTail("a");
+    $this->linkedList->insertTail("b");
 
-    $singlyLinkedList->insertTail("a");
-    $singlyLinkedList->insertTail("b");
+    $previousTail = $this->linkedList->getTail();
+    $this->isIdentical($this->linkedList->deleteTail(), $previousTail);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
+    $this->isIdentical($this->turnLinkedListToArray($this->linkedList), ["a"]);
 
-    $previousTail = $singlyLinkedList->getTail();
-    $this->isIdentical($singlyLinkedList->deleteTail(), $previousTail);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "a");
-    $this->isIdentical($this->turnLinkedListToArray($singlyLinkedList), ["a"]);
+    $this->linkedList->insertTail("c");
+    $this->linkedList->insertTail("d");
 
-    $singlyLinkedList->insertTail("c");
-    $singlyLinkedList->insertTail("d");
-
-    $previousTail = $singlyLinkedList->getTail();
-    $this->isIdentical($singlyLinkedList->deleteTail(), $previousTail);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "c");
+    $previousTail = $this->linkedList->getTail();
+    $this->isIdentical($this->linkedList->deleteTail(), $previousTail);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "c");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["a", "c"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testDelete(): void
+  {
+    $this->isIdentical($this->linkedList->delete("a"), null);
 
-    $this->isIdentical($singlyLinkedList->delete("a"), null);
+    $this->linkedList->insertHead("a");
 
-    $singlyLinkedList->insertHead("a");
-
-    $previousHead = $singlyLinkedList->getHead();
-    $previousTail = $singlyLinkedList->getTail();
-    $deletedNode = $singlyLinkedList->delete("a");
+    $previousHead = $this->linkedList->getHead();
+    $previousTail = $this->linkedList->getTail();
+    $deletedNode = $this->linkedList->delete("a");
     $this->isIdentical($deletedNode, $previousHead);
     $this->isIdentical($deletedNode, $previousTail);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertHead("b");
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
 
-    $previousHead = $singlyLinkedList->getHead();
-    $this->isIdentical($singlyLinkedList->delete("b"), $previousHead);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "a");
-    $this->isIdentical($this->turnLinkedListToArray($singlyLinkedList), ["a"]);
+    $previousHead = $this->linkedList->getHead();
+    $this->isIdentical($this->linkedList->delete("b"), $previousHead);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
+    $this->isIdentical($this->turnLinkedListToArray($this->linkedList), ["a"]);
 
-    $singlyLinkedList->insertHead("b");
+    $this->linkedList->insertHead("b");
 
-    $previousTail = $singlyLinkedList->getTail();
-    $this->isIdentical($singlyLinkedList->delete("a"), $previousTail);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "b");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "b");
-    $this->isIdentical($this->turnLinkedListToArray($singlyLinkedList), ["b"]);
+    $previousTail = $this->linkedList->getTail();
+    $this->isIdentical($this->linkedList->delete("a"), $previousTail);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "b");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "b");
+    $this->isIdentical($this->turnLinkedListToArray($this->linkedList), ["b"]);
 
-    $singlyLinkedList->insertHead("c");
-    $singlyLinkedList->insertHead("d");
-    $singlyLinkedList->delete("c");
+    $this->linkedList->insertHead("c");
+    $this->linkedList->insertHead("d");
+    $this->linkedList->delete("c");
 
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "d");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "b");
+    $this->isIdentical($this->linkedList->getHead()->getData(), "d");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "b");
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["d", "b"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testDeleteAt(): void
+  {
+    $this->isIdentical($this->linkedList->deleteAt(0), null);
+    $this->isIdentical($this->linkedList->deleteAt(1), null);
+    $this->isIdentical($this->linkedList->deleteAt(-1), null);
 
-    $this->isIdentical($singlyLinkedList->deleteAt(0), null);
-    $this->isIdentical($singlyLinkedList->deleteAt(1), null);
-    $this->isIdentical($singlyLinkedList->deleteAt(-1), null);
+    $this->linkedList->insertHead("a");
 
-    $singlyLinkedList->insertHead("a");
-
-    $previousHead = $singlyLinkedList->getHead();
-    $previousTail = $singlyLinkedList->getTail();
-    $deletedNode = $singlyLinkedList->deleteAt(0);
+    $previousHead = $this->linkedList->getHead();
+    $previousTail = $this->linkedList->getTail();
+    $deletedNode = $this->linkedList->deleteAt(0);
     $this->isIdentical($deletedNode, $previousHead);
     $this->isIdentical($deletedNode, $previousTail);
-    $this->isIdentical($singlyLinkedList->getHead(), null);
-    $this->isIdentical($singlyLinkedList->getTail(), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertHead("b");
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
 
-    $previousHead = $singlyLinkedList->getHead();
-    $this->isIdentical($singlyLinkedList->deleteAt(0), $previousHead);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "a");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "a");
-    $this->isIdentical($this->turnLinkedListToArray($singlyLinkedList), ["a"]);
+    $previousHead = $this->linkedList->getHead();
+    $this->isIdentical($this->linkedList->deleteAt(0), $previousHead);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
+    $this->isIdentical($this->turnLinkedListToArray($this->linkedList), ["a"]);
 
-    $singlyLinkedList->insertHead("b");
+    $this->linkedList->insertHead("b");
 
-    $previousTail = $singlyLinkedList->getTail();
-    $this->isIdentical($singlyLinkedList->deleteAt(-1), $previousTail);
-    $this->isIdentical($singlyLinkedList->getHead()->getData(), "b");
-    $this->isIdentical($singlyLinkedList->getTail()->getData(), "b");
-    $this->isIdentical($this->turnLinkedListToArray($singlyLinkedList), ["b"]);
+    $previousTail = $this->linkedList->getTail();
+    $this->isIdentical($this->linkedList->deleteAt(-1), $previousTail);
+    $this->isIdentical($this->linkedList->getHead()->getData(), "b");
+    $this->isIdentical($this->linkedList->getTail()->getData(), "b");
+    $this->isIdentical($this->turnLinkedListToArray($this->linkedList), ["b"]);
 
-    $singlyLinkedList->insertHead("c");
-    $singlyLinkedList->insertHead("d");
-    $singlyLinkedList->insertHead("e");
-    $singlyLinkedList->insertHead("f");
-    $singlyLinkedList->insertHead("g");
+    $this->linkedList->insertHead("c");
+    $this->linkedList->insertHead("d");
+    $this->linkedList->insertHead("e");
+    $this->linkedList->insertHead("f");
+    $this->linkedList->insertHead("g");
 
-    $previousHead = $singlyLinkedList->getHead();
-    $this->isIdentical($singlyLinkedList->deleteAt(-6), $previousHead);
-    $previousTail = $singlyLinkedList->getTail();
-    $this->isIdentical($singlyLinkedList->deleteAt(4), $previousTail);
-    $singlyLinkedList->deleteAt(1);
-    $singlyLinkedList->deleteAt(-2);
-    $this->isIdentical($singlyLinkedList->deleteAt(5), null);
-    $this->isIdentical($singlyLinkedList->deleteAt(-6), null);
+    $previousHead = $this->linkedList->getHead();
+    $this->isIdentical($this->linkedList->deleteAt(-6), $previousHead);
+    $previousTail = $this->linkedList->getTail();
+    $this->isIdentical($this->linkedList->deleteAt(4), $previousTail);
+    $this->linkedList->deleteAt(1);
+    $this->linkedList->deleteAt(-2);
+    $this->isIdentical($this->linkedList->deleteAt(5), null);
+    $this->isIdentical($this->linkedList->deleteAt(-6), null);
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["f", "c"]
     );
+  }
 
-    $singlyLinkedList = new SinglyLinkedList();
+  protected function testCount(): void
+  {
+    $this->isIdentical($this->linkedList->count(), 0);
 
-    $this->isIdentical($singlyLinkedList->count(), 0);
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
+    $this->linkedList->insertHead("c");
 
-    $singlyLinkedList->insertHead("a");
-    $singlyLinkedList->insertHead("b");
-    $singlyLinkedList->insertHead("c");
+    $this->isIdentical($this->linkedList->count(), 3);
+  }
 
-    $this->isIdentical($singlyLinkedList->count(), 3);
+  protected function testReverse(): void
+  {
+    $this->isIdentical($this->linkedList->reverse(), null);
 
-    $singlyLinkedList = new SinglyLinkedList();
-
-    $this->isIdentical($singlyLinkedList->reverse(), null);
-
-    $singlyLinkedList->insertHead("a");
+    $this->linkedList->insertHead("a");
 
     $this->isIdentical(
-      $singlyLinkedList->reverse(),
-      $singlyLinkedList->getHead()
+      $this->linkedList->reverse(),
+      $this->linkedList->getHead()
     );
     $this->isIdentical(
-      $singlyLinkedList->reverse(),
-      $singlyLinkedList->getTail()
+      $this->linkedList->reverse(),
+      $this->linkedList->getTail()
     );
-    $this->isIdentical($this->turnLinkedListToArray($singlyLinkedList), ["a"]);
+    $this->isIdentical($this->turnLinkedListToArray($this->linkedList), ["a"]);
 
-    $singlyLinkedList->insertHead("b");
-    $singlyLinkedList->insertHead("c");
+    $this->linkedList->insertHead("b");
+    $this->linkedList->insertHead("c");
 
-    $previousTail = $singlyLinkedList->getTail();
-    $this->isIdentical($singlyLinkedList->reverse(), $previousTail);
+    $previousTail = $this->linkedList->getTail();
+    $this->isIdentical($this->linkedList->reverse(), $previousTail);
     $this->isIdentical(
-      $this->turnLinkedListToArray($singlyLinkedList),
+      $this->turnLinkedListToArray($this->linkedList),
       ["a", "b", "c"]
     );
   }
