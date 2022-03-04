@@ -207,7 +207,6 @@ abstract class TestCase
   }
 
   /**
-   * @param Closure $throwingFunction A function that should throw a throwable.
    * @param string $instanceOf The name of the class that the thrown throwable
    * must be an instance of.
    */

@@ -9,7 +9,7 @@ use ValueError;
 use Lib\Strings;
 
 /**
- * This implementation of the Caesar cipher was inspired by
+ * This Caesar cipher implementation was inspired by
  * https://github.com/trekhleb/javascript-algorithms/blob/9bb60fa72f9d146e931b4634764dff7aebc7c1a2/src/algorithms/cryptography/caesar-cipher/caesarCipher.js
  */
 class CeasarCipher implements Cipher
@@ -22,8 +22,8 @@ class CeasarCipher implements Cipher
 
   /**
    * @param int $shift Rotates `$alphabet` by the set amount. A positive
-   * integer rotates it to the right, while a negative number to rotates it to
-   * the left.
+   * integer rotates it to the right, while a negative number rotates it to the
+   * left.
    */
   public function __construct(
     int $shift = 3,
