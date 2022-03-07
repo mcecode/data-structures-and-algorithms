@@ -92,7 +92,7 @@ abstract class TestCase
 
     $this->runAfter();
 
-    if ($testsRan < 1) {
+    if ($testsRan < 1 && $testsTodo === 0 && $skippedTests === 0) {
       $failedTestsOutput .= "  ▶️ No tests were run" . PHP_EOL;
     }
 
