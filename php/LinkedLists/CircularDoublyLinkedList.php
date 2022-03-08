@@ -21,6 +21,26 @@ class CircularDoublyLinkedList implements LinkedList
 
   public function insertHead(mixed $value): DoublyLinkedListNode
   {
+    $head = new DoublyLinkedListNode($value, previous: $this->tail);
+
+    if ($this->head === null) {
+      $head->next($head);
+    } else {
+      $head->next($this->head);
+    }
+
+    if ($this->tail === null) {
+      $head->previous($head);
+      $this->tail = $head;
+    } else {
+      $this->tail->next($head);
+
+      if ($this->head === $this->tail) {
+        $this->tail->previous($head);
+      }
+    }
+
+    return $this->head = $head;
   }
 
   public function insertTail(mixed $value): DoublyLinkedListNode
