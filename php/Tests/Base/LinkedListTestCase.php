@@ -12,12 +12,14 @@ abstract class LinkedListTestCase extends TestCase
   {
     $array = [];
 
-    for (
-      $currentNode = $linkedList->getHead();
-      $currentNode !== null;
-      $currentNode = $currentNode->next()
-    ) {
+    $currentNode = $linkedList->getHead();
+    while ($currentNode !== null) {
       array_push($array, $currentNode->getData());
+      $currentNode = $currentNode->next();
+
+      if ($currentNode === $linkedList->getHead()) {
+        break;
+      }
     }
 
     return $array;
