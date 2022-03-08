@@ -112,7 +112,7 @@ abstract class TestCase
     }
 
     if ($failedTests > 0) {
-      Console::LightRed->writeLine("  ▶️ Failed test: $failedTests");
+      Console::LightRed->writeLine("  ▶️ Failed tests: $failedTests");
     }
 
     if ($failedTestsOutput !== "") {
