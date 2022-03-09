@@ -23,12 +23,13 @@ class SinglyLinkedList implements LinkedList
   {
     $head = new SinglyLinkedListNode($value);
 
-    if ($this->head !== null) {
-      $head->next($this->head);
-    }
-
-    if ($this->tail === null) {
+    // There is no need to check for the state of '$this->tail' because
+    // both '$this->head' and $this->tail' are always either 'null' or instances
+    // of 'SinglyLinkedListNode'.
+    if ($this->head === null) {
       $this->tail = $head;
+    } else {
+      $head->next($this->head);
     }
 
     return $this->head = $head;
@@ -38,12 +39,13 @@ class SinglyLinkedList implements LinkedList
   {
     $tail = new SinglyLinkedListNode($value);
 
-    if ($this->tail !== null) {
-      $this->tail->next($tail);
-    }
-
+    // There is no need to check for the state of '$this->tail' because
+    // both '$this->head' and $this->tail' are always either 'null' or instances
+    // of 'SinglyLinkedListNode'.
     if ($this->head === null) {
       $this->head = $tail;
+    } else {
+      $this->tail->next($tail);
     }
 
     return $this->tail = $tail;

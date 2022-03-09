@@ -23,16 +23,15 @@ class CircularDoublyLinkedList implements LinkedList
   {
     $head = new DoublyLinkedListNode($value, previous: $this->tail);
 
+    // There is no need to check for the state of '$this->tail' because
+    // both '$this->head' and $this->tail' are always either 'null' or instances
+    // of 'DoublyLinkedListNode'.
     if ($this->head === null) {
       $head->next($head);
-    } else {
-      $head->next($this->head);
-    }
-
-    if ($this->tail === null) {
       $head->previous($head);
       $this->tail = $head;
     } else {
+      $head->next($this->head);
       $this->tail->next($head);
 
       if ($this->head === $this->tail) {
@@ -47,18 +46,17 @@ class CircularDoublyLinkedList implements LinkedList
   {
     $tail = new DoublyLinkedListNode($value, $this->head);
 
-    if ($this->tail === null) {
-      $tail->previous($tail);
-    } else {
-      $tail->previous($this->tail);
-      $this->tail->next($tail);
-    }
-
+    // There is no need to check for the state of '$this->tail' because
+    // both '$this->head' and $this->tail' are always either 'null' or instances
+    // of 'DoublyLinkedListNode'.
     if ($this->head === null) {
       $tail->next($tail);
+      $tail->previous($tail);
       $this->head = $tail;
     } else {
+      $tail->previous($this->tail);
       $this->head->previous($tail);
+      $this->tail->next($tail);
     }
 
     return $this->tail = $tail;
