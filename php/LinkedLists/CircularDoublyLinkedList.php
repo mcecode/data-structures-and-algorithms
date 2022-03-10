@@ -66,6 +66,28 @@ class CircularDoublyLinkedList implements LinkedList
     mixed $searchValue,
     mixed $value
   ): ?DoublyLinkedListNode {
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->head->getData() === $searchValue) {
+      return $this->insertHead($value);
+    }
+
+    $currentNode = $this->head;
+    do {
+      if ($currentNode->getData() === $searchValue) {
+        $previousNode = $currentNode->previous();
+        $newNode = $currentNode->previous(
+          new DoublyLinkedListNode($value, $currentNode, $previousNode)
+        );
+        return $previousNode->next($newNode);
+      }
+
+      $currentNode = $currentNode->next();
+    } while ($currentNode !== $this->head);
+
+    return null;
   }
 
   public function insertBeforeTail(mixed $value): ?DoublyLinkedListNode
