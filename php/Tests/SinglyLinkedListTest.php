@@ -52,6 +52,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
 
   protected function testInsertBefore(): void
   {
+    $this->isIdentical($this->linkedList->insertBefore(null, "a"), null);
     $this->isIdentical($this->linkedList->insertBefore("a", "b"), null);
     $this->isIdentical($this->linkedList->getHead(), null);
     $this->isIdentical($this->linkedList->getTail(), null);

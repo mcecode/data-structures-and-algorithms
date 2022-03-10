@@ -55,7 +55,11 @@ class SinglyLinkedList implements LinkedList
     mixed $searchValue,
     mixed $value
   ): ?SinglyLinkedListNode {
-    if ($this->head?->getData() === $searchValue) {
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->head->getData() === $searchValue) {
       return $this->insertHead($value);
     }
 
