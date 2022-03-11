@@ -92,6 +92,19 @@ class CircularDoublyLinkedList implements LinkedList
 
   public function insertBeforeTail(mixed $value): ?DoublyLinkedListNode
   {
+    if ($this->tail === null) {
+      return null;
+    }
+
+    if ($this->head === $this->tail) {
+      return $this->insertHead($value);
+    }
+
+    $previousNode = $this->tail->previous();
+    $newNode = $this->tail->previous(
+      new DoublyLinkedListNode($value, $this->tail, $previousNode)
+    );
+    return $previousNode->next($newNode);
   }
 
   public function insertBeforeAt(
