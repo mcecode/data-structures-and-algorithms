@@ -90,7 +90,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
 
     $a = $this->linkedList->insertHead("a");
     $b = $this->linkedList->insertBefore("a", "b");
-    $c = $this->linkedList->insertBefore("a", "c");
+    $this->linkedList->insertBefore("a", "c");
     $d = $this->linkedList->insertBefore("c", "d");
 
     $this->isIdentical($b->getData(), "b");
@@ -111,17 +111,22 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->getHead(), null);
     $this->isIdentical($this->linkedList->getTail(), null);
 
-    $this->linkedList->insertHead("a");
-    $this->linkedList->insertBeforeTail("b");
+    $a = $this->linkedList->insertHead("a");
+    $b = $this->linkedList->insertBeforeTail("b");
 
-    $this->isIdentical($this->linkedList->getHead()->getData(), "b");
-    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
+    $this->isIdentical($b->getData(), "b");
+    $this->isIdentical($this->linkedList->getHead(), $b);
+    $this->isIdentical($this->linkedList->getHead()->next(), $a);
+    $this->isIdentical($this->linkedList->getTail(), $a);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
 
-    $this->linkedList->insertBeforeTail("c");
+    $c = $this->linkedList->insertBeforeTail("c");
     $this->linkedList->insertBeforeTail("d");
 
-    $this->isIdentical($this->linkedList->getHead()->getData(), "b");
-    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
+    $this->isIdentical($this->linkedList->getHead(), $b);
+    $this->isIdentical($this->linkedList->getHead()->next(), $c);
+    $this->isIdentical($this->linkedList->getTail(), $a);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
     $this->isIdentical(
       $this->turnLinkedListToArray($this->linkedList),
       ["b", "c", "d", "a"]
