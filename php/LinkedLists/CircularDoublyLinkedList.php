@@ -174,6 +174,20 @@ class CircularDoublyLinkedList implements LinkedList
 
   public function count(): int
   {
+    if ($this->head === null) {
+      return 0;
+    }
+
+    $numberOfNodes = 0;
+
+    $currentNode = $this->head;
+    do {
+      $numberOfNodes++;
+
+      $currentNode = $currentNode->next();
+    } while ($currentNode !== $this->head);
+
+    return $numberOfNodes;
   }
 
   public function reverse(): ?DoublyLinkedListNode

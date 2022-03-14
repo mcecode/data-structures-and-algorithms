@@ -216,9 +216,15 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
   {
   }
 
-  #[Todo]
   protected function testCount(): void
   {
+    $this->isIdentical($this->linkedList->count(), 0);
+
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
+    $this->linkedList->insertHead("c");
+
+    $this->isIdentical($this->linkedList->count(), 3);
   }
 
   #[Todo]
