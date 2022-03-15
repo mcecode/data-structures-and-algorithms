@@ -10,7 +10,7 @@ use Tests\Base\LinkedListTestCase;
 
 class CircularDoublyLinkedListTest extends LinkedListTestCase
 {
-  private CircularDoublyLinkedList $linkedList;
+  protected CircularDoublyLinkedList $linkedList;
 
   protected function runBeforeEach(): void
   {
@@ -53,7 +53,7 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->getTail()->next(), $c);
     $this->isIdentical($this->linkedList->getTail()->previous(), $b);
     $this->isIdentical(
-      $this->turnLinkedListToArray($this->linkedList),
+      $this->turnLinkedListToArray(),
       ["c", "b", "a"]
     );
   }
@@ -88,7 +88,7 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->getTail()->next(), $a);
     $this->isIdentical($this->linkedList->getTail()->previous(), $b);
     $this->isIdentical(
-      $this->turnLinkedListToArray($this->linkedList),
+      $this->turnLinkedListToArray(),
       ["a", "b", "c"]
     );
   }
@@ -115,7 +115,7 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->getTail()->next(), $e);
     $this->isIdentical($this->linkedList->getTail()->previous(), $c);
     $this->isIdentical(
-      $this->turnLinkedListToArray($this->linkedList),
+      $this->turnLinkedListToArray(),
       ["e", "b", "d", "c", "a"]
     );
   }
@@ -147,7 +147,7 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->getTail()->next(), $b);
     $this->isIdentical($this->linkedList->getTail()->previous(), $d);
     $this->isIdentical(
-      $this->turnLinkedListToArray($this->linkedList),
+      $this->turnLinkedListToArray(),
       ["b", "c", "d", "a"]
     );
   }

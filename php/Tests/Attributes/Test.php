@@ -13,7 +13,7 @@ class Test
   public function __construct()
   {
     throw new RuntimeException(
-      "Test Attributes should not be instantiated",
+      "Test Attributes should not be instantiated.",
       E_ERROR
     );
   }
