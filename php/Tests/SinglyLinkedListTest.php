@@ -46,10 +46,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->getTail(), $a);
     $this->isIdentical($this->linkedList->getHead()->next(), $b);
     $this->isIdentical($this->linkedList->getTail()->next(), null);
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["c", "b", "a"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["c", "b", "a"]);
   }
 
   protected function testInsertTail(): void
@@ -75,10 +72,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->getTail(), $c);
     $this->isIdentical($this->linkedList->getHead()->next(), $b);
     $this->isIdentical($this->linkedList->getTail()->next(), null);
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["a", "b", "c"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["a", "b", "c"]);
   }
 
   protected function testInsertBefore(): void
@@ -128,10 +122,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->getHead()->next(), $c);
     $this->isIdentical($this->linkedList->getTail(), $a);
     $this->isIdentical($this->linkedList->getTail()->next(), null);
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["b", "c", "d", "a"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["b", "c", "d", "a"]);
   }
 
   protected function testInsertBeforeAt(): void
@@ -177,10 +168,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->insertAfter("z", "y"), null);
     $this->isIdentical($this->linkedList->getHead()->getData(), "a");
     $this->isIdentical($this->linkedList->getTail()->getData(), "b");
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["a", "c", "d", "b"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["a", "c", "d", "b"]);
   }
 
   protected function testInsertAfterHead(): void
@@ -200,10 +188,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
 
     $this->isIdentical($this->linkedList->getHead()->getData(), "a");
     $this->isIdentical($this->linkedList->getTail()->getData(), "b");
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["a", "d", "c", "b"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["a", "d", "c", "b"]);
   }
 
   protected function testInsertAfterAt(): void
@@ -250,10 +235,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->insertBetween("z", "y", "x"), null);
     $this->isIdentical($this->linkedList->getHead()->getData(), "a");
     $this->isIdentical($this->linkedList->getTail()->getData(), "b");
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["a", "c", "d", "b"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["a", "c", "d", "b"]);
   }
 
   protected function testFind(): void
@@ -273,10 +255,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
       $this->linkedList->find("a"),
       $this->linkedList->getTail()
     );
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["c", "b", "a"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["c", "b", "a"]);
   }
 
   protected function testFindAt(): void
@@ -309,10 +288,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     );
     $this->isIdentical($this->linkedList->findAt(5), null);
     $this->isIdentical($this->linkedList->findAt(-6), null);
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["c", "b", "a"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["c", "b", "a"]);
   }
 
   protected function testReplace(): void
@@ -334,10 +310,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     );
     $this->isIdentical($this->linkedList->getHead()->getData(), "f");
     $this->isIdentical($this->linkedList->getTail()->getData(), "d");
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["f", "e", "d"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["f", "e", "d"]);
   }
 
   protected function testReplaceAt(): void
@@ -359,10 +332,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
       $this->linkedList->replaceAt(2, "f"),
       $this->linkedList->getTail()
     );
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["e", "d", "f"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["e", "d", "f"]);
     $this->isIdentical($this->linkedList->replaceAt(-2, "g")->getData(), "g");
     $this->isIdentical(
       $this->linkedList->replaceAt(-3, "h"),
@@ -374,10 +344,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     );
     $this->isIdentical($this->linkedList->replaceAt(5, "i"), null);
     $this->isIdentical($this->linkedList->replaceAt(-6, "i"), null);
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["h", "g", "i"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["h", "g", "i"]);
   }
 
   protected function testDeleteHead(): void
@@ -407,10 +374,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->deleteHead(), $previousHead);
     $this->isIdentical($this->linkedList->getHead()->getData(), "c");
     $this->isIdentical($this->linkedList->getTail()->getData(), "a");
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["c", "a"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["c", "a"]);
   }
 
   protected function testDeleteTail(): void
@@ -440,10 +404,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->deleteTail(), $previousTail);
     $this->isIdentical($this->linkedList->getHead()->getData(), "a");
     $this->isIdentical($this->linkedList->getTail()->getData(), "c");
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["a", "c"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["a", "c"]);
   }
 
   protected function testDelete(): void
@@ -483,10 +444,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
 
     $this->isIdentical($this->linkedList->getHead()->getData(), "d");
     $this->isIdentical($this->linkedList->getTail()->getData(), "b");
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["d", "b"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["d", "b"]);
   }
 
   protected function testDeleteAt(): void
@@ -536,10 +494,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->linkedList->deleteAt(-2);
     $this->isIdentical($this->linkedList->deleteAt(5), null);
     $this->isIdentical($this->linkedList->deleteAt(-6), null);
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["f", "c"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["f", "c"]);
   }
 
   protected function testCount(): void
@@ -574,9 +529,6 @@ class SinglyLinkedListTest extends LinkedListTestCase
 
     $previousTail = $this->linkedList->getTail();
     $this->isIdentical($this->linkedList->reverse(), $previousTail);
-    $this->isIdentical(
-      $this->turnLinkedListToArray(),
-      ["a", "b", "c"]
-    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["a", "b", "c"]);
   }
 }
