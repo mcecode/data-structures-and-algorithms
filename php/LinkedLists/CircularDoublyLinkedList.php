@@ -32,6 +32,7 @@ class CircularDoublyLinkedList implements LinkedList
       $this->tail = $head;
     } else {
       $head->next($this->head);
+      $this->head->previous($head);
       $this->tail->next($head);
 
       if ($this->head === $this->tail) {

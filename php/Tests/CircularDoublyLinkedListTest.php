@@ -53,6 +53,7 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->getTail()->next(), $c);
     $this->isIdentical($this->linkedList->getTail()->previous(), $b);
     $this->isIdentical($this->turnLinkedListToArray(), ["c", "b", "a"]);
+    $this->isIdentical($this->turnLinkedListToArray(true), ["c", "b", "a"]);
   }
 
   protected function testInsertTail(): void
