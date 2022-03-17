@@ -112,6 +112,39 @@ class CircularDoublyLinkedList implements LinkedList
     int $position,
     mixed $value
   ): ?DoublyLinkedListNode {
+    $numberOfNodes = $this->count();
+
+    if ($position < 0) {
+      $position = $numberOfNodes + $position;
+    }
+
+    if (
+      $numberOfNodes === 0 ||
+      $position < 0 ||
+      $numberOfNodes - 1 < $position
+    ) {
+      return null;
+    }
+
+    if ($position === 0) {
+      return $this->insertHead($value);
+    }
+
+    $currentNode = $this->head;
+
+    for ($i = 0; $i < $position; $i++) {
+      $currentNode = $currentNode->next();
+    }
+
+    $newNode = new DoublyLinkedListNode(
+      $value,
+      $currentNode,
+      $currentNode->previous()
+    );
+    $currentNode->previous()->next($newNode);
+    $currentNode->previous($newNode);
+
+    return $newNode;
   }
 
   public function insertAfter(

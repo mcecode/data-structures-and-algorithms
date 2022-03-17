@@ -153,9 +153,46 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     );
   }
 
-  #[Todo]
   protected function testInsertBeforeAt(): void
   {
+    $this->isIdentical($this->linkedList->insertBeforeAt(0, "a"), null);
+    $this->isIdentical($this->linkedList->insertBeforeAt(1, "a"), null);
+    $this->isIdentical($this->linkedList->insertBeforeAt(-1, "a"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
+
+    $a = $this->linkedList->insertHead("a");
+    $b = $this->linkedList->insertBeforeAt(0, "b");
+
+    $this->isIdentical($this->linkedList->getHead(), $b);
+    $this->isIdentical($this->linkedList->getHead()->next(), $a);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $a);
+    $this->isIdentical($this->linkedList->getTail(), $a);
+    $this->isIdentical($this->linkedList->getTail()->next(), $b);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $b);
+
+    $this->linkedList->insertBeforeAt(1, "c");
+    $d = $this->linkedList->insertBeforeAt(-1, "d");
+    $this->linkedList->insertBeforeAt(2, "e");
+    $this->linkedList->insertBeforeAt(-2, "f");
+    $g = $this->linkedList->insertBeforeAt(0, "g");
+
+    $this->isIdentical($this->linkedList->insertBeforeAt(7, "g"), null);
+    $this->isIdentical($this->linkedList->insertBeforeAt(-8, "g"), null);
+    $this->isIdentical($this->linkedList->getHead(), $g);
+    $this->isIdentical($this->linkedList->getHead()->next(), $b);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $a);
+    $this->isIdentical($this->linkedList->getTail(), $a);
+    $this->isIdentical($this->linkedList->getTail()->next(), $g);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $d);
+    $this->isIdentical(
+      $this->turnLinkedListToArray(),
+      ["g", "b", "c", "e", "f", "d", "a"]
+    );
+    $this->isIdentical(
+      $this->turnLinkedListToArray(true),
+      ["g", "b", "c", "e", "f", "d", "a"]
+    );
   }
 
   #[Todo]
