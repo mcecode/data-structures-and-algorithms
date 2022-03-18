@@ -164,6 +164,7 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     $a = $this->linkedList->insertHead("a");
     $b = $this->linkedList->insertBeforeAt(0, "b");
 
+    $this->isIdentical($b->getData(), "b");
     $this->isIdentical($this->linkedList->getHead(), $b);
     $this->isIdentical($this->linkedList->getHead()->next(), $a);
     $this->isIdentical($this->linkedList->getHead()->previous(), $a);
