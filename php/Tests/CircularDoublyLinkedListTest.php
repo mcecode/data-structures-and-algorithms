@@ -196,9 +196,35 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     );
   }
 
-  #[Todo]
   protected function testInsertAfter(): void
   {
+    $this->isIdentical($this->linkedList->insertAfter(null, "a"), null);
+    $this->isIdentical($this->linkedList->insertAfter("a", "b"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
+
+    $a = $this->linkedList->insertHead("a");
+    $b = $this->linkedList->insertAfter("a", "b");
+    $c = $this->linkedList->insertAfter("a", "c");
+    $this->linkedList->insertAfter("c", "d");
+    $e = $this->linkedList->insertAfter("b", "e");
+
+    $this->isIdentical($b->getData(), "b");
+    $this->isIdentical($this->linkedList->insertAfter("z", "y"), null);
+    $this->isIdentical($this->linkedList->getHead(), $a);
+    $this->isIdentical($this->linkedList->getHead()->next(), $c);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $e);
+    $this->isIdentical($this->linkedList->getTail(), $e);
+    $this->isIdentical($this->linkedList->getTail()->next(), $a);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $b);
+    $this->isIdentical(
+      $this->turnLinkedListToArray(),
+      ["a", "c", "d", "b", "e"]
+    );
+    $this->isIdentical(
+      $this->turnLinkedListToArray(true),
+      ["a", "c", "d", "b", "e"]
+    );
   }
 
   #[Todo]

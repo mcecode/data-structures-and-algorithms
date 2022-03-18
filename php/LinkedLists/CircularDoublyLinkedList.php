@@ -23,9 +23,9 @@ class CircularDoublyLinkedList implements LinkedList
   {
     $head = new DoublyLinkedListNode($value, previous: $this->tail);
 
-    // There is no need to check for the state of '$this->tail' because
-    // both '$this->head' and $this->tail' are always either 'null' or instances
-    // of 'DoublyLinkedListNode'.
+    // There is no need to check for the state of '$this->tail' because both
+    // '$this->head' and $this->tail' are always either 'null' or instances of
+    // 'DoublyLinkedListNode'.
     if ($this->head === null) {
       $head->next($head);
       $head->previous($head);
@@ -47,9 +47,9 @@ class CircularDoublyLinkedList implements LinkedList
   {
     $tail = new DoublyLinkedListNode($value, $this->head);
 
-    // There is no need to check for the state of '$this->tail' because
-    // both '$this->head' and $this->tail' are always either 'null' or instances
-    // of 'DoublyLinkedListNode'.
+    // There is no need to check for the state of '$this->tail' because both
+    // '$this->head' and $this->tail' are always either 'null' or instances of
+    // 'DoublyLinkedListNode'.
     if ($this->head === null) {
       $tail->next($tail);
       $tail->previous($tail);
@@ -151,6 +151,31 @@ class CircularDoublyLinkedList implements LinkedList
     mixed $searchValue,
     mixed $value
   ): ?DoublyLinkedListNode {
+    // There is no need to check for the state of '$this->tail' because both
+    // '$this->head' and $this->tail' are always either 'null' or instances of
+    // 'DoublyLinkedListNode'.
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->tail->getData() === $searchValue) {
+      return $this->insertTail($value);
+    }
+
+    $currentNode = $this->head;
+    do {
+      if ($currentNode->getData() === $searchValue) {
+        $nextNode = $currentNode->next();
+        $newNode = $currentNode->next(
+          new DoublyLinkedListNode($value, $nextNode, $currentNode)
+        );
+        return $nextNode->previous($newNode);
+      }
+
+      $currentNode = $currentNode->next();
+    } while ($currentNode !== $this->head);
+
+    return null;
   }
 
   public function insertAfterHead(mixed $value): ?DoublyLinkedListNode
