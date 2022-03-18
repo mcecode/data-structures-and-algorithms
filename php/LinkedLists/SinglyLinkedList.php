@@ -23,9 +23,9 @@ class SinglyLinkedList implements LinkedList
   {
     $head = new SinglyLinkedListNode($value);
 
-    // There is no need to check for the state of '$this->tail' because
-    // both '$this->head' and $this->tail' are always either 'null' or instances
-    // of 'SinglyLinkedListNode'.
+    // There is no need to check for the state of '$this->tail' because both
+    // '$this->head' and $this->tail' are always either 'null' or instances of
+    // 'SinglyLinkedListNode'.
     if ($this->head === null) {
       $this->tail = $head;
     } else {
@@ -39,9 +39,9 @@ class SinglyLinkedList implements LinkedList
   {
     $tail = new SinglyLinkedListNode($value);
 
-    // There is no need to check for the state of '$this->tail' because
-    // both '$this->head' and $this->tail' are always either 'null' or instances
-    // of 'SinglyLinkedListNode'.
+    // There is no need to check for the state of '$this->tail' because both
+    // '$this->head' and $this->tail' are always either 'null' or instances of
+    // 'SinglyLinkedListNode'.
     if ($this->head === null) {
       $this->head = $tail;
     } else {
@@ -141,10 +141,14 @@ class SinglyLinkedList implements LinkedList
     mixed $searchValue,
     mixed $value
   ): ?SinglyLinkedListNode {
-    if (
-      $this->head?->getData() === $searchValue &&
-      $this->head === $this->tail
-    ) {
+    // There is no need to check for the state of '$this->tail' because both
+    // '$this->head' and $this->tail' are always either 'null' or instances of
+    // 'SinglyLinkedListNode'.
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->tail->getData() === $searchValue) {
       return $this->insertTail($value);
     }
 
