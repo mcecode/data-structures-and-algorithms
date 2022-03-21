@@ -29,6 +29,8 @@ Each subdirectory maps to a programming language and contains a readme file that
 
 - Ceasar cipher ([Wikipedia](https://en.wikipedia.org/wiki/Caesar_cipher))
   - [PHP](php/Ciphers/CeasarCipher.php)
+- Palindrome checker ([Wikipedia](https://en.wikipedia.org/wiki/Palindrome))
+  - [Go](go/strings/palindrome.go)
 
 ## Contributing
 
