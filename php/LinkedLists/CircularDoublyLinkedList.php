@@ -180,6 +180,21 @@ class CircularDoublyLinkedList implements LinkedList
 
   public function insertAfterHead(mixed $value): ?DoublyLinkedListNode
   {
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->head === $this->tail) {
+      return $this->insertTail($value);
+    }
+
+    $newNode = new DoublyLinkedListNode(
+      $value,
+      $this->head->next(),
+      $this->head
+    );
+    $this->head->next()->previous($newNode);
+    return $this->head->next($newNode);
   }
 
   public function insertAfterAt(

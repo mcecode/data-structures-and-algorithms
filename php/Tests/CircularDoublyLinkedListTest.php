@@ -227,9 +227,37 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     );
   }
 
-  #[Todo]
   protected function testInsertAfterHead(): void
   {
+    $this->isIdentical($this->linkedList->insertAfterHead("a"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
+
+    $a = $this->linkedList->insertHead("a");
+    $b = $this->linkedList->insertAfterHead("b");
+
+    $this->isIdentical($b->getData(), "b");
+    $this->isIdentical($this->linkedList->getHead(), $a);
+    $this->isIdentical($this->linkedList->getHead()->next(), $b);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $b);
+    $this->isIdentical($this->linkedList->getTail(), $b);
+    $this->isIdentical($this->linkedList->getTail()->next(), $a);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $a);
+
+    $c = $this->linkedList->insertAfterHead("c");
+    $d = $this->linkedList->insertAfterHead("d");
+
+    $this->isIdentical($this->linkedList->getHead(), $a);
+    $this->isIdentical($this->linkedList->getHead()->next(), $d);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $b);
+    $this->isIdentical($this->linkedList->getTail(), $b);
+    $this->isIdentical($this->linkedList->getTail()->next(), $a);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $c);
+    $this->isIdentical($this->turnLinkedListToArray(), ["a", "d", "c", "b"]);
+    $this->isIdentical(
+      $this->turnLinkedListToArray(true),
+      ["a", "d", "c", "b"]
+    );
   }
 
   #[Todo]
