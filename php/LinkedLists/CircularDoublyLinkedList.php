@@ -78,11 +78,13 @@ class CircularDoublyLinkedList implements LinkedList
     $currentNode = $this->head;
     do {
       if ($currentNode->getData() === $searchValue) {
-        $previousNode = $currentNode->previous();
-        $newNode = $currentNode->previous(
-          new DoublyLinkedListNode($value, $currentNode, $previousNode)
+        $newNode = new DoublyLinkedListNode(
+          $value,
+          $currentNode,
+          $currentNode->previous()
         );
-        return $previousNode->next($newNode);
+        $currentNode->previous()->next($newNode);
+        return $currentNode->previous($newNode);
       }
 
       $currentNode = $currentNode->next();
@@ -101,11 +103,13 @@ class CircularDoublyLinkedList implements LinkedList
       return $this->insertHead($value);
     }
 
-    $previousNode = $this->tail->previous();
-    $newNode = $this->tail->previous(
-      new DoublyLinkedListNode($value, $this->tail, $previousNode)
+    $newNode = new DoublyLinkedListNode(
+      $value,
+      $this->tail,
+      $this->tail->previous()
     );
-    return $previousNode->next($newNode);
+    $this->tail->previous()->next($newNode);
+    return $this->tail->previous($newNode);
   }
 
   public function insertBeforeAt(
@@ -142,9 +146,7 @@ class CircularDoublyLinkedList implements LinkedList
       $currentNode->previous()
     );
     $currentNode->previous()->next($newNode);
-    $currentNode->previous($newNode);
-
-    return $newNode;
+    return $currentNode->previous($newNode);
   }
 
   public function insertAfter(
@@ -165,11 +167,13 @@ class CircularDoublyLinkedList implements LinkedList
     $currentNode = $this->head;
     do {
       if ($currentNode->getData() === $searchValue) {
-        $nextNode = $currentNode->next();
-        $newNode = $currentNode->next(
-          new DoublyLinkedListNode($value, $nextNode, $currentNode)
+        $newNode = new DoublyLinkedListNode(
+          $value,
+          $currentNode->next(),
+          $currentNode
         );
-        return $nextNode->previous($newNode);
+        $currentNode->next()->previous($newNode);
+        return $newNode = $currentNode->next($newNode);
       }
 
       $currentNode = $currentNode->next();
