@@ -200,10 +200,6 @@ class SinglyLinkedList implements LinkedList
       return null;
     }
 
-    if ($position === 0) {
-      return $this->insertAfterHead($value);
-    }
-
     if ($numberOfNodes - 1 === $position) {
       return $this->insertTail($value);
     }
