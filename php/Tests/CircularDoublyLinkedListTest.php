@@ -260,9 +260,47 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     );
   }
 
-  #[Todo]
   protected function testInsertAfterAt(): void
   {
+    $this->isIdentical($this->linkedList->insertAfterAt(0, "a"), null);
+    $this->isIdentical($this->linkedList->insertAfterAt(1, "a"), null);
+    $this->isIdentical($this->linkedList->insertAfterAt(-1, "a"), null);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
+
+    $a = $this->linkedList->insertHead("a");
+    $b = $this->linkedList->insertAfterAt(0, "b");
+
+    $this->isIdentical($b->getData(), "b");
+    $this->isIdentical($this->linkedList->getHead(), $a);
+    $this->isIdentical($this->linkedList->getHead()->next(), $b);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $b);
+    $this->isIdentical($this->linkedList->getTail(), $b);
+    $this->isIdentical($this->linkedList->getTail()->next(), $a);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $a);
+
+    $this->linkedList->insertAfterAt(1, "c");
+    $d = $this->linkedList->insertAfterAt(-1, "d");
+    $this->linkedList->insertAfterAt(2, "e");
+    $f = $this->linkedList->insertAfterAt(-2, "f");
+    $g = $this->linkedList->insertAfterAt(0, "g");
+
+    $this->isIdentical($this->linkedList->insertAfterAt(7, "g"), null);
+    $this->isIdentical($this->linkedList->insertAfterAt(-8, "g"), null);
+    $this->isIdentical($this->linkedList->getHead(), $a);
+    $this->isIdentical($this->linkedList->getHead()->next(), $g);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $d);
+    $this->isIdentical($this->linkedList->getTail(), $d);
+    $this->isIdentical($this->linkedList->getTail()->next(), $a);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $f);
+    $this->isIdentical(
+      $this->turnLinkedListToArray(),
+      ["a", "g", "b", "c", "e", "f", "d"]
+    );
+    $this->isIdentical(
+      $this->turnLinkedListToArray(true),
+      ["a", "g", "b", "c", "e", "f", "d"]
+    );
   }
 
   #[Todo]
