@@ -305,6 +305,10 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
 
   protected function testInsertBetween(): void
   {
+    $this->isIdentical(
+      $this->linkedList->insertBetween(null, null, "a"),
+      null
+    );
     $this->isIdentical($this->linkedList->insertBetween("a", "b", "c"), null);
     $this->isIdentical($this->linkedList->getHead(), null);
     $this->isIdentical($this->linkedList->getTail(), null);

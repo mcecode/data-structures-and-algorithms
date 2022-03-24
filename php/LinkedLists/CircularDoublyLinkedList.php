@@ -243,16 +243,12 @@ class CircularDoublyLinkedList implements LinkedList
     mixed $afterValue,
     mixed $value
   ): ?DoublyLinkedListNode {
-    if ($this->head === null) {
-      return null;
-    }
-
     $currentNode = $this->head;
     do {
       if (
-        $currentNode->getData() === $beforeValue &&
-        $currentNode->next() !== $this->head &&
-        $currentNode->next()->getData() === $afterValue
+        $currentNode?->getData() === $beforeValue &&
+        $currentNode?->next() !== $this->head &&
+        $currentNode?->next()->getData() === $afterValue
       ) {
         $newNode = new DoublyLinkedListNode(
           $value,
@@ -263,7 +259,7 @@ class CircularDoublyLinkedList implements LinkedList
         return $newNode = $currentNode->next($newNode);
       }
 
-      $currentNode = $currentNode->next();
+      $currentNode = $currentNode?->next();
     } while ($currentNode !== $this->head);
 
     return null;
