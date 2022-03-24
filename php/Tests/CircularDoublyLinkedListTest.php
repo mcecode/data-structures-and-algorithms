@@ -337,9 +337,26 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     );
   }
 
-  #[Todo]
   protected function testFind(): void
   {
+    $this->isIdentical($this->linkedList->find(null), null);
+    $this->isIdentical($this->linkedList->find("a"), null);
+
+    $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
+    $this->linkedList->insertHead("c");
+
+    $this->isIdentical($this->linkedList->find("z"), null);
+    $this->isIdentical($this->linkedList->find("b")->getData(), "b");
+    $this->isIdentical(
+      $this->linkedList->find("c"),
+      $this->linkedList->getHead()
+    );
+    $this->isIdentical(
+      $this->linkedList->find("a"),
+      $this->linkedList->getTail()
+    );
+    $this->isIdentical($this->turnLinkedListToArray(), ["c", "b", "a"]);
   }
 
   #[Todo]

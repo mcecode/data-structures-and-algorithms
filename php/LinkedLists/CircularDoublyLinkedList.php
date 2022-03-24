@@ -271,6 +271,16 @@ class CircularDoublyLinkedList implements LinkedList
 
   public function find(mixed $value): ?DoublyLinkedListNode
   {
+    $currentNode = $this->head;
+    do {
+      if ($currentNode?->getData() === $value) {
+        return $currentNode;
+      }
+
+      $currentNode = $currentNode?->next();
+    } while ($currentNode !== $this->head);
+
+    return null;
   }
 
   public function findAt(int $position): ?DoublyLinkedListNode
