@@ -1,11 +1,19 @@
 package palindrome
 
-func IsPalindrome(text string) bool {
-	parts := []rune(text)
-	partsLength := len(parts) - 1
+import (
+	"regexp"
+	"strings"
+)
 
-	for i, part := range parts {
-		if part != parts[partsLength-i] {
+// IsPalindrome checks whether a string is a palindrome while disregarding all
+// non-alphanumeric characters and capitalization.
+func IsPalindrome(text string) bool {
+	regex, _ := regexp.Compile(`[^\p{L}\p{N}]+`)
+	runes := []rune(regex.ReplaceAllString(strings.ToLower(text), ""))
+	length := len(runes)
+
+	for i, rune := range runes[:length/2] {
+		if rune != runes[length-i-1] {
 			return false
 		}
 	}
