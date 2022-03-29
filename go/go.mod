@@ -1,3 +1,3 @@
-module github.com/mcecode/data-structures-and-algorithms/tree/main/go
+module data_structures_and_algorithms
 
 go 1.18
