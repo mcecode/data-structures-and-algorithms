@@ -5,9 +5,9 @@ import (
 	"strings"
 )
 
-// IsPalindrome checks whether a string is a palindrome while disregarding all
+// Is checks whether a string is a palindrome while disregarding all
 // non-alphanumeric characters and capitalization.
-func IsPalindrome(text string) bool {
+func Is(text string) bool {
 	regex, _ := regexp.Compile(`[^\p{L}\p{N}]+`)
 	runes := []rune(regex.ReplaceAllString(strings.ToLower(text), ""))
 	length := len(runes)
