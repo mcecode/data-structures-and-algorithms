@@ -281,6 +281,27 @@ class CircularDoublyLinkedList implements LinkedList
 
   public function findAt(int $position): ?DoublyLinkedListNode
   {
+    $numberOfNodes = $this->count();
+
+    if ($position < 0) {
+      $position = $numberOfNodes + $position;
+    }
+
+    if (
+      $numberOfNodes === 0 ||
+      $position < 0 ||
+      $numberOfNodes - 1 < $position
+    ) {
+      return null;
+    }
+
+    $currentNode = $this->head;
+
+    for ($i = 0; $i < $position; $i++) {
+      $currentNode = $currentNode->next();
+    }
+
+    return $currentNode;
   }
 
   public function replace(
