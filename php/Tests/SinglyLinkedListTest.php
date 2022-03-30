@@ -281,11 +281,10 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->find("a"), null);
 
     $this->linkedList->insertHead("a");
-    $this->linkedList->insertHead("b");
+    $b = $this->linkedList->insertHead("b");
     $this->linkedList->insertHead("c");
 
-    $this->isIdentical($this->linkedList->find("z"), null);
-    $this->isIdentical($this->linkedList->find("b")->getData(), "b");
+    $this->isIdentical($this->linkedList->find("b"), $b);
     $this->isIdentical(
       $this->linkedList->find("c"),
       $this->linkedList->getHead()
@@ -294,7 +293,7 @@ class SinglyLinkedListTest extends LinkedListTestCase
       $this->linkedList->find("a"),
       $this->linkedList->getTail()
     );
-    $this->isIdentical($this->turnLinkedListToArray(), ["c", "b", "a"]);
+    $this->isIdentical($this->linkedList->find("z"), null);
   }
 
   protected function testFindAt(): void
@@ -304,11 +303,11 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->findAt(-1), null);
 
     $this->linkedList->insertHead("a");
-    $this->linkedList->insertHead("b");
+    $b = $this->linkedList->insertHead("b");
     $this->linkedList->insertHead("c");
 
-    $this->isIdentical($this->linkedList->findAt(1)->getData(), "b");
-    $this->isIdentical($this->linkedList->findAt(-2)->getData(), "b");
+    $this->isIdentical($this->linkedList->findAt(1), $b);
+    $this->isIdentical($this->linkedList->findAt(-2), $b);
     $this->isIdentical(
       $this->linkedList->findAt(0),
       $this->linkedList->getHead()
@@ -325,9 +324,8 @@ class SinglyLinkedListTest extends LinkedListTestCase
       $this->linkedList->findAt(-1),
       $this->linkedList->getTail()
     );
-    $this->isIdentical($this->linkedList->findAt(5), null);
-    $this->isIdentical($this->linkedList->findAt(-6), null);
-    $this->isIdentical($this->turnLinkedListToArray(), ["c", "b", "a"]);
+    $this->isIdentical($this->linkedList->findAt(3), null);
+    $this->isIdentical($this->linkedList->findAt(-4), null);
   }
 
   protected function testReplace(): void
