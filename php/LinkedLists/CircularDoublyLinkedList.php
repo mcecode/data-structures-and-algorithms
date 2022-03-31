@@ -308,6 +308,41 @@ class CircularDoublyLinkedList implements LinkedList
     mixed $oldValue,
     mixed $newValue
   ): ?DoublyLinkedListNode {
+    if ($this->head === null) {
+      return null;
+    }
+
+    $newNode = new DoublyLinkedListNode($newValue);
+
+    if ($this->head->getData() === $oldValue && $this->head === $this->tail) {
+      $newNode->next($newNode);
+      $newNode->previous($newNode);
+      return $this->head = $this->tail = $newNode;
+    }
+
+    $currentNode = $this->head;
+    do {
+      if ($currentNode->getData() === $oldValue) {
+        $newNode->next($currentNode->next());
+        $newNode->previous($currentNode->previous());
+        $currentNode->next()->previous($newNode);
+        $currentNode->previous()->next($newNode);
+
+        if ($this->head === $currentNode) {
+          $this->head = $newNode;
+        }
+
+        if ($this->tail === $currentNode) {
+          $this->tail = $newNode;
+        }
+
+        return $newNode;
+      }
+
+      $currentNode = $currentNode->next();
+    } while ($currentNode !== $this->head);
+
+    return null;
   }
 
   public function replaceAt(
