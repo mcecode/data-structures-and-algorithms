@@ -330,23 +330,29 @@ class SinglyLinkedListTest extends LinkedListTestCase
 
   protected function testReplace(): void
   {
+    $this->isIdentical($this->linkedList->replace(null, "a"), null);
     $this->isIdentical($this->linkedList->replace("a", "d"), null);
 
     $this->linkedList->insertHead("a");
+    $d = $this->linkedList->replace("a", "d");
+
+    $this->isIdentical($d->getData(), "d");
+    $this->isIdentical($this->linkedList->getHead(), $d);
+    $this->isIdentical($this->linkedList->getHead()->next(), null);
+    $this->isIdentical($this->linkedList->getTail(), $d);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
+
     $this->linkedList->insertHead("b");
     $this->linkedList->insertHead("c");
+    $e = $this->linkedList->replace("b", "e");
+    $f = $this->linkedList->replace("c", "f");
 
-    $this->isIdentical($this->linkedList->replace("b", "e")->getData(), "e");
-    $this->isIdentical(
-      $this->linkedList->replace("c", "f"),
-      $this->linkedList->getHead()
-    );
-    $this->isIdentical(
-      $this->linkedList->replace("a", "d"),
-      $this->linkedList->getTail()
-    );
-    $this->isIdentical($this->linkedList->getHead()->getData(), "f");
-    $this->isIdentical($this->linkedList->getTail()->getData(), "d");
+    $this->isIdentical($this->linkedList->replace("a", "d"), null);
+    $this->isIdentical($this->linkedList->replace("z", "y"), null);
+    $this->isIdentical($this->linkedList->getHead(), $f);
+    $this->isIdentical($this->linkedList->getHead()->next(), $e);
+    $this->isIdentical($this->linkedList->getTail(), $d);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
     $this->isIdentical($this->turnLinkedListToArray(), ["f", "e", "d"]);
   }
 

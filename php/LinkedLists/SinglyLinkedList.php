@@ -282,7 +282,18 @@ class SinglyLinkedList implements LinkedList
     mixed $oldValue,
     mixed $newValue
   ): ?SinglyLinkedListNode {
-    if ($this->head?->getData() === $oldValue) {
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->head->getData() === $oldValue) {
+      if ($this->head === $this->tail) {
+        return $this->head = $this->tail = new SinglyLinkedListNode(
+          $newValue,
+          null
+        );
+      }
+
       return $this->head = new SinglyLinkedListNode(
         $newValue,
         $this->head->next()
@@ -300,7 +311,7 @@ class SinglyLinkedList implements LinkedList
           new SinglyLinkedListNode($newValue, $currentNode->next())
         );
 
-        if ($currentNode === $this->tail) {
+        if ($this->tail === $currentNode) {
           $this->tail = $previousNode?->next();
         }
 
