@@ -343,10 +343,13 @@ class SinglyLinkedList implements LinkedList
     }
 
     if ($position === 0) {
-      return $this->head = new SinglyLinkedListNode(
-        $newValue,
-        $this->head->next()
-      );
+      $newNode = new SinglyLinkedListNode($newValue, $this->head->next());
+
+      if ($this->head === $this->tail) {
+        $this->tail = $newNode;
+      }
+
+      return $this->head = $newNode;
     }
 
     $currentNode = $this->head;
@@ -360,7 +363,7 @@ class SinglyLinkedList implements LinkedList
       new SinglyLinkedListNode($newValue, $currentNode->next())
     );
 
-    if ($numberOfNodes - 1 === $position) {
+    if ($position === $numberOfNodes - 1) {
       $this->tail = $newNode;
     }
 

@@ -363,31 +363,37 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->replaceAt(-1, "a"), null);
 
     $this->linkedList->insertHead("a");
+    $d = $this->linkedList->replaceAt(0, "d");
+
+    $this->isIdentical($d->getData(), "d");
+    $this->isIdentical($this->linkedList->getHead(), $d);
+    $this->isIdentical($this->linkedList->getHead()->next(), null);
+    $this->isIdentical($this->linkedList->getTail(), $d);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
+
     $this->linkedList->insertHead("b");
     $this->linkedList->insertHead("c");
+    $e = $this->linkedList->replaceAt(0, "e");
+    $f = $this->linkedList->replaceAt(1, "f");
+    $g = $this->linkedList->replaceAt(2, "g");
 
-    $this->isIdentical($this->linkedList->replaceAt(1, "d")->getData(), "d");
-    $this->isIdentical(
-      $this->linkedList->replaceAt(0, "e"),
-      $this->linkedList->getHead()
-    );
-    $this->isIdentical(
-      $this->linkedList->replaceAt(2, "f"),
-      $this->linkedList->getTail()
-    );
-    $this->isIdentical($this->turnLinkedListToArray(), ["e", "d", "f"]);
-    $this->isIdentical($this->linkedList->replaceAt(-2, "g")->getData(), "g");
-    $this->isIdentical(
-      $this->linkedList->replaceAt(-3, "h"),
-      $this->linkedList->getHead()
-    );
-    $this->isIdentical(
-      $this->linkedList->replaceAt(-1, "i"),
-      $this->linkedList->getTail()
-    );
-    $this->isIdentical($this->linkedList->replaceAt(5, "i"), null);
-    $this->isIdentical($this->linkedList->replaceAt(-6, "i"), null);
-    $this->isIdentical($this->turnLinkedListToArray(), ["h", "g", "i"]);
+    $this->isIdentical($this->linkedList->replaceAt(3, "k"), null);
+    $this->isIdentical($this->linkedList->getHead(), $e);
+    $this->isIdentical($this->linkedList->getHead()->next(), $f);
+    $this->isIdentical($this->linkedList->getTail(), $g);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
+    $this->isIdentical($this->turnLinkedListToArray(), ["e", "f", "g"]);
+
+    $h = $this->linkedList->replaceAt(-1, "h");
+    $i = $this->linkedList->replaceAt(-2, "i");
+    $j = $this->linkedList->replaceAt(-3, "j");
+
+    $this->isIdentical($this->linkedList->replaceAt(-4, "k"), null);
+    $this->isIdentical($this->linkedList->getHead(), $j);
+    $this->isIdentical($this->linkedList->getHead()->next(), $i);
+    $this->isIdentical($this->linkedList->getTail(), $h);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
+    $this->isIdentical($this->turnLinkedListToArray(), ["j", "i", "h"]);
   }
 
   protected function testDeleteHead(): void
