@@ -349,6 +349,48 @@ class CircularDoublyLinkedList implements LinkedList
     int $position,
     mixed $newValue
   ): ?DoublyLinkedListNode {
+    $numberOfNodes = $this->count();
+
+    if ($position < 0) {
+      $position = $numberOfNodes + $position;
+    }
+
+    if (
+      $numberOfNodes === 0 ||
+      $position < 0 ||
+      $numberOfNodes - 1 < $position
+    ) {
+      return null;
+    }
+
+    $newNode = new DoublyLinkedListNode($newValue);
+
+    if ($position === 0 && $this->head === $this->tail) {
+      $newNode->next($newNode);
+      $newNode->previous($newNode);
+      return $this->head = $this->tail = $newNode;
+    }
+
+    $currentNode = $this->head;
+
+    for ($i = 0; $i < $position; $i++) {
+      $currentNode = $currentNode->next();
+    }
+
+    $newNode->next($currentNode->next());
+    $newNode->previous($currentNode->previous());
+    $currentNode->next()->previous($newNode);
+    $currentNode->previous()->next($newNode);
+
+    if ($position === 0) {
+      $this->head = $newNode;
+    }
+
+    if ($position === $numberOfNodes - 1) {
+      $this->tail = $newNode;
+    }
+
+    return $newNode;
   }
 
   public function deleteHead(): ?DoublyLinkedListNode

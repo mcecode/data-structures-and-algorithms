@@ -427,9 +427,52 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->turnLinkedListToArray(true), ["f", "e", "d"]);
   }
 
-  #[Todo]
   protected function testReplaceAt(): void
   {
+    $this->isIdentical($this->linkedList->replaceAt(0, "a"), null);
+    $this->isIdentical($this->linkedList->replaceAt(1, "a"), null);
+    $this->isIdentical($this->linkedList->replaceAt(-1, "a"), null);
+
+    $this->linkedList->insertHead("a");
+    $d = $this->linkedList->replaceAt(0, "d");
+
+    $this->isIdentical($d->getData(), "d");
+    $this->isIdentical($this->linkedList->getHead(), $d);
+    $this->isIdentical($this->linkedList->getHead()->next(), $d);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $d);
+    $this->isIdentical($this->linkedList->getTail(), $d);
+    $this->isIdentical($this->linkedList->getTail()->next(), $d);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $d);
+
+    $this->linkedList->insertHead("b");
+    $this->linkedList->insertHead("c");
+    $e = $this->linkedList->replaceAt(0, "e");
+    $f = $this->linkedList->replaceAt(1, "f");
+    $g = $this->linkedList->replaceAt(2, "g");
+
+    $this->isIdentical($this->linkedList->replaceAt(3, "k"), null);
+    $this->isIdentical($this->linkedList->getHead(), $e);
+    $this->isIdentical($this->linkedList->getHead()->next(), $f);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $g);
+    $this->isIdentical($this->linkedList->getTail(), $g);
+    $this->isIdentical($this->linkedList->getTail()->next(), $e);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $f);
+    $this->isIdentical($this->turnLinkedListToArray(), ["e", "f", "g"]);
+    $this->isIdentical($this->turnLinkedListToArray(true), ["e", "f", "g"]);
+
+    $h = $this->linkedList->replaceAt(-1, "h");
+    $i = $this->linkedList->replaceAt(-2, "i");
+    $j = $this->linkedList->replaceAt(-3, "j");
+
+    $this->isIdentical($this->linkedList->replaceAt(-4, "k"), null);
+    $this->isIdentical($this->linkedList->getHead(), $j);
+    $this->isIdentical($this->linkedList->getHead()->next(), $i);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $h);
+    $this->isIdentical($this->linkedList->getTail(), $h);
+    $this->isIdentical($this->linkedList->getTail()->next(), $j);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $i);
+    $this->isIdentical($this->turnLinkedListToArray(), ["j", "i", "h"]);
+    $this->isIdentical($this->turnLinkedListToArray(true), ["j", "i", "h"]);
   }
 
   #[Todo]
