@@ -287,17 +287,13 @@ class SinglyLinkedList implements LinkedList
     }
 
     if ($this->head->getData() === $oldValue) {
+      $newNode = new SinglyLinkedListNode($newValue, $this->head->next());
+
       if ($this->head === $this->tail) {
-        return $this->head = $this->tail = new SinglyLinkedListNode(
-          $newValue,
-          null
-        );
+        $this->tail = $newNode;
       }
 
-      return $this->head = new SinglyLinkedListNode(
-        $newValue,
-        $this->head->next()
-      );
+      return $this->head = $newNode;
     }
 
     $previousNode = null;
@@ -359,15 +355,15 @@ class SinglyLinkedList implements LinkedList
       $currentNode = $currentNode->next();
     }
 
-    $newNode = $previousNode->next(
+    $previousNode->next(
       new SinglyLinkedListNode($newValue, $currentNode->next())
     );
 
     if ($position === $numberOfNodes - 1) {
-      $this->tail = $newNode;
+      $this->tail = $previousNode->next();
     }
 
-    return $newNode;
+    return $previousNode->next();
   }
 
   public function deleteHead(): ?SinglyLinkedListNode
