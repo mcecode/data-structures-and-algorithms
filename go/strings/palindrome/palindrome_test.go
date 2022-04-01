@@ -15,7 +15,7 @@ func TestIs(t *testing.T) {
 		"水山处明秀秀明处山水。",
 	} {
 		if !Is(palindrome) {
-			t.Errorf("Should consider '%s' as a palindrome.", palindrome)
+			t.Errorf("Should consider '%s' as a palindrome", palindrome)
 		}
 	}
 
@@ -27,7 +27,7 @@ func TestIs(t *testing.T) {
 		"我感到生活再也无法忍受。",
 	} {
 		if Is(nonPalindrome) {
-			t.Errorf("Should not consider '%s' as a palindrome.", nonPalindrome)
+			t.Errorf("Should not consider '%s' as a palindrome", nonPalindrome)
 		}
 	}
 }
