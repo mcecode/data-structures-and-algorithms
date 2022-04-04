@@ -374,8 +374,7 @@ class SinglyLinkedList implements LinkedList
 
     if ($this->head === $this->tail) {
       $previousHead = $this->head;
-      $this->head = null;
-      $this->tail = null;
+      $this->head = $this->tail = null;
       return $previousHead;
     }
 
