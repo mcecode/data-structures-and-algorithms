@@ -475,9 +475,46 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->turnLinkedListToArray(true), ["j", "i", "h"]);
   }
 
-  #[Todo]
   protected function testDeleteHead(): void
   {
+    $this->isIdentical($this->linkedList->deleteHead(), null);
+
+    $this->linkedList->insertHead("a");
+    $previousHead = $this->linkedList->getHead();
+    $deletedHead = $this->linkedList->deleteHead();
+
+    $this->isIdentical($deletedHead->getData(), "a");
+    $this->isIdentical($previousHead, $deletedHead);
+    $this->isIdentical($this->linkedList->getHead(), null);
+    $this->isIdentical($this->linkedList->getTail(), null);
+
+    $a = $this->linkedList->insertHead("a");
+    $this->linkedList->insertHead("b");
+    $previousHead = $this->linkedList->getHead();
+
+    $this->isIdentical($this->linkedList->deleteHead(), $previousHead);
+    $this->isIdentical($this->linkedList->getHead(), $a);
+    $this->isIdentical($this->linkedList->getHead()->next(), $a);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $a);
+    $this->isIdentical($this->linkedList->getTail(), $a);
+    $this->isIdentical($this->linkedList->getTail()->next(), $a);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $a);
+    $this->isIdentical($this->turnLinkedListToArray(), ["a"]);
+    $this->isIdentical($this->turnLinkedListToArray(true), ["a"]);
+
+    $c = $this->linkedList->insertHead("c");
+    $this->linkedList->insertHead("d");
+    $previousHead = $this->linkedList->getHead();
+
+    $this->isIdentical($this->linkedList->deleteHead(), $previousHead);
+    $this->isIdentical($this->linkedList->getHead(), $c);
+    $this->isIdentical($this->linkedList->getHead()->next(), $a);
+    $this->isIdentical($this->linkedList->getHead()->previous(), $a);
+    $this->isIdentical($this->linkedList->getTail(), $a);
+    $this->isIdentical($this->linkedList->getTail()->next(), $c);
+    $this->isIdentical($this->linkedList->getTail()->previous(), $c);
+    $this->isIdentical($this->turnLinkedListToArray(), ["c", "a"]);
+    $this->isIdentical($this->turnLinkedListToArray(true), ["c", "a"]);
   }
 
   #[Todo]
