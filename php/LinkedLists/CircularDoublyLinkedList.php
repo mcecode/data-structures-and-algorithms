@@ -414,6 +414,24 @@ class CircularDoublyLinkedList implements LinkedList
 
   public function deleteTail(): ?DoublyLinkedListNode
   {
+    // There is no need to check for the state of '$this->tail' because both
+    // '$this->head' and $this->tail' are always either 'null' or instances of
+    // 'DoublyLinkedListNode'.
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->head === $this->tail) {
+      $previousTail = $this->tail;
+      $this->head = $this->tail = null;
+      return $previousTail;
+    }
+
+    $previousTail = $this->tail;
+    $this->tail = $this->tail->previous();
+    $this->tail->next($this->head);
+    $this->head->previous($this->tail);
+    return $previousTail;
   }
 
   public function delete(mixed $value): ?DoublyLinkedListNode
