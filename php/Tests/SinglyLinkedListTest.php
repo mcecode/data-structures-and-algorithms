@@ -436,30 +436,36 @@ class SinglyLinkedListTest extends LinkedListTestCase
   {
     $this->isIdentical($this->linkedList->deleteTail(), null);
 
-    $this->linkedList->insertTail("a");
-
+    $this->linkedList->insertHead("a");
     $previousTail = $this->linkedList->getTail();
-    $this->isIdentical($this->linkedList->deleteTail(), $previousTail);
+    $deletedTail = $this->linkedList->deleteTail();
+
+    $this->isIdentical($deletedTail->getData(), "a");
+    $this->isIdentical($previousTail, $deletedTail);
     $this->isIdentical($this->linkedList->getHead(), null);
     $this->isIdentical($this->linkedList->getTail(), null);
 
-    $this->linkedList->insertTail("a");
-    $this->linkedList->insertTail("b");
-
+    $this->linkedList->insertHead("a");
+    $b = $this->linkedList->insertHead("b");
     $previousTail = $this->linkedList->getTail();
+
     $this->isIdentical($this->linkedList->deleteTail(), $previousTail);
-    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
-    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
-    $this->isIdentical($this->turnLinkedListToArray(), ["a"]);
+    $this->isIdentical($this->linkedList->getHead(), $b);
+    $this->isIdentical($this->linkedList->getHead()->next(), null);
+    $this->isIdentical($this->linkedList->getTail(), $b);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
+    $this->isIdentical($this->turnLinkedListToArray(), ["b"]);
 
-    $this->linkedList->insertTail("c");
-    $this->linkedList->insertTail("d");
-
+    $c = $this->linkedList->insertHead("c");
+    $d = $this->linkedList->insertHead("d");
     $previousTail = $this->linkedList->getTail();
+
     $this->isIdentical($this->linkedList->deleteTail(), $previousTail);
-    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
-    $this->isIdentical($this->linkedList->getTail()->getData(), "c");
-    $this->isIdentical($this->turnLinkedListToArray(), ["a", "c"]);
+    $this->isIdentical($this->linkedList->getHead(), $d);
+    $this->isIdentical($this->linkedList->getHead()->next(), $c);
+    $this->isIdentical($this->linkedList->getTail(), $c);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
+    $this->isIdentical($this->turnLinkedListToArray(), ["d", "c"]);
   }
 
   protected function testDelete(): void
