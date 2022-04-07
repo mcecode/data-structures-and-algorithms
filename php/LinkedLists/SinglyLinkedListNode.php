@@ -26,4 +26,9 @@ class SinglyLinkedListNode implements LinkedListNode
 
     return $this->next;
   }
+
+  public function resetNext(): void
+  {
+    $this->next = null;
+  }
 }

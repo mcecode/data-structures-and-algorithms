@@ -385,14 +385,16 @@ class SinglyLinkedList implements LinkedList
 
   public function deleteTail(): ?SinglyLinkedListNode
   {
-    if ($this->tail === null) {
+    // There is no need to check for the state of '$this->tail' because both
+    // '$this->head' and $this->tail' are always either 'null' or instances of
+    // 'DoublyLinkedListNode'.
+    if ($this->head === null) {
       return null;
     }
 
     if ($this->head === $this->tail) {
       $previousTail = $this->tail;
-      $this->head = null;
-      $this->tail = null;
+      $this->head = $this->tail = null;
       return $previousTail;
     }
 
@@ -406,13 +408,12 @@ class SinglyLinkedList implements LinkedList
         $previousTail = $this->tail;
 
         if ($previousNode === null) {
-          $this->head = new SinglyLinkedListNode($this->head->getData());
+          $this->head->resetNext();
           $this->tail = $this->head;
         } else {
-          $previousNode->next(
-            new SinglyLinkedListNode($currentNode->getData())
-          );
-          $this->tail = $previousNode->next();
+          $currentNode->resetNext();
+          $previousNode->next($currentNode);
+          $this->tail = $currentNode;
         }
 
         return $previousTail;
