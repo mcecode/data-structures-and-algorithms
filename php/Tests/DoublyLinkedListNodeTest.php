@@ -19,8 +19,10 @@ class DoublyLinkedListNodeTest extends TestCase
     $tail = new DoublyLinkedListNode("tail");
     $head = new DoublyLinkedListNode("head", $tail);
 
-    $this->isIdentical($head->next(), $tail);
     $this->isIdentical($tail->next(), null);
+    $this->isIdentical($head->next(), $tail);
+    $this->isIdentical($head->next(null), $tail);
+    $this->isIdentical($head->next(), $tail);
 
     $newTail = new DoublyLinkedListNode("new tail");
 
@@ -34,6 +36,8 @@ class DoublyLinkedListNodeTest extends TestCase
     $tail = new DoublyLinkedListNode("tail", previous: $head);
 
     $this->isIdentical($head->previous(), null);
+    $this->isIdentical($tail->previous(), $head);
+    $this->isIdentical($tail->previous(null), $head);
     $this->isIdentical($tail->previous(), $head);
 
     $newHead = new DoublyLinkedListNode("new head");
