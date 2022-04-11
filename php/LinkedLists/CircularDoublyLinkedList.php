@@ -436,6 +436,31 @@ class CircularDoublyLinkedList implements LinkedList
 
   public function delete(mixed $value): ?DoublyLinkedListNode
   {
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->head->getData() === $value) {
+      return $this->deleteHead();
+    }
+
+    $currentNode = $this->head;
+    do {
+      if ($currentNode->getData() === $value) {
+        if ($currentNode === $this->tail) {
+          return $this->deleteTail();
+        }
+
+        $currentNode->next()->previous($currentNode->previous());
+        $currentNode->previous()->next($currentNode->next());
+
+        return $currentNode;
+      }
+
+      $currentNode = $currentNode->next();
+    } while ($currentNode !== $this->head);
+
+    return null;
   }
 
   public function deleteAt(int $position): ?DoublyLinkedListNode
