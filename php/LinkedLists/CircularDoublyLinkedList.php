@@ -487,5 +487,28 @@ class CircularDoublyLinkedList implements LinkedList
 
   public function reverse(): ?DoublyLinkedListNode
   {
+    if ($this->head === null) {
+      return null;
+    }
+
+    if ($this->head === $this->tail) {
+      return $this->head;
+    }
+
+    $currentNode = $this->head;
+    $previousNode = $this->tail;
+
+    do {
+      $nextNode = $currentNode->next();
+
+      $currentNode->next($previousNode);
+      $currentNode->previous($nextNode);
+
+      $previousNode = $currentNode;
+      $currentNode = $nextNode;
+    } while ($currentNode !== $this->head);
+
+    $this->tail = $this->head;
+    return $this->head = $previousNode;
   }
 }
