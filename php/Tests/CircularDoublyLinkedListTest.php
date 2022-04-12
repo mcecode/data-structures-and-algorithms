@@ -565,6 +565,7 @@ class CircularDoublyLinkedListTest extends LinkedListTestCase
 
   protected function testDelete(): void
   {
+    $this->isIdentical($this->linkedList->delete(null), null);
     $this->isIdentical($this->linkedList->delete("a"), null);
 
     $this->linkedList->insertHead("a");
