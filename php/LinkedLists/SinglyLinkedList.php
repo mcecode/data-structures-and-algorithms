@@ -425,14 +425,11 @@ class SinglyLinkedList implements LinkedList
 
   public function delete(mixed $value): ?SinglyLinkedListNode
   {
-    if ($this->head?->getData() === $value && $this->head === $this->tail) {
-      $previousHeadAndTail = $this->head;
-      $this->head = null;
-      $this->tail = null;
-      return $previousHeadAndTail;
+    if ($this->head === null) {
+      return null;
     }
 
-    if ($this->head?->getData() === $value) {
+    if ($this->head->getData() === $value) {
       return $this->deleteHead();
     }
 
