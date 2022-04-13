@@ -524,7 +524,7 @@ class SinglyLinkedList implements LinkedList
     }
 
     if ($this->head === $this->tail) {
-      return $this->tail;
+      return $this->head;
     }
 
     $currentNode = $this->head;
@@ -539,9 +539,8 @@ class SinglyLinkedList implements LinkedList
       $currentNode = $nextNode;
     }
 
-    $this->tail = $this->head->next()->next(
-      new SinglyLinkedListNode($this->head->getData())
-    );
+    $this->head->resetNext();
+    $this->tail = $this->head;
     return $this->head = $previousNode;
   }
 }
