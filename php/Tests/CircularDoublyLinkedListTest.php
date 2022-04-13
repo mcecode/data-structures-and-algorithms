@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests;
 
 use LinkedLists\CircularDoublyLinkedList;
-use Tests\Attributes\Todo;
 use Tests\Base\LinkedListTestCase;
 
 class CircularDoublyLinkedListTest extends LinkedListTestCase
