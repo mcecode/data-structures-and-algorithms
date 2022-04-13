@@ -528,46 +528,55 @@ class SinglyLinkedListTest extends LinkedListTestCase
     $this->isIdentical($this->linkedList->deleteAt(-1), null);
 
     $this->linkedList->insertHead("a");
-
     $previousHead = $this->linkedList->getHead();
     $previousTail = $this->linkedList->getTail();
     $deletedNode = $this->linkedList->deleteAt(0);
+
+    $this->isIdentical($deletedNode->getData(), "a");
     $this->isIdentical($deletedNode, $previousHead);
     $this->isIdentical($deletedNode, $previousTail);
     $this->isIdentical($this->linkedList->getHead(), null);
     $this->isIdentical($this->linkedList->getTail(), null);
 
-    $this->linkedList->insertHead("a");
+    $a = $this->linkedList->insertHead("a");
     $this->linkedList->insertHead("b");
-
     $previousHead = $this->linkedList->getHead();
+
     $this->isIdentical($this->linkedList->deleteAt(0), $previousHead);
-    $this->isIdentical($this->linkedList->getHead()->getData(), "a");
-    $this->isIdentical($this->linkedList->getTail()->getData(), "a");
+    $this->isIdentical($this->linkedList->getHead(), $a);
+    $this->isIdentical($this->linkedList->getHead()->next(), null);
+    $this->isIdentical($this->linkedList->getTail(), $a);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
     $this->isIdentical($this->turnLinkedListToArray(), ["a"]);
 
-    $this->linkedList->insertHead("b");
-
+    $b = $this->linkedList->insertHead("b");
     $previousTail = $this->linkedList->getTail();
+
     $this->isIdentical($this->linkedList->deleteAt(-1), $previousTail);
-    $this->isIdentical($this->linkedList->getHead()->getData(), "b");
-    $this->isIdentical($this->linkedList->getTail()->getData(), "b");
+    $this->isIdentical($this->linkedList->getHead(), $b);
+    $this->isIdentical($this->linkedList->getHead()->next(), null);
+    $this->isIdentical($this->linkedList->getTail(), $b);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
     $this->isIdentical($this->turnLinkedListToArray(), ["b"]);
 
-    $this->linkedList->insertHead("c");
-    $this->linkedList->insertHead("d");
-    $this->linkedList->insertHead("e");
-    $this->linkedList->insertHead("f");
+    $c = $this->linkedList->insertHead("c");
+    $d = $this->linkedList->insertHead("d");
+    $e = $this->linkedList->insertHead("e");
+    $f = $this->linkedList->insertHead("f");
     $this->linkedList->insertHead("g");
-
     $previousHead = $this->linkedList->getHead();
-    $this->isIdentical($this->linkedList->deleteAt(-6), $previousHead);
     $previousTail = $this->linkedList->getTail();
+
+    $this->isIdentical($this->linkedList->deleteAt(-6), $previousHead);
     $this->isIdentical($this->linkedList->deleteAt(4), $previousTail);
-    $this->linkedList->deleteAt(1);
-    $this->linkedList->deleteAt(-2);
-    $this->isIdentical($this->linkedList->deleteAt(5), null);
-    $this->isIdentical($this->linkedList->deleteAt(-6), null);
+    $this->isIdentical($this->linkedList->deleteAt(1), $e);
+    $this->isIdentical($this->linkedList->deleteAt(-2), $d);
+    $this->isIdentical($this->linkedList->deleteAt(2), null);
+    $this->isIdentical($this->linkedList->deleteAt(-3), null);
+    $this->isIdentical($this->linkedList->getHead(), $f);
+    $this->isIdentical($this->linkedList->getHead()->next(), $c);
+    $this->isIdentical($this->linkedList->getTail(), $c);
+    $this->isIdentical($this->linkedList->getTail()->next(), null);
     $this->isIdentical($this->turnLinkedListToArray(), ["f", "c"]);
   }
 

@@ -470,18 +470,11 @@ class SinglyLinkedList implements LinkedList
       return null;
     }
 
-    if ($position === 0 && $this->head === $this->tail) {
-      $previousHeadAndTail = $this->head;
-      $this->head = null;
-      $this->tail = null;
-      return $previousHeadAndTail;
-    }
-
     if ($position === 0) {
       return $this->deleteHead();
     }
 
-    if ($numberOfNodes - 1 === $position) {
+    if ($position === $numberOfNodes - 1) {
       return $this->deleteTail();
     }
 
