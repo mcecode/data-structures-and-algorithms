@@ -1,6 +1,6 @@
 # Go
 
-This directory contains algorithms ([`strings`](strings)) written in Go.
+This directory contains data structures ([`queue`](queue)) and algorithms ([`strings`](strings)) written in Go.
 
 ## Testing
 

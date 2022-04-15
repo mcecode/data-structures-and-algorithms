@@ -24,6 +24,8 @@ Each subdirectory maps to a programming language and contains a readme file that
   - [PHP](php/LinkedLists/SinglyLinkedList.php)
 - Circular doubly linked list ([Wikipedia](https://en.wikipedia.org/wiki/Linked_list#Doubly_linked_list), [Wikipedia](https://en.wikipedia.org/wiki/Linked_list#Circular_linked_list))
   - [PHP](php/LinkedLists/CircularDoublyLinkedList.php)
+- Queue ([Wikipedia](<https://en.wikipedia.org/wiki/Queue_(abstract_data_type)>))
+  - [Go](go/queue/queue.go)
 
 ## Algorithms
 
