@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-var emptyQueueError string = "queue is empty"
+const emptyQueueError string = "queue is empty"
 
 func TestEmptyQueue(t *testing.T) {
 	head, headErr := PeekHead()
@@ -20,8 +20,8 @@ func TestEmptyQueue(t *testing.T) {
 
 func TestEnqueue(t *testing.T) {
 	Enqueue("a")
-	head, _ := PeekHead()
-	tail, _ := PeekTail()
+	head, headErr := PeekHead()
+	tail, tailErr := PeekTail()
 
 	if head != "a" || tail != "a" {
 		t.Errorf(
@@ -31,10 +31,18 @@ func TestEnqueue(t *testing.T) {
 		)
 	}
 
+	if headErr != nil || tailErr != nil {
+		t.Errorf(
+			"Should return 'nil' for headErr and tailErr, got '%v' and '%v'",
+			headErr,
+			tailErr,
+		)
+	}
+
 	Enqueue("b")
 	Enqueue("c")
-	head, _ = PeekHead()
-	tail, _ = PeekTail()
+	head, headErr = PeekHead()
+	tail, tailErr = PeekTail()
 
 	if head != "a" {
 		t.Errorf("Should return 'a' for head, got '%v'", head)
@@ -42,6 +50,14 @@ func TestEnqueue(t *testing.T) {
 
 	if tail != "c" {
 		t.Errorf("Should return 'c' for head, got '%v'", tail)
+	}
+
+	if headErr != nil || tailErr != nil {
+		t.Errorf(
+			"Should return 'nil' for headErr and tailErr, got '%v' and '%v'",
+			headErr,
+			tailErr,
+		)
 	}
 }
 
@@ -53,7 +69,26 @@ func TestDequeue(t *testing.T) {
 	}
 
 	if err != nil {
-		t.Errorf("Should return 'nil' for error, got '%v'", err)
+		t.Errorf("Should return 'nil' for err, got '%v'", err)
+	}
+
+	head, headErr := PeekHead()
+	tail, tailErr := PeekTail()
+
+	if head != "b" {
+		t.Errorf("Should return 'b' for head, got '%v'", head)
+	}
+
+	if tail != "c" {
+		t.Errorf("Should return 'c' for head, got '%v'", tail)
+	}
+
+	if headErr != nil || tailErr != nil {
+		t.Errorf(
+			"Should return 'nil' for headErr and tailErr, got '%v' and '%v'",
+			headErr,
+			tailErr,
+		)
 	}
 
 	Dequeue()
@@ -64,7 +99,7 @@ func TestDequeue(t *testing.T) {
 	}
 
 	if err != nil {
-		t.Errorf("Should return 'nil' for error, got '%v'", err)
+		t.Errorf("Should return 'nil' for err, got '%v'", err)
 	}
 
 	data, err = Dequeue()
@@ -74,7 +109,7 @@ func TestDequeue(t *testing.T) {
 	}
 
 	if err.Error() != emptyQueueError {
-		t.Errorf("Should return '%s' for error, got '%v'", emptyQueueError, err)
+		t.Errorf("Should return '%s' for err, got '%v'", emptyQueueError, err)
 	}
 }
 
