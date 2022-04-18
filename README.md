@@ -26,6 +26,8 @@ Each subdirectory maps to a programming language and contains a readme file that
   - [PHP](php/LinkedLists/CircularDoublyLinkedList.php)
 - Queue ([Wikipedia](<https://en.wikipedia.org/wiki/Queue_(abstract_data_type)>))
   - [Go](go/queue/queue.go)
+- Stack ([Wikipedia](<https://en.wikipedia.org/wiki/Stack_(abstract_data_type)>))
+  - [Go](go/stack/stack.go)
 
 ## Algorithms
 
