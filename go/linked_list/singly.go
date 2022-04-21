@@ -9,6 +9,14 @@ func NewSingly() *Singly {
 	return &Singly{nil, nil}
 }
 
+func (ll *Singly) Head() *SinglyNode {
+	return ll.head
+}
+
+func (ll *Singly) Tail() *SinglyNode {
+	return ll.tail
+}
+
 func (ll *Singly) InsertHead(value interface{}) *SinglyNode {
 	return NewSinglyNode(nil, nil)
 }

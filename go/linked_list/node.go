@@ -8,3 +8,7 @@ type SinglyNode struct {
 func NewSinglyNode(value interface{}, next *SinglyNode) *SinglyNode {
 	return &SinglyNode{value, next}
 }
+
+func (n *SinglyNode) Data() interface{} {
+	return n.data
+}
