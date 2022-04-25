@@ -9,30 +9,37 @@ func NewSingly() *Singly {
 	return &Singly{nil, nil}
 }
 
-func (ll *Singly) Head() *SinglyNode {
-	return ll.head
+func (s *Singly) Head() *SinglyNode {
+	return s.head
 }
 
-func (ll *Singly) Tail() *SinglyNode {
-	return ll.tail
+func (s *Singly) Tail() *SinglyNode {
+	return s.tail
 }
 
-func (ll *Singly) InsertHead(value interface{}) *SinglyNode {
+func (s *Singly) InsertHead(value interface{}) *SinglyNode {
+	if s.head == nil {
+		s.head = NewSinglyNode(value, nil)
+		s.tail = s.head
+		return s.head
+	}
+
+	s.head = NewSinglyNode(value, s.head)
+	return s.head
+}
+
+func (s *Singly) InsertTail(value interface{}) *SinglyNode {
 	return NewSinglyNode(nil, nil)
 }
 
-func (ll *Singly) InsertTail(value interface{}) *SinglyNode {
+func (s *Singly) DeleteHead() *SinglyNode {
 	return NewSinglyNode(nil, nil)
 }
 
-func (ll *Singly) DeleteHead() *SinglyNode {
+func (s *Singly) DeleteTail() *SinglyNode {
 	return NewSinglyNode(nil, nil)
 }
 
-func (ll *Singly) DeleteTail() *SinglyNode {
-	return NewSinglyNode(nil, nil)
-}
-
-func (ll *Singly) Len() int {
+func (s *Singly) Len() int {
 	return 0
 }
