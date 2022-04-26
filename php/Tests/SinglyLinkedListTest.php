@@ -41,7 +41,6 @@ class SinglyLinkedListTest extends LinkedListTestCase
 
     $c = $this->linkedList->insertHead("c");
 
-    $this->isIdentical($a->getData(), "a");
     $this->isIdentical($this->linkedList->getHead(), $c);
     $this->isIdentical($this->linkedList->getTail(), $a);
     $this->isIdentical($this->linkedList->getHead()->next(), $b);
