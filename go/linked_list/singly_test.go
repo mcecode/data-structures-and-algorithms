@@ -56,7 +56,42 @@ func TestInsertHead(t *testing.T) {
 }
 
 func TestInsertTail(t *testing.T) {
+	s := NewSingly()
 
+	tail := s.InsertTail("a")
+
+	if s.head != tail {
+		t.Error("Should show that singly head is equal to tail")
+	}
+
+	if s.tail != tail {
+		t.Error("Should show that singly tail is equal to tail")
+	}
+
+	if tail.data != "a" {
+		t.Errorf("Should return 'a' for tail data, got '%v'", tail.data)
+	}
+
+	if tail.next != nil {
+		t.Errorf("Should return 'nil' for tail next, got '%v'", tail.next)
+	}
+
+	newTail := s.InsertTail("b")
+
+	if s.head != tail {
+		t.Error("Should show that singly head is equal to original tail")
+	}
+
+	if s.tail != newTail {
+		t.Error("Should show that singly tail is equal to the new tail")
+	}
+
+	if tail.next != newTail {
+		t.Errorf(
+			"Should return the new tail for original tail next, got '%v'",
+			newTail,
+		)
+	}
 }
 
 func TestDeleteHead(t *testing.T) {
