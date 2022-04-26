@@ -95,7 +95,49 @@ func TestInsertTail(t *testing.T) {
 }
 
 func TestDeleteHead(t *testing.T) {
+	s := NewSingly()
 
+	oldHead := s.DeleteHead()
+
+	if oldHead != nil {
+		t.Errorf("Should return 'nil' for deleted head, got '%v'", oldHead)
+	}
+
+	a := s.InsertHead("a")
+	b := s.InsertHead("b")
+	c := s.InsertHead("c")
+
+	oldHead = s.DeleteHead()
+
+	if oldHead != c {
+		t.Errorf("Should return c node for deleted head, got '%v'", oldHead)
+	}
+
+	if s.head != b {
+		t.Errorf("Should return b node as new head, got '%v'", s.head)
+	}
+
+	s.DeleteHead()
+
+	if s.head != a || s.tail != a {
+		t.Errorf(
+			"Should show that both singly head and tail are equal to a node, "+
+				"got '%v' and '%v'",
+			s.head,
+			s.tail,
+		)
+	}
+
+	s.DeleteHead()
+
+	if s.head != nil || s.tail != nil {
+		t.Errorf(
+			"Should show that both singly head and tail are equal to 'nil', "+
+				"got '%v' and '%v'",
+			s.head,
+			s.tail,
+		)
+	}
 }
 
 func TestDeleteTail(t *testing.T) {

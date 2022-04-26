@@ -41,7 +41,20 @@ func (s *Singly) InsertTail(value interface{}) *SinglyNode {
 }
 
 func (s *Singly) DeleteHead() *SinglyNode {
-	return NewSinglyNode(nil, nil)
+	if s.head == nil {
+		return nil
+	}
+
+	if s.head == s.tail {
+		oldHead := s.head
+		s.head = nil
+		s.tail = nil
+		return oldHead
+	}
+
+	oldHead := s.head
+	s.head = s.head.next
+	return oldHead
 }
 
 func (s *Singly) DeleteTail() *SinglyNode {
