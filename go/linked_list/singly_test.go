@@ -145,5 +145,17 @@ func TestDeleteTail(t *testing.T) {
 }
 
 func TestLen(t *testing.T) {
+	s := NewSingly()
 
+	if initialLen := s.Len(); initialLen != 0 {
+		t.Errorf("Should return '0', got '%v'", initialLen)
+	}
+
+	s.InsertHead("a")
+	s.InsertHead("b")
+	s.InsertHead("c")
+
+	if newLen := s.Len(); newLen != 3 {
+		t.Errorf("Should return '3', got '%v'", newLen)
+	}
 }

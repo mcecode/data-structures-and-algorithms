@@ -62,5 +62,11 @@ func (s *Singly) DeleteTail() *SinglyNode {
 }
 
 func (s *Singly) Len() int {
-	return 0
+	len := 0
+
+	for node := s.head; node != nil; node = node.next {
+		len++
+	}
+
+	return len
 }
