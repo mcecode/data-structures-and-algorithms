@@ -12,3 +12,7 @@ func NewSinglyNode(value interface{}, next *SinglyNode) *SinglyNode {
 func (n *SinglyNode) Data() interface{} {
 	return n.data
 }
+
+func (n *SinglyNode) Next() *SinglyNode {
+	return n.next
+}
