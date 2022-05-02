@@ -16,7 +16,7 @@ func TestNewSingly(t *testing.T) {
 	}
 }
 
-func TestInsertHead(t *testing.T) {
+func TestSInsertHead(t *testing.T) {
 	s := NewSingly()
 
 	var tail *SinglyNode
@@ -49,7 +49,7 @@ func TestInsertHead(t *testing.T) {
 	}
 }
 
-func TestInsertTail(t *testing.T) {
+func TestSInsertTail(t *testing.T) {
 	s := NewSingly()
 
 	var head *SinglyNode
@@ -86,7 +86,7 @@ func TestInsertTail(t *testing.T) {
 	}
 }
 
-func TestDeleteHead(t *testing.T) {
+func TestSDeleteHead(t *testing.T) {
 	s := NewSingly()
 
 	oldHead := s.DeleteHead()
@@ -139,7 +139,7 @@ func TestDeleteHead(t *testing.T) {
 	}
 }
 
-func TestDeleteTail(t *testing.T) {
+func TestSDeleteTail(t *testing.T) {
 	s := NewSingly()
 
 	oldTail := s.DeleteTail()
@@ -192,7 +192,7 @@ func TestDeleteTail(t *testing.T) {
 	}
 }
 
-func TestLen(t *testing.T) {
+func TestSLen(t *testing.T) {
 	s := NewSingly()
 
 	if len := s.Len(); len != 0 {
