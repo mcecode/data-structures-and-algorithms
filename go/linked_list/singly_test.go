@@ -38,11 +38,11 @@ func TestSInsertHead(t *testing.T) {
 		}
 
 		if s.head != head {
-			t.Errorf("Should return '%v' for singly head, got '%v'", head, s.head)
+			t.Errorf("Should return '%v' for head, got '%v'", head, s.head)
 		}
 
 		if s.tail != tail {
-			t.Errorf("Should return '%v' for singly tail, got '%v'", tail, s.tail)
+			t.Errorf("Should return '%v' for tail, got '%v'", tail, s.tail)
 		}
 
 		next = head
