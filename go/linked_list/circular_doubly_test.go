@@ -31,15 +31,15 @@ func TestCDInsertHead(t *testing.T) {
 		}
 
 		if head.data != value {
-			t.Errorf("Should return '%s' for a head data, got '%v'", value, head.data)
+			t.Errorf("Should return '%s' for head data, got '%v'", value, head.data)
 		}
 
 		if head.next != next {
-			t.Errorf("Should return '%v' for a head next, got '%v'", next, head.next)
+			t.Errorf("Should return '%v' for head next, got '%v'", next, head.next)
 		}
 
 		if head.prev != tail {
-			t.Errorf("Should return '%v' for a head prev, got '%v'", tail, head.prev)
+			t.Errorf("Should return '%v' for head prev, got '%v'", tail, head.prev)
 		}
 
 		if cd.head != head {
@@ -69,15 +69,15 @@ func TestCDInsertTail(t *testing.T) {
 		}
 
 		if tail.data != value {
-			t.Errorf("Should return '%s' for a tail data, got '%v'", value, tail.data)
+			t.Errorf("Should return '%s' for tail data, got '%v'", value, tail.data)
 		}
 
 		if tail.next != head {
-			t.Errorf("Should return '%v' for a tail next, got '%v'", head, tail.next)
+			t.Errorf("Should return '%v' for tail next, got '%v'", head, tail.next)
 		}
 
 		if tail.prev != prev {
-			t.Errorf("Should return '%v' for a tail prev, got '%v'", prev, tail.prev)
+			t.Errorf("Should return '%v' for tail prev, got '%v'", prev, tail.prev)
 		}
 
 		if cd.head != head {

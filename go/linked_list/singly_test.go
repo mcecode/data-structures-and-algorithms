@@ -8,11 +8,11 @@ func TestNewSingly(t *testing.T) {
 	s := NewSingly()
 
 	if s.head != nil {
-		t.Errorf("Should return 'nil' for linked list head, got '%v'", s.head)
+		t.Errorf("Should return 'nil' for head, got '%v'", s.head)
 	}
 
 	if s.tail != nil {
-		t.Errorf("Should return 'nil' for linked list tail, got '%v'", s.tail)
+		t.Errorf("Should return 'nil' for tail, got '%v'", s.tail)
 	}
 }
 
@@ -30,11 +30,11 @@ func TestSInsertHead(t *testing.T) {
 		}
 
 		if head.data != value {
-			t.Errorf("Should return '%s' for a head data, got '%v'", value, head.data)
+			t.Errorf("Should return '%s' for head data, got '%v'", value, head.data)
 		}
 
 		if head.next != next {
-			t.Errorf("Should return '%v' for a head next, got '%v'", next, head.next)
+			t.Errorf("Should return '%v' for head next, got '%v'", next, head.next)
 		}
 
 		if s.head != head {
@@ -63,23 +63,23 @@ func TestSInsertTail(t *testing.T) {
 		}
 
 		if tail.data != value {
-			t.Errorf("Should return '%s' for a tail data, got '%v'", value, tail.data)
+			t.Errorf("Should return '%s' for tail data, got '%v'", value, tail.data)
 		}
 
 		if tail.next != nil {
-			t.Errorf("Should return 'nil' for a tail next, got '%v'", tail.next)
+			t.Errorf("Should return 'nil' for tail next, got '%v'", tail.next)
 		}
 
 		if i != 0 && prev.next != tail {
-			t.Errorf("Should return '%v' for a prev next, got '%v'", tail, prev.next)
+			t.Errorf("Should return '%v' for prev next, got '%v'", tail, prev.next)
 		}
 
 		if s.head != head {
-			t.Errorf("Should return '%v' for singly head, got '%v'", head, s.head)
+			t.Errorf("Should return '%v' for head, got '%v'", head, s.head)
 		}
 
 		if s.tail != tail {
-			t.Errorf("Should return '%v' for singly tail, got '%v'", tail, s.tail)
+			t.Errorf("Should return '%v' for tail, got '%v'", tail, s.tail)
 		}
 
 		prev = tail
@@ -145,7 +145,7 @@ func TestSDeleteTail(t *testing.T) {
 	oldTail := s.DeleteTail()
 
 	if oldTail != nil {
-		t.Errorf("Should return 'nil' for deleted tail, got '%v'", oldTail)
+		t.Errorf("Should return 'nil' for old tail, got '%v'", oldTail)
 	}
 
 	nodes := []*SinglyNode{
