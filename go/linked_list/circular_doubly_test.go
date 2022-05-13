@@ -55,7 +55,41 @@ func TestCDInsertHead(t *testing.T) {
 }
 
 func TestCDInsertTail(t *testing.T) {
+	cd := NewCircularDoubly()
 
+	var head *DoublyNode
+	var prev *DoublyNode
+
+	for i, value := range []string{"a", "b", "c", "d", "e"} {
+		tail := cd.InsertTail(value)
+
+		if i == 0 {
+			head = tail
+			prev = tail
+		}
+
+		if tail.data != value {
+			t.Errorf("Should return '%s' for a tail data, got '%v'", value, tail.data)
+		}
+
+		if tail.next != head {
+			t.Errorf("Should return '%v' for a tail next, got '%v'", head, tail.next)
+		}
+
+		if tail.prev != prev {
+			t.Errorf("Should return '%v' for a tail prev, got '%v'", prev, tail.prev)
+		}
+
+		if cd.head != head {
+			t.Errorf("Should return '%v' for head, got '%v'", head, cd.head)
+		}
+
+		if cd.tail != tail {
+			t.Errorf("Should return '%v' for tail, got '%v'", tail, cd.tail)
+		}
+
+		prev = tail
+	}
 }
 
 func TestCDDeleteHead(t *testing.T) {
