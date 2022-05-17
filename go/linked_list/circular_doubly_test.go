@@ -79,39 +79,62 @@ func TestCDInsertHead(t *testing.T) {
 
 func TestCDInsertTail(t *testing.T) {
 	cd := NewCircularDoubly()
+	nodes := []*DoublyNode{
+		cd.InsertTail(0),
+		cd.InsertTail(1),
+		cd.InsertTail(2),
+		cd.InsertTail(3),
+		cd.InsertTail(4),
+	}
 
-	var head *DoublyNode
-	var prev *DoublyNode
+	if cd.head != nodes[0] {
+		t.Errorf("Should return '%v' for head, got '%v'", nodes[0], cd.head)
+	}
 
-	for i, value := range []string{"a", "b", "c", "d", "e"} {
-		tail := cd.InsertTail(value)
+	if cd.tail != nodes[len(nodes)-1] {
+		t.Errorf(
+			"Should return '%v' for tail, got '%v'",
+			nodes[len(nodes)-1],
+			cd.tail,
+		)
+	}
 
-		if i == 0 {
-			head = tail
-			prev = tail
+	if cd.head.prev != cd.tail {
+		t.Errorf(
+			"Should return '%v' for head prev, got '%v'",
+			cd.tail,
+			cd.head.prev,
+		)
+	}
+
+	if cd.tail.next != cd.head {
+		t.Errorf(
+			"Should return '%v' for tail next, got '%v'",
+			cd.head,
+			cd.tail.next,
+		)
+	}
+
+	for i, node := range nodes {
+		if node.data != i {
+			t.Errorf("Should return '%d' for node data, got '%v'", i, node.data)
 		}
 
-		if tail.data != value {
-			t.Errorf("Should return '%s' for tail data, got '%v'", value, tail.data)
+		if i != len(nodes)-1 && node.next != nodes[i+1] {
+			t.Errorf(
+				"Should return '%v' for node next, got '%v'",
+				nodes[i+1],
+				node.next,
+			)
 		}
 
-		if tail.next != head {
-			t.Errorf("Should return '%v' for tail next, got '%v'", head, tail.next)
+		if i != 0 && node.prev != nodes[i-1] {
+			t.Errorf(
+				"Should return '%v' for node prev, got '%v'",
+				nodes[i-1],
+				node.prev,
+			)
 		}
-
-		if tail.prev != prev {
-			t.Errorf("Should return '%v' for tail prev, got '%v'", prev, tail.prev)
-		}
-
-		if cd.head != head {
-			t.Errorf("Should return '%v' for head, got '%v'", head, cd.head)
-		}
-
-		if cd.tail != tail {
-			t.Errorf("Should return '%v' for tail, got '%v'", tail, cd.tail)
-		}
-
-		prev = tail
 	}
 }
 
