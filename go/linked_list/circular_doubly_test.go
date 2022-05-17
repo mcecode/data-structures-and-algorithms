@@ -8,49 +8,72 @@ func TestNewCircularDoubly(t *testing.T) {
 	cd := NewCircularDoubly()
 
 	if cd.head != nil {
-		t.Errorf("Should return 'nil' for linked list head, got '%v'", cd.head)
+		t.Errorf("Should return 'nil' for head, got '%v'", cd.head)
 	}
 
 	if cd.tail != nil {
-		t.Errorf("Should return 'nil' for linked list tail, got '%v'", cd.tail)
+		t.Errorf("Should return 'nil' for tail, got '%v'", cd.tail)
 	}
 }
 
 func TestCDInsertHead(t *testing.T) {
 	cd := NewCircularDoubly()
+	nodes := []*DoublyNode{
+		cd.InsertHead(0),
+		cd.InsertHead(1),
+		cd.InsertHead(2),
+		cd.InsertHead(3),
+		cd.InsertHead(4),
+	}
 
-	var tail *DoublyNode
-	var next *DoublyNode
+	if cd.head != nodes[len(nodes)-1] {
+		t.Errorf(
+			"Should return '%v' for head, got '%v'",
+			nodes[len(nodes)-1],
+			cd.head,
+		)
+	}
 
-	for i, value := range []string{"a", "b", "c", "d", "e"} {
-		head := cd.InsertHead(value)
+	if cd.tail != nodes[0] {
+		t.Errorf("Should return '%v' for tail, got '%v'", nodes[0], cd.tail)
+	}
 
-		if i == 0 {
-			tail = head
-			next = head
+	if cd.head.prev != cd.tail {
+		t.Errorf(
+			"Should return '%v' for head prev, got '%v'",
+			cd.tail,
+			cd.head.prev,
+		)
+	}
+
+	if cd.tail.next != cd.head {
+		t.Errorf(
+			"Should return '%v' for tail next, got '%v'",
+			cd.head,
+			cd.tail.next,
+		)
+	}
+
+	for i, node := range nodes {
+		if node.data != i {
+			t.Errorf("Should return '%d' for node data, got '%v'", i, node.data)
 		}
 
-		if head.data != value {
-			t.Errorf("Should return '%s' for head data, got '%v'", value, head.data)
+		if i != 0 && node.next != nodes[i-1] {
+			t.Errorf(
+				"Should return '%v' for node next, got '%v'",
+				nodes[i-1],
+				node.next,
+			)
 		}
 
-		if head.next != next {
-			t.Errorf("Should return '%v' for head next, got '%v'", next, head.next)
+		if i != len(nodes)-1 && node.prev != nodes[i+1] {
+			t.Errorf(
+				"Should return '%v' for node prev, got '%v'",
+				nodes[i+1],
+				node.prev,
+			)
 		}
-
-		if head.prev != tail {
-			t.Errorf("Should return '%v' for head prev, got '%v'", tail, head.prev)
-		}
-
-		if cd.head != head {
-			t.Errorf("Should return '%v' for head, got '%v'", head, cd.head)
-		}
-
-		if cd.tail != tail {
-			t.Errorf("Should return '%v' for tail, got '%v'", tail, cd.tail)
-		}
-
-		next = head
 	}
 }
 
