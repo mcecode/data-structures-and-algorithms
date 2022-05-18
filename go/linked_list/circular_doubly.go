@@ -55,7 +55,22 @@ func (cd *CircularDoubly) InsertTail(value interface{}) *DoublyNode {
 }
 
 func (cd *CircularDoubly) DeleteHead() *DoublyNode {
-	return NewDoublyNode(nil, nil, nil)
+	if cd.head == nil {
+		return nil
+	}
+
+	oldHead := cd.head
+
+	if cd.head == cd.tail {
+		cd.head = nil
+		cd.tail = nil
+		return oldHead
+	}
+
+	cd.head = cd.head.next
+	cd.head.prev = cd.tail
+	cd.tail.next = cd.head
+	return oldHead
 }
 
 func (cd *CircularDoubly) DeleteTail() *DoublyNode {
