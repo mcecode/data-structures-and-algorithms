@@ -147,5 +147,17 @@ func TestCDDeleteTail(t *testing.T) {
 }
 
 func TestCDLen(t *testing.T) {
+	cd := NewCircularDoubly()
 
+	if len := cd.Len(); len != 0 {
+		t.Errorf("Should return '0', got '%v'", len)
+	}
+
+	cd.InsertHead("a")
+	cd.InsertHead("b")
+	cd.InsertHead("c")
+
+	if len := cd.Len(); len != 3 {
+		t.Errorf("Should return '3', got '%v'", len)
+	}
 }
