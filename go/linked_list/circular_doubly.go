@@ -74,7 +74,22 @@ func (cd *CircularDoubly) DeleteHead() *DoublyNode {
 }
 
 func (cd *CircularDoubly) DeleteTail() *DoublyNode {
-	return NewDoublyNode(nil, nil, nil)
+	if cd.head == nil {
+		return nil
+	}
+
+	oldTail := cd.tail
+
+	if cd.head == cd.tail {
+		cd.head = nil
+		cd.tail = nil
+		return oldTail
+	}
+
+	cd.tail = cd.tail.prev
+	cd.tail.next = cd.head
+	cd.head.prev = cd.tail
+	return oldTail
 }
 
 func (cd *CircularDoubly) Len() int {

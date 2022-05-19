@@ -250,7 +250,114 @@ func TestCDDeleteHead(t *testing.T) {
 }
 
 func TestCDDeleteTail(t *testing.T) {
+	cd := NewCircularDoubly()
 
+	oldTail := cd.DeleteTail()
+
+	if oldTail != nil {
+		t.Errorf("Should return 'nil' for old tail, got '%v'", oldTail)
+	}
+
+	nodes := []*DoublyNode{
+		cd.InsertHead(0),
+		cd.InsertHead(1),
+		cd.InsertHead(2),
+		cd.InsertHead(3),
+		cd.InsertHead(4),
+	}
+	len := len(nodes) - 1
+
+	for i, node := range nodes {
+		oldTail = cd.DeleteTail()
+
+		if oldTail != node {
+			t.Errorf("Should return '%v' for old tail, got '%v'", node, oldTail)
+		}
+
+		if i != len {
+			if cd.head != nodes[len] {
+				t.Errorf("Should return '%v' for head, got '%v'", nodes[len], cd.head)
+			}
+
+			if cd.head.prev != nodes[i+1] {
+				t.Errorf(
+					"Should return '%v' for head prev, got '%v'",
+					nodes[i+1],
+					cd.head.prev,
+				)
+			}
+
+			if cd.tail != nodes[i+1] {
+				t.Errorf("Should return '%v' for tail, got '%v'", nodes[i+1], cd.tail)
+			}
+
+			if cd.tail.next != nodes[len] {
+				t.Errorf(
+					"Should return '%v' for tail next, got '%v'",
+					nodes[len],
+					cd.tail.next,
+				)
+			}
+		}
+
+		if i < len-2 {
+			if cd.head.next != nodes[len-1] {
+				t.Errorf(
+					"Should return '%v' for head next, got '%v'",
+					nodes[len-1],
+					cd.head.next,
+				)
+			}
+
+			if cd.tail.prev != nodes[i+2] {
+				t.Errorf(
+					"Should return '%v' for tail prev, got '%v'",
+					nodes[i+2],
+					cd.tail.prev,
+				)
+			}
+		}
+
+		if i == len-1 {
+			if cd.head.next != nodes[len] {
+				t.Errorf(
+					"Should return '%v' for head next, got '%v'",
+					nodes[len],
+					cd.head.next,
+				)
+			}
+
+			if cd.tail.prev != nodes[len] {
+				t.Errorf(
+					"Should return '%v' for tail prev, got '%v'",
+					nodes[len],
+					cd.tail.prev,
+				)
+			}
+
+			if cd.head != cd.tail {
+				t.Errorf(
+					"Should return same values for head and tail, got '%v' and '%v'",
+					cd.head,
+					cd.tail,
+				)
+			}
+		}
+
+		if i == len && (cd.head != nil || cd.tail != nil) {
+			t.Errorf(
+				"Should return 'nil' for head and tail, got '%v' and '%v'",
+				cd.head,
+				cd.tail,
+			)
+		}
+	}
+
+	oldTail = cd.DeleteTail()
+
+	if oldTail != nil {
+		t.Errorf("Should return 'nil' for old tail, got '%v'", oldTail)
+	}
 }
 
 func TestCDLen(t *testing.T) {
