@@ -18,34 +18,39 @@ func TestNewSingly(t *testing.T) {
 
 func TestSInsertHead(t *testing.T) {
 	s := NewSingly()
+	nodes := []*SinglyNode{
+		s.InsertHead(0),
+		s.InsertHead(1),
+		s.InsertHead(2),
+		s.InsertHead(3),
+		s.InsertHead(4),
+	}
+	len := len(nodes) - 1
 
-	var tail *SinglyNode
-	var next *SinglyNode
+	if s.head != nodes[len] {
+		t.Errorf("Should return '%v' for head, got '%v'", nodes[len], s.head)
+	}
 
-	for i, value := range []string{"a", "b", "c", "d", "e"} {
-		head := s.InsertHead(value)
+	if s.tail != nodes[0] {
+		t.Errorf("Should return '%v' for tail, got '%v'", nodes[0], s.tail)
+	}
 
-		if i == 0 {
-			tail = head
+	if s.tail.next != nil {
+		t.Errorf("Should return 'nil' for tail next, got '%v'", s.tail.next)
+	}
+
+	for i, node := range nodes {
+		if node.data != i {
+			t.Errorf("Should return '%d' for node data, got '%v'", i, node.data)
 		}
 
-		if head.data != value {
-			t.Errorf("Should return '%s' for head data, got '%v'", value, head.data)
+		if i != 0 && node.next != nodes[i-1] {
+			t.Errorf(
+				"Should return '%v' for node next, got '%v'",
+				nodes[i-1],
+				node.next,
+			)
 		}
-
-		if head.next != next {
-			t.Errorf("Should return '%v' for head next, got '%v'", next, head.next)
-		}
-
-		if s.head != head {
-			t.Errorf("Should return '%v' for head, got '%v'", head, s.head)
-		}
-
-		if s.tail != tail {
-			t.Errorf("Should return '%v' for tail, got '%v'", tail, s.tail)
-		}
-
-		next = head
 	}
 }
 
