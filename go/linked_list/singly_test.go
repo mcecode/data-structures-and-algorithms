@@ -56,38 +56,39 @@ func TestSInsertHead(t *testing.T) {
 
 func TestSInsertTail(t *testing.T) {
 	s := NewSingly()
+	nodes := []*SinglyNode{
+		s.InsertTail(0),
+		s.InsertTail(1),
+		s.InsertTail(2),
+		s.InsertTail(3),
+		s.InsertTail(4),
+	}
+	len := len(nodes) - 1
 
-	var head *SinglyNode
-	var prev *SinglyNode
+	if s.head != nodes[0] {
+		t.Errorf("Should return '%v' for head, got '%v'", nodes[0], s.head)
+	}
 
-	for i, value := range []string{"a", "b", "c", "d", "e"} {
-		tail := s.InsertTail(value)
+	if s.tail != nodes[len] {
+		t.Errorf("Should return '%v' for tail, got '%v'", nodes[len], s.tail)
+	}
 
-		if i == 0 {
-			head = tail
+	if s.tail.next != nil {
+		t.Errorf("Should return 'nil' for tail next, got '%v'", s.tail.next)
+	}
+
+	for i, node := range nodes {
+		if node.data != i {
+			t.Errorf("Should return '%d' for node data, got '%v'", i, node.data)
 		}
 
-		if tail.data != value {
-			t.Errorf("Should return '%s' for tail data, got '%v'", value, tail.data)
+		if i != len && node.next != nodes[i+1] {
+			t.Errorf(
+				"Should return '%v' for node next, got '%v'",
+				nodes[i+1],
+				node.next,
+			)
 		}
-
-		if tail.next != nil {
-			t.Errorf("Should return 'nil' for tail next, got '%v'", tail.next)
-		}
-
-		if i != 0 && prev.next != tail {
-			t.Errorf("Should return '%v' for prev next, got '%v'", tail, prev.next)
-		}
-
-		if s.head != head {
-			t.Errorf("Should return '%v' for head, got '%v'", head, s.head)
-		}
-
-		if s.tail != tail {
-			t.Errorf("Should return '%v' for tail, got '%v'", tail, s.tail)
-		}
-
-		prev = tail
 	}
 }
 
