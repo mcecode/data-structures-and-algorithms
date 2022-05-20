@@ -125,13 +125,31 @@ func TestSDeleteHead(t *testing.T) {
 			if s.tail != nodes[len] {
 				t.Errorf("Should return '%v' for tail, got '%v'", nodes[len], s.tail)
 			}
+
+			if s.tail.next != nil {
+				t.Errorf("Should return 'nil' for tail next, got '%v'", s.tail.next)
+			}
 		}
 
-		if i == len-1 && s.head != s.tail {
+		if i == len-1 {
+			if s.head.next != nil {
+				t.Errorf("Should return 'nil' for head next, got '%v'", s.head.next)
+			}
+
+			if s.head != s.tail {
+				t.Errorf(
+					"Should return same values for head and tail, got '%v' and '%v'",
+					s.head,
+					s.tail,
+				)
+			}
+		}
+
+		if i < len-2 && s.head.next != nodes[i+2] {
 			t.Errorf(
-				"Should return same values for head and tail, got '%v' and '%v'",
-				s.head,
-				s.tail,
+				"Should return '%v' for head next, got '%v'",
+				nodes[i+2],
+				s.head.next,
 			)
 		}
 
@@ -142,6 +160,12 @@ func TestSDeleteHead(t *testing.T) {
 				s.tail,
 			)
 		}
+	}
+
+	oldHead = s.DeleteHead()
+
+	if oldHead != nil {
+		t.Errorf("Should return 'nil' for old head, got '%v'", oldHead)
 	}
 }
 
