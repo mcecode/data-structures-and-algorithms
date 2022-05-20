@@ -97,11 +97,11 @@ func (cd *CircularDoubly) Len() int {
 		return 0
 	}
 
-	len := 0
-
+	count := 0
 	node := cd.head
+
 	for {
-		len++
+		count++
 		node = node.next
 
 		if node == cd.head {
@@ -109,5 +109,5 @@ func (cd *CircularDoubly) Len() int {
 		}
 	}
 
-	return len
+	return count
 }

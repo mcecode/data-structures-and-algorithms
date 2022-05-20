@@ -25,13 +25,10 @@ func TestCDInsertHead(t *testing.T) {
 		cd.InsertHead(3),
 		cd.InsertHead(4),
 	}
+	size := len(nodes) - 1
 
-	if cd.head != nodes[len(nodes)-1] {
-		t.Errorf(
-			"Should return '%v' for head, got '%v'",
-			nodes[len(nodes)-1],
-			cd.head,
-		)
+	if cd.head != nodes[size] {
+		t.Errorf("Should return '%v' for head, got '%v'", nodes[size], cd.head)
 	}
 
 	if cd.tail != nodes[0] {
@@ -67,7 +64,7 @@ func TestCDInsertHead(t *testing.T) {
 			)
 		}
 
-		if i != len(nodes)-1 && node.prev != nodes[i+1] {
+		if i != size && node.prev != nodes[i+1] {
 			t.Errorf(
 				"Should return '%v' for node prev, got '%v'",
 				nodes[i+1],
@@ -86,17 +83,14 @@ func TestCDInsertTail(t *testing.T) {
 		cd.InsertTail(3),
 		cd.InsertTail(4),
 	}
+	size := len(nodes) - 1
 
 	if cd.head != nodes[0] {
 		t.Errorf("Should return '%v' for head, got '%v'", nodes[0], cd.head)
 	}
 
-	if cd.tail != nodes[len(nodes)-1] {
-		t.Errorf(
-			"Should return '%v' for tail, got '%v'",
-			nodes[len(nodes)-1],
-			cd.tail,
-		)
+	if cd.tail != nodes[size] {
+		t.Errorf("Should return '%v' for tail, got '%v'", nodes[size], cd.tail)
 	}
 
 	if cd.head.prev != cd.tail {
@@ -120,7 +114,7 @@ func TestCDInsertTail(t *testing.T) {
 			t.Errorf("Should return '%d' for node data, got '%v'", i, node.data)
 		}
 
-		if i != len(nodes)-1 && node.next != nodes[i+1] {
+		if i != size && node.next != nodes[i+1] {
 			t.Errorf(
 				"Should return '%v' for node next, got '%v'",
 				nodes[i+1],
@@ -154,7 +148,7 @@ func TestCDDeleteHead(t *testing.T) {
 		cd.InsertTail(3),
 		cd.InsertTail(4),
 	}
-	len := len(nodes) - 1
+	size := len(nodes) - 1
 
 	for i, node := range nodes {
 		oldHead = cd.DeleteHead()
@@ -163,21 +157,21 @@ func TestCDDeleteHead(t *testing.T) {
 			t.Errorf("Should return '%v' for old head, got '%v'", node, oldHead)
 		}
 
-		if i != len {
+		if i != size {
 			if cd.head != nodes[i+1] {
 				t.Errorf("Should return '%v' for head, got '%v'", nodes[i+1], cd.head)
 			}
 
-			if cd.head.prev != nodes[len] {
+			if cd.head.prev != nodes[size] {
 				t.Errorf(
 					"Should return '%v' for head prev, got '%v'",
-					nodes[len],
+					nodes[size],
 					cd.head.prev,
 				)
 			}
 
-			if cd.tail != nodes[len] {
-				t.Errorf("Should return '%v' for tail, got '%v'", nodes[len], cd.tail)
+			if cd.tail != nodes[size] {
+				t.Errorf("Should return '%v' for tail, got '%v'", nodes[size], cd.tail)
 			}
 
 			if cd.tail.next != nodes[i+1] {
@@ -189,7 +183,7 @@ func TestCDDeleteHead(t *testing.T) {
 			}
 		}
 
-		if i < len-2 {
+		if i < size-2 {
 			if cd.head.next != nodes[i+2] {
 				t.Errorf(
 					"Should return '%v' for head next, got '%v'",
@@ -198,28 +192,28 @@ func TestCDDeleteHead(t *testing.T) {
 				)
 			}
 
-			if cd.tail.prev != nodes[len-1] {
+			if cd.tail.prev != nodes[size-1] {
 				t.Errorf(
 					"Should return '%v' for tail prev, got '%v'",
-					nodes[len-1],
+					nodes[size-1],
 					cd.tail.prev,
 				)
 			}
 		}
 
-		if i == len-1 {
-			if cd.head.next != nodes[len] {
+		if i == size-1 {
+			if cd.head.next != nodes[size] {
 				t.Errorf(
 					"Should return '%v' for head next, got '%v'",
-					nodes[len],
+					nodes[size],
 					cd.head.next,
 				)
 			}
 
-			if cd.tail.prev != nodes[len] {
+			if cd.tail.prev != nodes[size] {
 				t.Errorf(
 					"Should return '%v' for tail prev, got '%v'",
-					nodes[len],
+					nodes[size],
 					cd.tail.prev,
 				)
 			}
@@ -233,7 +227,7 @@ func TestCDDeleteHead(t *testing.T) {
 			}
 		}
 
-		if i == len && (cd.head != nil || cd.tail != nil) {
+		if i == size && (cd.head != nil || cd.tail != nil) {
 			t.Errorf(
 				"Should return 'nil' for head and tail, got '%v' and '%v'",
 				cd.head,
@@ -265,7 +259,7 @@ func TestCDDeleteTail(t *testing.T) {
 		cd.InsertHead(3),
 		cd.InsertHead(4),
 	}
-	len := len(nodes) - 1
+	size := len(nodes) - 1
 
 	for i, node := range nodes {
 		oldTail = cd.DeleteTail()
@@ -274,9 +268,9 @@ func TestCDDeleteTail(t *testing.T) {
 			t.Errorf("Should return '%v' for old tail, got '%v'", node, oldTail)
 		}
 
-		if i != len {
-			if cd.head != nodes[len] {
-				t.Errorf("Should return '%v' for head, got '%v'", nodes[len], cd.head)
+		if i != size {
+			if cd.head != nodes[size] {
+				t.Errorf("Should return '%v' for head, got '%v'", nodes[size], cd.head)
 			}
 
 			if cd.head.prev != nodes[i+1] {
@@ -291,20 +285,20 @@ func TestCDDeleteTail(t *testing.T) {
 				t.Errorf("Should return '%v' for tail, got '%v'", nodes[i+1], cd.tail)
 			}
 
-			if cd.tail.next != nodes[len] {
+			if cd.tail.next != nodes[size] {
 				t.Errorf(
 					"Should return '%v' for tail next, got '%v'",
-					nodes[len],
+					nodes[size],
 					cd.tail.next,
 				)
 			}
 		}
 
-		if i < len-2 {
-			if cd.head.next != nodes[len-1] {
+		if i < size-2 {
+			if cd.head.next != nodes[size-1] {
 				t.Errorf(
 					"Should return '%v' for head next, got '%v'",
-					nodes[len-1],
+					nodes[size-1],
 					cd.head.next,
 				)
 			}
@@ -318,19 +312,19 @@ func TestCDDeleteTail(t *testing.T) {
 			}
 		}
 
-		if i == len-1 {
-			if cd.head.next != nodes[len] {
+		if i == size-1 {
+			if cd.head.next != nodes[size] {
 				t.Errorf(
 					"Should return '%v' for head next, got '%v'",
-					nodes[len],
+					nodes[size],
 					cd.head.next,
 				)
 			}
 
-			if cd.tail.prev != nodes[len] {
+			if cd.tail.prev != nodes[size] {
 				t.Errorf(
 					"Should return '%v' for tail prev, got '%v'",
-					nodes[len],
+					nodes[size],
 					cd.tail.prev,
 				)
 			}
@@ -344,7 +338,7 @@ func TestCDDeleteTail(t *testing.T) {
 			}
 		}
 
-		if i == len && (cd.head != nil || cd.tail != nil) {
+		if i == size && (cd.head != nil || cd.tail != nil) {
 			t.Errorf(
 				"Should return 'nil' for head and tail, got '%v' and '%v'",
 				cd.head,
@@ -363,15 +357,15 @@ func TestCDDeleteTail(t *testing.T) {
 func TestCDLen(t *testing.T) {
 	cd := NewCircularDoubly()
 
-	if len := cd.Len(); len != 0 {
-		t.Errorf("Should return '0', got '%v'", len)
+	if count := cd.Len(); count != 0 {
+		t.Errorf("Should return '0', got '%d'", count)
 	}
 
 	cd.InsertHead("a")
 	cd.InsertHead("b")
 	cd.InsertHead("c")
 
-	if len := cd.Len(); len != 3 {
-		t.Errorf("Should return '3', got '%v'", len)
+	if count := cd.Len(); count != 3 {
+		t.Errorf("Should return '3', got '%d'", count)
 	}
 }

@@ -45,14 +45,14 @@ func (s *Singly) DeleteHead() *SinglyNode {
 		return nil
 	}
 
+	oldHead := s.head
+
 	if s.head == s.tail {
-		oldHead := s.head
 		s.head = nil
 		s.tail = nil
 		return oldHead
 	}
 
-	oldHead := s.head
 	s.head = s.head.next
 	return oldHead
 }
@@ -62,19 +62,18 @@ func (s *Singly) DeleteTail() *SinglyNode {
 		return nil
 	}
 
+	oldTail := s.tail
+
 	if s.head == s.tail {
-		oldHead := s.head
 		s.head = nil
 		s.tail = nil
-		return oldHead
+		return oldTail
 	}
 
-	var oldTail *SinglyNode
 	for node := s.head; node != nil; node = node.next {
 		if node.next == s.tail {
-			oldTail = s.tail
-			node.next = nil
 			s.tail = node
+			s.tail.next = nil
 			break
 		}
 	}
@@ -82,11 +81,11 @@ func (s *Singly) DeleteTail() *SinglyNode {
 }
 
 func (s *Singly) Len() int {
-	len := 0
+	count := 0
 
 	for node := s.head; node != nil; node = node.next {
-		len++
+		count++
 	}
 
-	return len
+	return count
 }

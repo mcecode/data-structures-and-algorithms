@@ -18,7 +18,7 @@ func TestNewSinglyNode(t *testing.T) {
 	head := NewSinglyNode("b", tail)
 
 	if head.next != tail {
-		t.Errorf("Should return tail value for head next, got '%v'", head.next)
+		t.Errorf("Should return tail for head next, got '%v'", head.next)
 	}
 }
 
@@ -43,33 +43,29 @@ func TestNewDoublyNode(t *testing.T) {
 	mid.next = tail
 
 	nodes := []*DoublyNode{head, mid, tail}
-	len := len(nodes) - 1
+	size := len(nodes) - 1
 
 	for i, node := range nodes {
-		if i == len && node.next != nil {
+		if i == size && node.next != nil {
 			t.Errorf("Should return 'nil' for node next, got '%v'", node.next)
 		}
 
-		if i != len && node.next != nodes[i+1] {
+		if i == 0 && node.prev != nil {
+			t.Errorf("Should return 'nil' for node prev, got '%v'", node.prev)
+		}
+
+		if i != size && node.next != nodes[i+1] {
 			t.Errorf(
 				"Should return '%v' for node next, got '%v'",
 				nodes[i+1],
 				node.next,
 			)
 		}
-	}
 
-	nodes = []*DoublyNode{tail, mid, head}
-
-	for i, node := range nodes {
-		if i == len && node.prev != nil {
-			t.Errorf("Should return 'nil' for node prev, got '%v'", node.prev)
-		}
-
-		if i != len && node.prev != nodes[i+1] {
+		if i != 0 && node.prev != nodes[i-1] {
 			t.Errorf(
 				"Should return '%v' for node prev, got '%v'",
-				nodes[i+1],
+				nodes[i-1],
 				node.prev,
 			)
 		}

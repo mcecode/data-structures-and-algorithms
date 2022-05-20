@@ -25,10 +25,10 @@ func TestSInsertHead(t *testing.T) {
 		s.InsertHead(3),
 		s.InsertHead(4),
 	}
-	len := len(nodes) - 1
+	size := len(nodes) - 1
 
-	if s.head != nodes[len] {
-		t.Errorf("Should return '%v' for head, got '%v'", nodes[len], s.head)
+	if s.head != nodes[size] {
+		t.Errorf("Should return '%v' for head, got '%v'", nodes[size], s.head)
 	}
 
 	if s.tail != nodes[0] {
@@ -63,14 +63,14 @@ func TestSInsertTail(t *testing.T) {
 		s.InsertTail(3),
 		s.InsertTail(4),
 	}
-	len := len(nodes) - 1
+	size := len(nodes) - 1
 
 	if s.head != nodes[0] {
 		t.Errorf("Should return '%v' for head, got '%v'", nodes[0], s.head)
 	}
 
-	if s.tail != nodes[len] {
-		t.Errorf("Should return '%v' for tail, got '%v'", nodes[len], s.tail)
+	if s.tail != nodes[size] {
+		t.Errorf("Should return '%v' for tail, got '%v'", nodes[size], s.tail)
 	}
 
 	if s.tail.next != nil {
@@ -82,7 +82,7 @@ func TestSInsertTail(t *testing.T) {
 			t.Errorf("Should return '%d' for node data, got '%v'", i, node.data)
 		}
 
-		if i != len && node.next != nodes[i+1] {
+		if i != size && node.next != nodes[i+1] {
 			t.Errorf(
 				"Should return '%v' for node next, got '%v'",
 				nodes[i+1],
@@ -102,13 +102,13 @@ func TestSDeleteHead(t *testing.T) {
 	}
 
 	nodes := []*SinglyNode{
-		s.InsertTail("a"),
-		s.InsertTail("b"),
-		s.InsertTail("c"),
-		s.InsertTail("d"),
-		s.InsertTail("e"),
+		s.InsertTail(0),
+		s.InsertTail(1),
+		s.InsertTail(2),
+		s.InsertTail(3),
+		s.InsertTail(4),
 	}
-	len := len(nodes) - 1
+	size := len(nodes) - 1
 
 	for i, node := range nodes {
 		oldHead = s.DeleteHead()
@@ -117,13 +117,13 @@ func TestSDeleteHead(t *testing.T) {
 			t.Errorf("Should return '%v' for old head, got '%v'", node, oldHead)
 		}
 
-		if i != len {
+		if i != size {
 			if s.head != nodes[i+1] {
 				t.Errorf("Should return '%v' for head, got '%v'", nodes[i+1], s.head)
 			}
 
-			if s.tail != nodes[len] {
-				t.Errorf("Should return '%v' for tail, got '%v'", nodes[len], s.tail)
+			if s.tail != nodes[size] {
+				t.Errorf("Should return '%v' for tail, got '%v'", nodes[size], s.tail)
 			}
 
 			if s.tail.next != nil {
@@ -131,7 +131,7 @@ func TestSDeleteHead(t *testing.T) {
 			}
 		}
 
-		if i == len-1 {
+		if i == size-1 {
 			if s.head.next != nil {
 				t.Errorf("Should return 'nil' for head next, got '%v'", s.head.next)
 			}
@@ -145,7 +145,7 @@ func TestSDeleteHead(t *testing.T) {
 			}
 		}
 
-		if i < len-2 && s.head.next != nodes[i+2] {
+		if i < size-2 && s.head.next != nodes[i+2] {
 			t.Errorf(
 				"Should return '%v' for head next, got '%v'",
 				nodes[i+2],
@@ -153,7 +153,7 @@ func TestSDeleteHead(t *testing.T) {
 			)
 		}
 
-		if i == len && (s.head != nil || s.tail != nil) {
+		if i == size && (s.head != nil || s.tail != nil) {
 			t.Errorf(
 				"Should return 'nil' for head and tail, got '%v' and '%v'",
 				s.head,
@@ -179,13 +179,13 @@ func TestSDeleteTail(t *testing.T) {
 	}
 
 	nodes := []*SinglyNode{
-		s.InsertHead("a"),
-		s.InsertHead("b"),
-		s.InsertHead("c"),
-		s.InsertHead("d"),
-		s.InsertHead("e"),
+		s.InsertHead(0),
+		s.InsertHead(1),
+		s.InsertHead(2),
+		s.InsertHead(3),
+		s.InsertHead(4),
 	}
-	len := len(nodes) - 1
+	size := len(nodes) - 1
 
 	for i, node := range nodes {
 		oldTail = s.DeleteTail()
@@ -194,9 +194,9 @@ func TestSDeleteTail(t *testing.T) {
 			t.Errorf("Should return '%v' for old tail, got '%v'", node, oldTail)
 		}
 
-		if i != len {
-			if s.head != nodes[len] {
-				t.Errorf("Should return '%v' for head, got '%v'", nodes[len], s.head)
+		if i != size {
+			if s.head != nodes[size] {
+				t.Errorf("Should return '%v' for head, got '%v'", nodes[size], s.head)
 			}
 
 			if s.tail != nodes[i+1] {
@@ -208,7 +208,7 @@ func TestSDeleteTail(t *testing.T) {
 			}
 		}
 
-		if i == len-1 {
+		if i == size-1 {
 			if s.head.next != nil {
 				t.Errorf("Should return 'nil' for head next, got '%v'", s.head.next)
 			}
@@ -222,15 +222,15 @@ func TestSDeleteTail(t *testing.T) {
 			}
 		}
 
-		if i < len-2 && s.head.next != nodes[len-1] {
+		if i < size-2 && s.head.next != nodes[size-1] {
 			t.Errorf(
 				"Should return '%v' for head next, got '%v'",
-				nodes[len-1],
+				nodes[size-1],
 				s.head.next,
 			)
 		}
 
-		if i == len && (s.head != nil || s.tail != nil) {
+		if i == size && (s.head != nil || s.tail != nil) {
 			t.Errorf(
 				"Should return 'nil' for head and tail, got '%v' and '%v'",
 				s.head,
@@ -249,15 +249,15 @@ func TestSDeleteTail(t *testing.T) {
 func TestSLen(t *testing.T) {
 	s := NewSingly()
 
-	if len := s.Len(); len != 0 {
-		t.Errorf("Should return '0', got '%v'", len)
+	if count := s.Len(); count != 0 {
+		t.Errorf("Should return '0', got '%d'", count)
 	}
 
 	s.InsertHead("a")
 	s.InsertHead("b")
 	s.InsertHead("c")
 
-	if len := s.Len(); len != 3 {
-		t.Errorf("Should return '3', got '%v'", len)
+	if count := s.Len(); count != 3 {
+		t.Errorf("Should return '3', got '%d'", count)
 	}
 }
