@@ -10,10 +10,10 @@ import (
 func Is(text string) bool {
 	regex, _ := regexp.Compile(`[^\p{L}\p{N}]+`)
 	runes := []rune(regex.ReplaceAllString(strings.ToLower(text), ""))
-	length := len(runes)
+	count := len(runes)
 
-	for i, rune := range runes[:length/2] {
-		if rune != runes[length-i-1] {
+	for i, rune := range runes[:count/2] {
+		if rune != runes[count-i-1] {
 			return false
 		}
 	}

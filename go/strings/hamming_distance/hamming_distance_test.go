@@ -1,6 +1,7 @@
 package hamming
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -10,7 +11,14 @@ func TestDistance(t *testing.T) {
 		{"абв", "ГДЕЁЖ"},
 		{"民県政相意党", "会長国生"},
 	} {
-		if _, err := Distance(testCase.text1, testCase.text2); err == nil {
+		_, err := Distance(testCase.text1, testCase.text2)
+		notEqualError := fmt.Sprintf(
+			"'%s' and '%s' are not of equal length",
+			testCase.text1,
+			testCase.text2,
+		)
+
+		if err == nil || err.Error() != notEqualError {
 			t.Errorf(
 				"Should return an error when passing '%s' and '%s'",
 				testCase.text1,

@@ -83,15 +83,15 @@ func TestPop(t *testing.T) {
 }
 
 func TestLen(t *testing.T) {
-	if initialLen := Len(); initialLen != 0 {
-		t.Errorf("Should return '0', got '%d'", initialLen)
+	if count := Len(); count != 0 {
+		t.Errorf("Should return '0', got '%d'", count)
 	}
 
 	Push("a")
 	Push("b")
 	Push("c")
 
-	if newLen := Len(); newLen != 3 {
-		t.Errorf("Should return '3', got '%d'", newLen)
+	if count := Len(); count != 3 {
+		t.Errorf("Should return '3', got '%d'", count)
 	}
 }

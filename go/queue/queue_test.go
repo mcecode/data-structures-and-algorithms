@@ -49,7 +49,7 @@ func TestEnqueue(t *testing.T) {
 	}
 
 	if tail != "c" {
-		t.Errorf("Should return 'c' for head, got '%v'", tail)
+		t.Errorf("Should return 'c' for tail, got '%v'", tail)
 	}
 
 	if headErr != nil || tailErr != nil {
@@ -80,7 +80,7 @@ func TestDequeue(t *testing.T) {
 	}
 
 	if tail != "c" {
-		t.Errorf("Should return 'c' for head, got '%v'", tail)
+		t.Errorf("Should return 'c' for tail, got '%v'", tail)
 	}
 
 	if headErr != nil || tailErr != nil {
@@ -114,15 +114,15 @@ func TestDequeue(t *testing.T) {
 }
 
 func TestLen(t *testing.T) {
-	if initialLen := Len(); initialLen != 0 {
-		t.Errorf("Should return '0', got '%d'", initialLen)
+	if count := Len(); count != 0 {
+		t.Errorf("Should return '0', got '%d'", count)
 	}
 
 	Enqueue("a")
 	Enqueue("b")
 	Enqueue("c")
 
-	if newLen := Len(); newLen != 3 {
-		t.Errorf("Should return '3', got '%d'", newLen)
+	if count := Len(); count != 3 {
+		t.Errorf("Should return '3', got '%d'", count)
 	}
 }
