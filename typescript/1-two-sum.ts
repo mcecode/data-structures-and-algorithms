@@ -1,3 +1,4 @@
+// Initial answer
 // O(n^2)
 function twoSum(nums: number[], target: number): number[] {
   for (let i = 0; i < nums.length; i++) {
@@ -11,7 +12,20 @@ function twoSum(nums: number[], target: number): number[] {
   return [];
 }
 
+// Follow-up question answer
 // O(n)
 function twoSumV2(nums: number[], target: number): number[] {
+  const m = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    const sub = target - nums[i];
+
+    if (m.has(sub)) {
+      return [m.get(sub), i];
+    }
+
+    m.set(nums[i], i);
+  }
+
   return [];
 }
