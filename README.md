@@ -18,7 +18,7 @@ That said, if your goal is to play around and learn along with me, then feel fre
 
 Each subdirectory maps to a programming language and contains a readme file that details instructions and requirements for running the code.
 
-## Data Structures
+## Data structures
 
 - Singly linked list ([Wikipedia](https://en.wikipedia.org/wiki/Linked_list#Singly_linked_list))
   - [PHP](php/LinkedLists/SinglyLinkedList.php)
@@ -39,6 +39,11 @@ Each subdirectory maps to a programming language and contains a readme file that
   - [Go](go/strings/palindrome/palindrome.go)
 - Hamming distance ([Wikipedia](https://en.wikipedia.org/wiki/Hamming_distance))
   - [Go](go/strings/hamming_distance/hamming_distance.go)
+
+## LeetCode problems
+
+- Two sum ([LeetCode](https://leetcode.com/problems/two-sum))
+  - [TypeScript](typescript/leetcode/1-two-sum.ts)
 
 ## Contributing
 
