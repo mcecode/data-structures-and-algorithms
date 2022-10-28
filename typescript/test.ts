@@ -40,29 +40,40 @@ function test({
   return result;
 }
 
-(await Promise.all([await import("./leetcode/1-two-sum.ts")])).forEach(
-  ({ default: problem }, i) => {
-    let output = `LeetCode Problem ${i + 1}:`;
-    let allPassed = true;
+async function run(fileName: string) {
+  const { default: problem } = await import(`./leetcode/${fileName}`);
 
-    for (const [passed, name] of test(problem)) {
-      if (passed) {
-        output += ` ✅ ${name}`;
-        continue;
-      }
+  let output = `LeetCode Problem ${fileName.split("-")[0]}:`;
+  let allPassed = true;
 
-      output += ` ❌ ${name}`;
-      allPassed = false;
+  for (const [passed, name] of test(problem)) {
+    if (passed) {
+      output += ` ✅ ${name}`;
+      continue;
     }
 
-    if (allPassed) {
-      console.log(`✅ ${output}`);
-      return;
-    }
-
-    console.log(`❌ ${output}`);
+    output += ` ❌ ${name}`;
+    allPassed = false;
   }
-);
 
-// This is only to allow top-level awaits.
-export {};
+  if (allPassed) {
+    console.log(`✅ ${output}`);
+    return;
+  }
+
+  console.log(`❌ ${output}`);
+}
+
+if (Deno.args.length > 0) {
+  for (const path of Deno.args) {
+    await run(path.split(/[\\/]/).at(-1));
+  }
+
+  Deno.exit();
+}
+
+for await (const entry of Deno.readDir("./leetcode")) {
+  if (entry.isFile) {
+    await run(entry.name);
+  }
+}
