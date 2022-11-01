@@ -12,7 +12,7 @@ function isEqual(v1: any, v2: any): boolean {
   return Object.is(v1, v2);
 }
 
-type Result = [boolean, string][];
+type Result = { passed: boolean; funcName: string; caseFailed: number }[];
 function test({
   funcs,
   tests
@@ -24,17 +24,20 @@ function test({
 
   for (const func of funcs) {
     let passed = true;
+    let caseFailed = 0;
 
-    for (const { i, o: expected } of tests) {
-      const actual = func(...i);
+    for (let i = 0; i < tests.length; i++) {
+      const { i: input, o: expected } = tests[i];
+      const actual = func(...input);
 
       if (!isEqual(actual, expected)) {
         passed = false;
+        caseFailed = i + 1;
         break;
       }
     }
 
-    result.push([passed, func.name]);
+    result.push({ passed, funcName: func.name, caseFailed });
   }
 
   return result;
@@ -46,13 +49,13 @@ async function run(fileName: string) {
   let output = `LeetCode Problem ${fileName.split("-")[0]}:`;
   let allPassed = true;
 
-  for (const [passed, name] of test(problem)) {
+  for (const { passed, funcName, caseFailed } of test(problem)) {
     if (passed) {
-      output += ` ✅ ${name}`;
+      output += ` ✅ ${funcName}`;
       continue;
     }
 
-    output += ` ❌ ${name}`;
+    output += ` ❌ ${funcName}#${caseFailed}`;
     allPassed = false;
   }
 
@@ -66,7 +69,7 @@ async function run(fileName: string) {
 
 if (Deno.args.length > 0) {
   for (const path of Deno.args) {
-    await run(path.split(/[\\/]/).at(-1));
+    await run(path.split(/[\\/]/).at(-1) ?? "");
   }
 
   Deno.exit();
