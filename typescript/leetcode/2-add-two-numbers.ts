@@ -51,14 +51,15 @@ function arrayToLinkedList(a: number[]): NullishListNode {
   return pn === null ? cn : pn;
 }
 
+// Initial answer
 function addTwoNumbers(l1: NullishListNode, l2: NullishListNode): number[] {
-  const s1 = linkedListToReverseString(l1);
-  const s2 = linkedListToReverseString(l2);
+  const s1 = +linkedListToReverseString(l1);
+  const s2 = +linkedListToReverseString(l2);
 
   let cn: NullishListNode = null;
   let pn: NullishListNode = null;
 
-  for (let e of (+s1 + +s2 + "").split("")) {
+  for (let e of (s1 + s2 + "").split("")) {
     if (cn === null) {
       cn = new ListNode(+e);
       continue;
