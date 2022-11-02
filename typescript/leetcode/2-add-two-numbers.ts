@@ -75,8 +75,39 @@ function addTwoNumbers(l1: NullishListNode, l2: NullishListNode): number[] {
   return linkedListToArray(pn === null ? cn : pn);
 }
 
+// Answer after viewing solution and comments
+// Pretty much egorio's solution
+// https://leetcode.com/problems/add-two-numbers/solution/237685
+// O(n^2)
+function addTwoNumbersV2(l1: NullishListNode, l2: NullishListNode): number[] {
+  let sum = 0;
+  const list: number[] = [];
+
+  while (l1 !== null || l2 !== null) {
+    if (l1 !== null) {
+      sum += l1.val;
+      l1 = l1.next;
+    }
+
+    if (l2 !== null) {
+      sum += l2.val;
+      l2 = l2.next;
+    }
+
+    list.push(sum % 10);
+    sum = sum > 9 ? 1 : 0;
+  }
+
+  if (sum > 0) {
+    list.push(sum);
+  }
+
+  const result = arrayToLinkedList(list);
+  return linkedListToArray(result);
+}
+
 export default {
-  funcs: [addTwoNumbers],
+  funcs: [addTwoNumbers, addTwoNumbersV2],
   tests: [
     // LeetCode examples
     {
