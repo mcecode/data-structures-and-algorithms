@@ -14,16 +14,6 @@ class ListNode {
   }
 }
 
-function linkedListToReverseString(n: NullishListNode): string {
-  let s = "";
-
-  for (let cn = n; cn !== null; cn = cn.next) {
-    s = cn.val + s;
-  }
-
-  return s;
-}
-
 function linkedListToArray(n: NullishListNode): number[] {
   const a: number[] = [];
 
@@ -52,14 +42,27 @@ function arrayToLinkedList(a: number[]): NullishListNode {
 }
 
 // Initial answer
+// O(n^2)
 function addTwoNumbers(l1: NullishListNode, l2: NullishListNode): number[] {
-  const s1 = +linkedListToReverseString(l1);
-  const s2 = +linkedListToReverseString(l2);
+  let s1 = "";
+  let s2 = "";
+
+  while (l1 !== null || l2 !== null) {
+    if (l1 !== null) {
+      s1 = l1.val + s1;
+      l1 = l1.next;
+    }
+
+    if (l2 !== null) {
+      s2 = l2.val + s2;
+      l2 = l2.next;
+    }
+  }
 
   let cn: NullishListNode = null;
   let pn: NullishListNode = null;
 
-  for (let e of (s1 + s2 + "").split("")) {
+  for (let e of (+s1 + +s2 + "").split("")) {
     if (cn === null) {
       cn = new ListNode(+e);
       continue;
