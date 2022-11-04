@@ -44,6 +44,10 @@ Each subdirectory maps to a programming language and contains a readme file that
 
 - Two sum ([LeetCode](https://leetcode.com/problems/two-sum))
   - [TypeScript](typescript/leetcode/1-two-sum.ts)
+- Add two numbers ([LeetCode](https://leetcode.com/problems/add-two-numbers))
+  - [TypeScript](typescript/leetcode/2-add-two-numbers.ts)
+- Longest substring without repeating characters ([LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters))
+  - [TypeScript](typescript/leetcode/3-longest-substring-without-repeating-characters.ts)
 
 ## Contributing
 
