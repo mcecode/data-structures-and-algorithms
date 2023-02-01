@@ -48,6 +48,8 @@ Each subdirectory maps to a programming language and contains a readme file that
   - [TypeScript](typescript/leetcode/2-add-two-numbers.ts)
 - Longest substring without repeating characters ([LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters))
   - [TypeScript](typescript/leetcode/3-longest-substring-without-repeating-characters.ts)
+- Median of two sorted arrays ([LeetCode](https://leetcode.com/problems/median-of-two-sorted-arrays))
+  - [TypeScript](typescript/leetcode/4-median-of-two-sorted-arrays.ts)
 
 ## Contributing
 
