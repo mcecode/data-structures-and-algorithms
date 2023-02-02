@@ -1,6 +1,8 @@
 // This implementation primarily diverges from the LeetCode problem in that it
 // transforms the return of 'addTwoNumbers' into an array. This is mainly to
 // make running tests with the current setup easier.
+// The complexities indicated do not include the time and space used for linked
+// list to array transformations.
 
 type NullishListNode = ListNode | null;
 
@@ -42,7 +44,8 @@ function arrayToLinkedList(a: number[]): NullishListNode {
 }
 
 // Initial answer
-// O(n^2)
+// Time: O(n)
+// Space: O(n)
 function addTwoNumbers(l1: NullishListNode, l2: NullishListNode): number[] {
   let s1 = "";
   let s2 = "";
@@ -77,8 +80,10 @@ function addTwoNumbers(l1: NullishListNode, l2: NullishListNode): number[] {
 
 // Answer after viewing solution and comments
 // Pretty much egorio's solution
-// https://leetcode.com/problems/add-two-numbers/solution/237685
-// O(n^2)
+// https://leetcode.com/problems/add-two-numbers/solutions/127833/official-solution/comments/237685
+// Not as efficient as his because I made the properties of 'ListNode' readonly
+// Time: O(n)
+// Space: O(n)
 function addTwoNumbersV2(l1: NullishListNode, l2: NullishListNode): number[] {
   let sum = 0;
   const list: number[] = [];

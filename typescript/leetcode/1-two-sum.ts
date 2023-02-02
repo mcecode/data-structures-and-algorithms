@@ -1,5 +1,6 @@
 // Initial answer
-// O(n^2)
+// Time: O(n^2)
+// Space: O(1)
 function twoSum(nums: number[], target: number): number[] {
   for (let i = 0; i < nums.length; i++) {
     for (let j = i + 1; j < nums.length; j++) {
@@ -13,7 +14,8 @@ function twoSum(nums: number[], target: number): number[] {
 }
 
 // Follow-up question answer
-// O(n)
+// Time: O(n)
+// Space: O(n)
 function twoSumV2(nums: number[], target: number): number[] {
   const m = new Map();
 

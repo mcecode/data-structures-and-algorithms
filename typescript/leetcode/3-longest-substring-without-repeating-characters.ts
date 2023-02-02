@@ -1,5 +1,6 @@
 // Initial answer
-// O(n^4)
+// Time: O(n^4)
+// Space: O(1)
 function lengthOfLongestSubstring(s: string): number {
   if (s.length < 2) {
     return s.length;
@@ -40,7 +41,8 @@ function lengthOfLongestSubstring(s: string): number {
 }
 
 // More optimized answer
-// O(n)
+// Time: O(n)
+// Space: O(n)
 function lengthOfLongestSubstringV2(s: string): number {
   const m = new Map();
   let sub = 0;
