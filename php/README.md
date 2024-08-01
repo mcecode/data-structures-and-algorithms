@@ -4,7 +4,7 @@ This directory contains data structures ([`LinkedLists`](LinkedLists)) and algor
 
 ## Testing
 
-The code in this directory has been tested using PHP version 8.1. It may run with other PHP versions, but there is no guarantee.
+The code in this directory has been tested using PHP version 8.3. It may run with other PHP versions, but there is no guarantee.
 
 To execute the tests, run the following command:
 
