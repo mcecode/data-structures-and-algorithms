@@ -1,3 +1,3 @@
-module data_structures_and_algorithms
+module dsa
 
-go 1.18
+go 1.22
