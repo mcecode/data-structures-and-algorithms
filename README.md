@@ -1,16 +1,12 @@
 # Data Structures and Algorithms
 
-I love programming languages. At the same time, I am not exactly the best at data structures and algorithms, but I would like to be better. So, this project aims to hit two birds with one stone, explore languages and get better at data structures and algorithms.
-
-The language that I mainly work with is JavaScript. Further, I have some experience with PHP and Pascal. So, I will probably add those here. However, I would also like to explore low-level languages such as C and Rust and functional languages like Haskell and Clojure.
-
-In this spirit of language exploration, I intend to only use the vanilla, base form of whatever language I will explore, meaning no external and non-default libraries, even for testing.
+I like learning about programming languages, from their syntax to the concepts and paradigms they use. It helps give me a different perspective on the hows and whys of things, plus I just find them interesting overall. At the same time, I could be better at data structures and algorithms. So, when I have time and I feel like it, I'll be exploring languages and trying to improve on data structures and algorithms here. Thus, in the spirit of language exploration, I intend to only use the vanilla, base form of whatever language I will explore, meaning, no external and non-default libraries, even for testing.
 
 ## Disclaimer
 
-**Do not use the code in this repository for production.**
+**Do not use the code in this repository for anything other than educational purposes.**
 
-I will try to be as thorough as I can in testing, but as I am primarily doing this for fun, there will probably be bugs and edge cases that I will miss. Additionally, I intend to reinvent a lot of wheels for educational purposes. As such, if you are tempted to use anything here for a project, do not. Find and use a battle-tested library instead.
+I'll try to be as thorough as I can in testing, but since I'm primarily doing this for fun, there will probably be bugs and edge cases that I'll miss. Additionally, I intend to reinvent a lot of wheels for educational purposes. As such, if you are tempted to use anything here for a project, don't, just don't. Find and use a battle-tested library instead.
 
 That said, if your goal is to play around and learn along with me, then feel free to clone or fork this repository and use it however you like.
 
@@ -53,7 +49,7 @@ Each subdirectory maps to a programming language and contains a readme file that
 
 ## Contributing
 
-Since one of the main goals of this project is for me to learn data structures and algorithms, I will not accept pull requests that implement them because I want to do that myself. However, I will greatly appreciate suggestions on languages, data structures, and algorithms to explore as well as fixes or improvements to the things that I have already implemented.
+Since one of the main goals of this project is for me to learn data structures and algorithms, I won't accept pull requests that implement them because I want to do that myself. However, I would greatly appreciate suggestions on languages, data structures, and algorithms to explore as well as fixes or improvements to the things that I have already implemented.
 
 ## Inspiration
 
