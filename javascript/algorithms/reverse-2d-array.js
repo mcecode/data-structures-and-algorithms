@@ -1,22 +1,6 @@
 import test from "../lib/test.js";
 
-function reverseFromStartToEnd(array) {
-  const newArray = [];
-
-  for (let i = 0; i < array.length; i++) {
-    const newSubArray = [];
-
-    for (let j = 0; j < array[i].length; j++) {
-      newSubArray[array[i].length - (j + 1)] = array[i][j];
-    }
-
-    newArray[array.length - (i + 1)] = newSubArray;
-  }
-
-  return newArray;
-}
-
-function reverseFromEndToStart(array) {
+function createNew(array) {
   const newArray = [];
 
   for (let i = array.length - 1; i >= 0; i--) {
@@ -32,21 +16,7 @@ function reverseFromEndToStart(array) {
   return newArray;
 }
 
-function rearrangeFromStartToEnd(array) {
-  const newArray = structuredClone(array);
-
-  for (let i = newArray.length - 1; i >= 0; i--) {
-    newArray.splice(i, 0, newArray.shift());
-
-    for (let j = newArray[i].length - 1; j >= 0; j--) {
-      newArray[i].splice(j, 0, newArray[i].shift());
-    }
-  }
-
-  return newArray;
-}
-
-function rearrangeFromEndToStart(array) {
+function rotate1d(array) {
   const newArray = structuredClone(array);
 
   for (let i = 0; i < newArray.length; i++) {
@@ -93,13 +63,7 @@ function swap1d(array) {
 
 test(
   import.meta.filename,
-  [
-    reverseFromStartToEnd,
-    reverseFromEndToStart,
-    rearrangeFromStartToEnd,
-    rearrangeFromEndToStart,
-    swap1d
-  ],
+  [createNew, rotate1d, swap1d],
   [
     {
       name: "Odd parent, even children",
