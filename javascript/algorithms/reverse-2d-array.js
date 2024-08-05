@@ -61,9 +61,57 @@ function swap1d(array) {
   return newArray;
 }
 
+function rotate2d(array) {
+  const newArray = structuredClone(array);
+  const uniqueId = Symbol();
+
+  for (let i = 0; i < Math.ceil(newArray.length / 2); i++) {
+    const endIndex = newArray.length - (i + 1);
+
+    if (i === endIndex) {
+      for (let j = 0; j < newArray[i].length; j++) {
+        newArray[i].splice(j, 0, newArray[i].pop());
+      }
+
+      break;
+    }
+
+    let startArrayLen = newArray[i].length;
+    let endArrayLen = newArray[endIndex].length;
+
+    let startElem = uniqueId;
+    let endElem = uniqueId;
+
+    const len = startArrayLen >= endArrayLen ? startArrayLen : endArrayLen;
+    for (let j = 0; j < len; j++) {
+      if (startArrayLen > 0) {
+        startElem = newArray[i].shift();
+        startArrayLen--;
+      }
+
+      if (endArrayLen > 0) {
+        endElem = newArray[endIndex].pop();
+        endArrayLen--;
+      }
+
+      if (startElem !== uniqueId) {
+        newArray[endIndex].unshift(startElem);
+        startElem = uniqueId;
+      }
+
+      if (endElem !== uniqueId) {
+        newArray[i].push(endElem);
+        endElem = uniqueId;
+      }
+    }
+  }
+
+  return newArray;
+}
+
 test(
   import.meta.filename,
-  [createNew, rotate1d, swap1d],
+  [createNew, rotate1d, swap1d, rotate2d],
   [
     {
       name: "Odd parent, even children",
