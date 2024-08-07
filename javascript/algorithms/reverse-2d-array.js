@@ -109,9 +109,78 @@ function rotate2d(array) {
   return newArray;
 }
 
+function swap2d(array) {
+  const newArray = structuredClone(array);
+  const uniqueId = Symbol();
+
+  for (let i = 0; i < Math.ceil(newArray.length / 2); i++) {
+    const endIndex = newArray.length - (i + 1);
+
+    if (i === endIndex) {
+      for (let j = 0; j < Math.floor(newArray[i].length / 2); j++) {
+        const startElem = newArray[i][j];
+        const endSubIndex = newArray[i].length - (j + 1);
+
+        newArray[i][j] = newArray[i][endSubIndex];
+        newArray[i][endSubIndex] = startElem;
+      }
+
+      break;
+    }
+
+    let startSubIndex = 0;
+    let endSubIndex = newArray[endIndex].length - 1;
+
+    let startElem = uniqueId;
+    let endElem = uniqueId;
+
+    const startLen = newArray[i].length;
+    const endLen = newArray[endIndex].length;
+    const len = startLen >= endLen ? startLen : endLen;
+    let s = null;
+    for (let j = 0; j < len; j++) {
+      if (s === null && startSubIndex > endLen - 1) {
+        s = startSubIndex;
+      }
+
+      if (startSubIndex < startLen) {
+        startElem = newArray[i][s ?? startSubIndex];
+      }
+
+      if (endSubIndex >= 0) {
+        endElem = newArray[endIndex][endSubIndex];
+      }
+
+      if (startElem !== uniqueId) {
+        newArray[endIndex][
+          startLen >= endLen ? startLen - (startSubIndex + 1) : endSubIndex
+        ] = startElem;
+
+        if (startSubIndex > endLen - 1) {
+          newArray[i].splice(s ?? startSubIndex, 1);
+        }
+
+        startElem = uniqueId;
+      } else {
+        newArray[endIndex].splice(endSubIndex, 1);
+      }
+
+      if (endElem !== uniqueId) {
+        newArray[i][startSubIndex] = endElem;
+        endElem = uniqueId;
+      }
+
+      startSubIndex++;
+      endSubIndex--;
+    }
+  }
+
+  return newArray;
+}
+
 test(
   import.meta.filename,
-  [createNew, rotate1d, swap1d, rotate2d],
+  [createNew, rotate1d, swap1d, rotate2d, swap2d],
   [
     {
       name: "Odd parent, even children",
