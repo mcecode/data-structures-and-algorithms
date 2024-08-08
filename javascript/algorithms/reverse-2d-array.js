@@ -35,26 +35,26 @@ function swap1d(array) {
 
   for (let i = 0; i < Math.ceil(newArray.length / 2); i++) {
     for (let j = 0; j < Math.floor(newArray[i].length / 2); j++) {
-      const tempStartElem = newArray[i][j];
+      const startElem = newArray[i][j];
       const endSubIndex = newArray[i].length - (j + 1);
 
       newArray[i][j] = newArray[i][endSubIndex];
-      newArray[i][endSubIndex] = tempStartElem;
+      newArray[i][endSubIndex] = startElem;
     }
 
     const endIndex = newArray.length - (i + 1);
     if (i !== endIndex) {
       for (let j = 0; j < Math.floor(newArray[endIndex].length / 2); j++) {
-        const tempStartElem = newArray[endIndex][j];
+        const startElem = newArray[endIndex][j];
         const endSubIndex = newArray[endIndex].length - (j + 1);
 
         newArray[endIndex][j] = newArray[endIndex][endSubIndex];
-        newArray[endIndex][endSubIndex] = tempStartElem;
+        newArray[endIndex][endSubIndex] = startElem;
       }
 
-      const tempStartArray = newArray[i];
+      const startArray = newArray[i];
       newArray[i] = newArray[endIndex];
-      newArray[endIndex] = tempStartArray;
+      newArray[endIndex] = startArray;
     }
   }
 
@@ -76,22 +76,21 @@ function rotate2d(array) {
       break;
     }
 
-    let startArrayLen = newArray[i].length;
-    let endArrayLen = newArray[endIndex].length;
-
     let startElem = uniqueId;
     let endElem = uniqueId;
 
-    const len = startArrayLen >= endArrayLen ? startArrayLen : endArrayLen;
+    let startLen = newArray[i].length;
+    let endLen = newArray[endIndex].length;
+    const len = startLen > endLen ? startLen : endLen;
     for (let j = 0; j < len; j++) {
-      if (startArrayLen > 0) {
+      if (startLen > 0) {
         startElem = newArray[i].shift();
-        startArrayLen--;
+        startLen--;
       }
 
-      if (endArrayLen > 0) {
+      if (endLen > 0) {
         endElem = newArray[endIndex].pop();
-        endArrayLen--;
+        endLen--;
       }
 
       if (startElem !== uniqueId) {
@@ -128,23 +127,24 @@ function swap2d(array) {
       break;
     }
 
-    let startSubIndex = 0;
-    let endSubIndex = newArray[endIndex].length - 1;
-
     let startElem = uniqueId;
     let endElem = uniqueId;
 
+    let startSubIndex = 0;
+    let endSubIndex = newArray[endIndex].length - 1;
+
     const startLen = newArray[i].length;
     const endLen = newArray[endIndex].length;
-    const len = startLen >= endLen ? startLen : endLen;
-    let s = null;
+    const isStartGtEnd = startLen > endLen;
+    const len = isStartGtEnd ? startLen : endLen;
     for (let j = 0; j < len; j++) {
-      if (s === null && startSubIndex > endLen - 1) {
-        s = startSubIndex;
-      }
-
       if (startSubIndex < startLen) {
-        startElem = newArray[i][s ?? startSubIndex];
+        if (startSubIndex < endLen) {
+          startElem = newArray[i][startSubIndex];
+        } else {
+          startElem = newArray[i][endLen];
+          newArray[i].splice(endLen, 1);
+        }
       }
 
       if (endSubIndex >= 0) {
@@ -152,12 +152,10 @@ function swap2d(array) {
       }
 
       if (startElem !== uniqueId) {
-        newArray[endIndex][
-          startLen >= endLen ? startLen - (startSubIndex + 1) : endSubIndex
-        ] = startElem;
-
-        if (startSubIndex > endLen - 1) {
-          newArray[i].splice(s ?? startSubIndex, 1);
+        if (isStartGtEnd) {
+          newArray[endIndex][startLen - (startSubIndex + 1)] = startElem;
+        } else {
+          newArray[endIndex][endSubIndex] = startElem;
         }
 
         startElem = uniqueId;
