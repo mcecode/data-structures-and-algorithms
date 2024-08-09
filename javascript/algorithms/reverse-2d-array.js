@@ -209,7 +209,7 @@ test(
       ]
     },
     {
-      name: "Odd parent, jagged children",
+      name: "Odd parent, jagged children, longer end",
       input: [
         [1, 2, 3, 4, 5, 6, 7],
         [8, 9, 10, 11, 12, 13],
@@ -222,7 +222,7 @@ test(
       ]
     },
     {
-      name: "Even parent, jagged children",
+      name: "Even parent, jagged children, longer start",
       input: [
         [1, 2, 3, 4, 5, 6],
         [7, 8, 9, 10, 11, 12, 13, 14, 15],
@@ -240,6 +240,11 @@ test(
       name: "Single child",
       input: [[1, 2, 3, 4, 5]],
       output: [[5, 4, 3, 2, 1]]
+    },
+    {
+      name: "Single child, single element",
+      input: [[0]],
+      output: [[0]]
     },
     {
       name: "Different data types",
