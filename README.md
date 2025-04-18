@@ -6,4 +6,4 @@ Just me trying to learn and get better at data structures and algorithms.
 
 Copyright 2022-present Matthew Espino
 
-This project is licensed under the [Apache 2.0 license](LICENSE).
+Unless stated otherwise, this project is licensed under the [Apache 2.0 license](LICENSE).
